@@ -319,10 +319,49 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shrink Button
       objectReference: {fileID: 0}
+    - target: {fileID: 3534632650414905863, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534632650414905863, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1078
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897423262928016277, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.7300997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897423262928016277, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.000000074505806
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897423262928016277, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.86505747
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897423262928016277, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.000000074505806
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897423262928016277, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8837329303914514912, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 257426782}
   m_SourcePrefab: {fileID: 100100000, guid: 893f3a48c117a0c43a2b6f3e697d2482, type: 3}
 --- !u!1001 &64936876
 PrefabInstance:
@@ -1136,6 +1175,24 @@ MonoBehaviour:
     m_Reference: {fileID: -1636515391019944688, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!1 &257426776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8837329303914514912, guid: 893f3a48c117a0c43a2b6f3e697d2482,
+    type: 3}
+  m_PrefabInstance: {fileID: 50396661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &257426782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257426776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9525c9cb72e58b14789b6feec76734d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
