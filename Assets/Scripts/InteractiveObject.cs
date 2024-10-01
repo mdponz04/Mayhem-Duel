@@ -11,7 +11,10 @@ public class InteractiveObject : MonoBehaviour
     {
        
     }
-
+    private void Update()
+    {
+        
+    }
 
     private void HandleInteracting()
     {
@@ -20,9 +23,6 @@ public class InteractiveObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerHand"))
-        {
-            box.GetComponent<Renderer>().material.color = Color.blue;
-        }
+        box.GetComponent<Renderer>().material.color = Color.blue;
     }
 }
