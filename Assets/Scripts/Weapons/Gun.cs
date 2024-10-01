@@ -11,14 +11,50 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform barrel;
 
     private bool canFire = true;
+    private bool isTriggerPressed = false;
+    private Coroutine firingCoroutine;
 
-    public void Fire()
+    public void TriggerPress()
+    {
+        isTriggerPressed = true;
+        if (isAuto)
+        {
+            firingCoroutine = StartCoroutine(AutoFire());
+        }
+        else
+        {
+            Fire();
+        }
+    }
+
+    public void TriggerRelease()
+    {
+        isTriggerPressed = false;
+        if (firingCoroutine != null)
+        {
+            StopCoroutine(firingCoroutine);
+            firingCoroutine = null;
+        }
+    }
+
+    private void Fire()
     {
         if (canFire)
         {
-           Bullet.CreateBullet(barrel.position, barrel , 20);
+            Bullet.CreateBullet(barrel.position, barrel, 10);
+            StartCoroutine(FireCooldown());
         }
     }
+
+    private IEnumerator AutoFire()
+    {
+        while (isTriggerPressed)
+        {
+            Fire();
+            yield return new WaitForSeconds(fireRate);
+        }
+    }
+
     private IEnumerator FireCooldown()
     {
         canFire = false;
