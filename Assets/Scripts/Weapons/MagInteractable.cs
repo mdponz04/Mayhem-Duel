@@ -27,7 +27,7 @@ public class MagInteractable : XRGrabInteractable
         base.OnSelectExited(args);
 
         // Check if the magazine is near a gun
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.075f);
         foreach (Collider collider in colliders)
         {
             Gun nearbyGun = collider.GetComponent<Gun>();
