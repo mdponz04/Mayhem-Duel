@@ -379,6 +379,26 @@ MonoBehaviour:
   extensionStrings:
   - XR_KHR_binding_modification
   - XR_EXT_dpad_binding
+--- !u!114 &-3959336886840738050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7365b139f7aec43b23d26b7a48b5a6, type: 3}
+  m_Name: MetaQuestTouchPlusControllerProfile Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Meta Quest Touch Plus Controller Profile
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.metaquestplus
+  openxrExtensionStrings: XR_META_touch_controller_plus
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &-3740431988278312109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,6 +482,7 @@ MonoBehaviour:
   - {fileID: 4262947009632032351}
   - {fileID: -435788103828831666}
   - {fileID: -2912799262048964811}
+  - {fileID: -3959336886840738050}
   - {fileID: -1345539522853448909}
   - {fileID: 1355408268646478252}
   - {fileID: -6682874571778989120}
@@ -735,6 +756,7 @@ MonoBehaviour:
   - {fileID: 5361080587771010818}
   - {fileID: -290981775559093352}
 --- !u!114 &909000011475568355
+--- !u!114 &775536528348369200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -745,6 +767,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b7365b139f7aec43b23d26b7a48b5a6, type: 3}
   m_Name: MetaQuestTouchPlusControllerProfile Metro
+  m_Name: MetaQuestTouchPlusControllerProfile Android
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Meta Quest Touch Plus Controller Profile
@@ -1123,6 +1146,7 @@ MonoBehaviour:
   - {fileID: -293192825713169345}
   - {fileID: 1598396379169789425}
   - {fileID: -8193584734577028359}
+  - {fileID: 775536528348369200}
   - {fileID: 9220151573746679033}
   - {fileID: 3573259436709831023}
   - {fileID: -132767743202473375}
