@@ -640,6 +640,7 @@ MonoBehaviour:
   - {fileID: 7870314436277250278}
   - {fileID: 6443682550964926699}
   - {fileID: -7335103392537947441}
+  - {fileID: 909000011475568355}
   - {fileID: -5795642841910403094}
   - {fileID: 5323090545551176641}
   - {fileID: -5128340684788061753}
@@ -733,6 +734,26 @@ MonoBehaviour:
   - {fileID: -2875270737035635885}
   - {fileID: 5361080587771010818}
   - {fileID: -290981775559093352}
+--- !u!114 &909000011475568355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7365b139f7aec43b23d26b7a48b5a6, type: 3}
+  m_Name: MetaQuestTouchPlusControllerProfile Metro
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Meta Quest Touch Plus Controller Profile
+  version: 0.0.1
+  featureIdInternal: com.unity.openxr.feature.input.metaquestplus
+  openxrExtensionStrings: XR_META_touch_controller_plus
+  company: Unity
+  priority: 0
+  required: 0
 --- !u!114 &1247638489638995551
 MonoBehaviour:
   m_ObjectHideFlags: 0
