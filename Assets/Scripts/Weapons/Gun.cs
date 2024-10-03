@@ -18,6 +18,7 @@ public class Gun : MonoBehaviour
     private bool isTriggerPressed = false;
     private Coroutine firingCoroutine;
     private Mag currentMag;
+    public Mag Mag => currentMag;
 
     public void TriggerPress()
     {
@@ -54,6 +55,7 @@ public class Gun : MonoBehaviour
         else if (currentMag == null || currentMag.Ammo <= 0)
         {
             PlaySound("EmptyClip");
+            DetachMag();
         }
     }
 
@@ -67,6 +69,7 @@ public class Gun : MonoBehaviour
         if(currentMag == null || currentMag.Ammo <= 0)
         {
             PlaySound("EmptyClip");
+            DetachMag();                   
         }
     }
 
@@ -111,5 +114,9 @@ public class Gun : MonoBehaviour
             currentMag.DetachFromGun();
             currentMag = null;
         }
+    }
+    public bool HasMag()
+    {
+        return currentMag != null;
     }
 }
