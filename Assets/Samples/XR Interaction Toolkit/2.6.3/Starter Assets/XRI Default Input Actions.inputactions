@@ -783,15 +783,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Blue",
-                    "type": "Button",
-                    "id": "bfa7a48b-a10a-47b1-a3cc-587b0f34d8b6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Red",
                     "type": "Button",
                     "id": "f373fd0a-f251-49bd-b301-728ed7390f92",
@@ -969,19 +960,8 @@
                 },
                 {
                     "name": "",
-                    "id": "33bc05ac-ee5d-47e2-8396-43ae3285bfcb",
-                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Blue",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "da023c44-c4a1-4da5-8fc9-eaa6677edf17",
-                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1523,7 +1503,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "ac96c10b-c955-4a46-8e67-bf16bc069b53",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1617,6 +1597,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Blue",
+                    "type": "Button",
+                    "id": "7765ee74-91f5-457c-8449-ce9915339647",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1782,6 +1771,17 @@
                     "processors": "ScaleVector2(x=0),StickDeadzone",
                     "groups": "Generic XR Controller",
                     "action": "Scale Delta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfaca0be-09ce-4a7c-8499-66910d0392a5",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Blue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

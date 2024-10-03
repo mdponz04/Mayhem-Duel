@@ -12,6 +12,7 @@ public class HollowPurpleSkill : MonoBehaviour
     [SerializeField] private float combinationDistance = 0.075f;
 
 
+
     private GameObject redSphere;
     private GameObject blueSphere;
 
@@ -32,9 +33,9 @@ public class HollowPurpleSkill : MonoBehaviour
     }
 
     private void Update()
-    {
-        MoveSphere(redSphere, leftController.transform);
-        MoveSphere(blueSphere, rightController.transform);
+    { 
+        MoveSphere(redSphere, leftController.transform.position);
+        MoveSphere(blueSphere, rightController.transform.position);
 
         if (redSphere != null && blueSphere != null)
         {
@@ -45,11 +46,13 @@ public class HollowPurpleSkill : MonoBehaviour
         }
     }
 
-    private void MoveSphere(GameObject sphere, Transform targetTransform)
+    private void MoveSphere(GameObject sphere, Vector3 targetTransform)
     {
+        Vector3 targetPosition = targetTransform;
+        targetPosition*= 1.1f;
         if (sphere != null)
         {
-            sphere.transform.position = Vector3.Lerp(sphere.transform.position, targetTransform.position, Time.deltaTime * sphereSpeed);
+            sphere.transform.position = Vector3.Lerp(sphere.transform.position, targetPosition, Time.deltaTime * sphereSpeed);
         }
     }
 
