@@ -6,8 +6,8 @@ public class HollowPurple : MonoBehaviour
     [SerializeField] private Transform transform;
     [SerializeField] private float scaleSpeed = 1.1f;
     [SerializeField] private float moveSpeed = 5f;
-    private float particleScaleSpeed = 1.025f;
-    private ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem particleSystem;
+    private float particleSystemScaleSpeed = 1.25f;
 
     public Vector3 direction;
     private bool isScaling = false;
@@ -24,15 +24,22 @@ public class HollowPurple : MonoBehaviour
         {
             return;
         }
-        StartCoroutine(Scale());
+        StartCoroutine(ScaleSphere());
+        StartCoroutine(ScaleParticleSystem());
 
     }
 
-    private IEnumerator Scale()
+    private IEnumerator ScaleSphere()
     {
         transform.localScale *= scaleSpeed;
         isScaling = true;
         yield return new WaitForSeconds(0.5f);
         isScaling = false;
+    }
+
+    private IEnumerator ScaleParticleSystem()
+    {
+        particleSystem.transform.localScale *= particleSystemScaleSpeed;
+        yield return new WaitForSeconds(0.75f);
     }
 }
