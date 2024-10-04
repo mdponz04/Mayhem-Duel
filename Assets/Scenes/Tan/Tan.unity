@@ -1730,7 +1730,7 @@ Transform:
   m_GameObject: {fileID: 548016428}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3869,7 +3869,8 @@ MonoBehaviour:
   leftController: {fileID: 112513519}
   rightController: {fileID: 956638941}
   sphereSpeed: 5
-  combinationDistance: 0.075
+  combinationDistance: 1
+  hollowPurpleSound: {fileID: 8300000, guid: 31b3f667afcd3fe498002e66dfd0f81e, type: 3}
 --- !u!4 &1647676355
 Transform:
   m_ObjectHideFlags: 0
