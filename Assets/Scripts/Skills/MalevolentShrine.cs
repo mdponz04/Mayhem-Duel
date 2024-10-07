@@ -16,6 +16,7 @@ public class MalevolentShrine : MonoBehaviour
     [SerializeField] private float distance = 5f;
 
     private Light shrineLight;
+    private ParticleSystem particleSystem;
     float executionTime = 0f;
     bool canExecute = true;
 
@@ -32,6 +33,8 @@ public class MalevolentShrine : MonoBehaviour
         malevolentShrinePrefab.GetChildGameObjects(gameObjects);
         spherebound = gameObjects[gameObjects.Count - 1];
         shrineLight = gameObjects[gameObjects.Count -1].GetComponentInChildren<Light>();
+        particleSystem = gameObjects[gameObjects.Count - 2].GetComponent<ParticleSystem>();
+        particleSystem.Stop();
         shrineLight.enabled = false;
         spherebound.SetActive(false);
 
@@ -69,6 +72,7 @@ public class MalevolentShrine : MonoBehaviour
         spherebound.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         shrineLight.enabled = true;
+        particleSystem.Play();
         yield break;
     }    
 }
