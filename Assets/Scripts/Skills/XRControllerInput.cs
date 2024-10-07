@@ -11,6 +11,7 @@ public class XRControllerInput : MonoBehaviour
 
     private HollowPurpleSkill hollowPurpleSkill;
 
+
     private void Start()
     {
         hollowPurpleSkill = GetComponent<HollowPurpleSkill>();
