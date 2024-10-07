@@ -18,7 +18,7 @@ public class Trigger : MonoBehaviour
     {
         if (other.CompareTag("Cube"))
         {
-            _meshRenderer.material.color = Color.green;
+            _meshRenderer.material.color = Color.red;
             other.attachedRigidbody.useGravity = false;
         }
     }
@@ -27,7 +27,7 @@ public class Trigger : MonoBehaviour
     {
         if (other.CompareTag("Cube"))
         {
-            _meshRenderer.material.color = Color.red;
+            _meshRenderer.material.color = Color.green;
             other.attachedRigidbody.useGravity = true;
         }
     }

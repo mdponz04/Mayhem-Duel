@@ -40,6 +40,6 @@ public class HollowPurple : MonoBehaviour
     private IEnumerator ScaleParticleSystem()
     {
         particleSystem.transform.localScale *= particleSystemScaleSpeed;
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.5f);
     }
 }
