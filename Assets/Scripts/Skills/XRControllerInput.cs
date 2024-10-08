@@ -8,21 +8,31 @@ public class XRControllerInput : MonoBehaviour
     [SerializeField] private ActionBasedController rightController;
     [SerializeField] private InputActionProperty redSphereAction;
     [SerializeField] private InputActionProperty blueSphereAction;
+    [SerializeField] private InputActionProperty malevolentShrineAction;
 
     private HollowPurpleSkill hollowPurpleSkill;
+    private MalevolentShrine malevolentShrine;
 
 
     private void Start()
     {
         hollowPurpleSkill = GetComponent<HollowPurpleSkill>();
+        malevolentShrine = GetComponent<MalevolentShrine>();
 
         // Enable the actions
         redSphereAction.action.Enable();
         blueSphereAction.action.Enable();
 
         // Add listeners for the button presses
-        redSphereAction.action.performed += ctx => OnRedSphereButtonPressed();
-        blueSphereAction.action.performed += ctx => OnBlueSphereButtonPressed();
+        if(malevolentShrineAction != null)
+        {
+            malevolentShrineAction.action.performed += ctx => OnMalevolentShrineButtonPressed();
+        }
+        if(hollowPurpleSkill != null)
+        {
+            redSphereAction.action.performed += ctx => OnRedSphereButtonPressed();
+            blueSphereAction.action.performed += ctx => OnBlueSphereButtonPressed();
+        }
     }
 
     private void OnDestroy()
@@ -44,5 +54,10 @@ public class XRControllerInput : MonoBehaviour
     private void OnBlueSphereButtonPressed()
     {
         hollowPurpleSkill.SpawnBlueSphere();
+    }
+
+    private void OnMalevolentShrineButtonPressed()
+    {
+        malevolentShrine.DomainExpansion();
     }
 }

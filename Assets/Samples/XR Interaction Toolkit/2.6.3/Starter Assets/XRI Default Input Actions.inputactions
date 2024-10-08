@@ -1606,6 +1606,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MalavolentShrine",
+                    "type": "Button",
+                    "id": "fd720479-7af5-47e5-9f01-dc841f2083ad",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1782,6 +1791,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Blue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc509fa8-1e32-4ffc-a418-6335bac07782",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MalavolentShrine",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

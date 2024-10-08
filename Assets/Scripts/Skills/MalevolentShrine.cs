@@ -9,6 +9,7 @@ public class MalevolentShrine : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private GameObject spherebound;
     [SerializeField] private AudioClip shrineSound;
+    [SerializeField] private AudioClip slashSound;
 
     [Header("Animation Attribute")]
     [SerializeField] private float riseHeight = 5f;
@@ -17,13 +18,12 @@ public class MalevolentShrine : MonoBehaviour
 
     private Light shrineLight;
     private ParticleSystem particleSystem;
-    float executionTime = 0f;
     bool canExecute = true;
 
 
     private void Start()
     {
-        AudioManager.instance.PlayAudioClip(shrineSound);
+        
     }
 
     private void Awake()
@@ -42,23 +42,20 @@ public class MalevolentShrine : MonoBehaviour
 
     private void Update()
     {
-        executionTime += Time.deltaTime;
-        if (executionTime > 5f && canExecute)
-        {
-            Debug.Log("Rising Shrine");
-            StartCoroutine(RiseShrine());
-            canExecute = false;
-        }
-        if (executionTime > 20f)
-        {
-            Destroy(malevolentShrinePrefab);
-            Destroy(this);
-        }
+
+    }
+    
+    public void DomainExpansion()
+    {
+        if(!canExecute) return;
+        AudioManager.instance.PlayAudioClip(shrineSound);
+        StartCoroutine(RiseShrine());
     }
 
     private IEnumerator RiseShrine()
     {
-
+        canExecute = false;
+        yield return new WaitForSeconds(5f);
         float elapsedTime = 0f;
         Vector3 startPosition = player.transform.position + (Vector3.down * riseHeight);
 
@@ -71,8 +68,11 @@ public class MalevolentShrine : MonoBehaviour
         yield return new WaitForSeconds(1f);
         spherebound.SetActive(true);
         yield return new WaitForSeconds(0.5f);
+        AudioManager.instance.PlayAudioClip(slashSound);
         shrineLight.enabled = true;
         particleSystem.Play();
+        Destroy(malevolentShrinePrefab, 15f);
         yield break;
-    }    
+    }
+
 }

@@ -1956,6 +1956,63 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 679929476}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &730272589 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2978533524891615511, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2968460893783140770}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &730272592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730272589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3126c9ec041b4f14dac996de999755bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftController: {fileID: 112513519}
+  rightController: {fileID: 956638941}
+  redSphereAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Red Sphere
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 05a7818a-12f0-4f33-ab3c-a01c89086d00
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  blueSphereAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Blue Sphere
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b6c5e293-6ab9-44e6-8456-2060839deae3
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  malevolentShrineAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Malevolent Shrine
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: c4933460-e79e-4a48-b07c-6f1fe577ccce
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -4794243747301146749, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
 --- !u!1 &760818343
 GameObject:
   m_ObjectHideFlags: 0
@@ -4802,6 +4859,16 @@ PrefabInstance:
       objectReference: {fileID: 548016431}
     - target: {fileID: 2837007686034696176, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b,
         type: 3}
+      propertyPath: riseHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837007686034696176, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b,
+        type: 3}
+      propertyPath: slashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 751857bdd1d1cf7448616b64767c77a7, type: 3}
+    - target: {fileID: 2837007686034696176, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b,
+        type: 3}
       propertyPath: shrineSound
       value: 
       objectReference: {fileID: 8300000, guid: 4e426b121adce9a40876a9df33ff183a, type: 3}
@@ -4818,7 +4885,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2978533524891615511, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 730272592}
   m_SourcePrefab: {fileID: 100100000, guid: 8dcbd784e7a8fdc4a82d946bfbd7930b, type: 3}
 --- !u!1001 &7463214766745354548
 PrefabInstance:
