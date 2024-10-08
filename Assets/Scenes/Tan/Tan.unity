@@ -5121,6 +5121,11 @@ PrefabInstance:
       propertyPath: rightController
       value: 
       objectReference: {fileID: 956638941}
+    - target: {fileID: 3842246249448759151, guid: 0abb5b3704548a945bbcb1ee12d3a277,
+        type: 3}
+      propertyPath: malevolentShrineAction.m_Action.m_Name
+      value: Malevolent Shrine
+      objectReference: {fileID: 0}
     - target: {fileID: 5696248192008873084, guid: 0abb5b3704548a945bbcb1ee12d3a277,
         type: 3}
       propertyPath: m_Name

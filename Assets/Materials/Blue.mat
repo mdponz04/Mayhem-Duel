@@ -16,7 +16,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
@@ -90,7 +90,7 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -116,7 +116,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.10849059, g: 0.32094437, b: 1, a: 1}
     - _Color: {r: 0.108490564, g: 0.32094434, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0.0026251683, b: 0.24528301, a: 1}
+    - _EmissionColor: {r: 0, g: 0.18618521, b: 0.49411765, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8532641643534064577

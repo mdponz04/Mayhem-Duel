@@ -21,6 +21,7 @@ public class HollowPurpleSkill : MonoBehaviour
     private GameObject blueSphere;
     List<GameObject> spheres = new List<GameObject>();
     private bool isCombining = false;
+    private bool isTouched = false;
 
     public void SpawnRedSphere()
     {
@@ -110,53 +111,73 @@ public class HollowPurpleSkill : MonoBehaviour
                 sphere.GetComponentInChildren<ParticleSystem>().Play();
             }
         }
-
+        spheres.Clear();
         redSphere.GetComponent<MeshRenderer>().enabled = true;
         yield return new WaitForSeconds(combinationTime/2);
-        yield return StartCoroutine(SpinAndMergeSphere());
         combinationPoint = (redSphere.transform.position + blueSphere.transform.position) / 2;
         GameObject hollowPurple = Instantiate(hollowPurplePrefab, combinationPoint, Quaternion.identity);
-        redSphere.SetActive(false);
+        hollowPurple.GetComponent<HollowPurple>().isScaling = true;
+        hollowPurple.GetComponent<MeshRenderer>().enabled = false;
+        hollowPurple.GetChildGameObjects(spheres);
+        spheres[0].GetComponent<MeshRenderer>().enabled = false;
+        spheres[1].GetComponent<ParticleSystem>().Stop();
+        yield return StartCoroutine(SpinAndMergeSphere(spheres[1].GetComponent<ParticleSystem>()));
+        hollowPurple.GetComponent<MeshRenderer>().enabled = true;
+        spheres[0].GetComponent<MeshRenderer>().enabled = true;
+                redSphere.SetActive(false);
         blueSphere.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         hollowPurple.GetComponent<HollowPurple>().direction = leftController.transform.forward;
-
+        hollowPurple.GetComponent<HollowPurple>().isScaling = false;
         isCombining = false;
+
         // Add any additional effects or behaviors for the Hollow Purple skill heress
 
         //Optionally, destroy the Hollow Purple effect after some time
         Destroy(hollowPurple, 6f);
     }
 
-    private IEnumerator SpinAndMergeSphere()
+    private IEnumerator SpinAndMergeSphere(ParticleSystem purple)
     {
         Vector3 combinationPoint = (redSphere.transform.position + blueSphere.transform.position) / 2;
-        float spinSpeed = 0.25f;
-        float mergeSpeed = 0.1f;
-        float mergeTime = 5f;
-
+        Vector3 redStartPosition = redSphere.transform.position;
+        Vector3 blueStartPosition = blueSphere.transform.position;
+        float mergeTime = 5f; // Adjust this value to control the speed of the merge
         float elapsedTime = 0f;
+
         while (elapsedTime < mergeTime)
         {
             float t = elapsedTime / mergeTime;
-            float angle = t * 360f;
-            float distance = Mathf.Lerp(1, 0, t);
+            float smoothT = SmoothStep(t); // Apply easing function
 
             if (blueSphere != null)
             {
-                Vector3 bluePosition = combinationPoint + Quaternion.Euler(0, 0, angle) * Vector3.right * distance * mergeSpeed;
-                blueSphere.transform.Rotate(Vector3.forward, spinSpeed);
-                blueSphere.transform.position = bluePosition;
+                blueSphere.transform.position = Vector3.Lerp(blueStartPosition, combinationPoint, smoothT);
             }
 
             if (redSphere != null)
             {
-                Vector3 redPosition = combinationPoint + Quaternion.Euler(0, 0, angle + 180) * Vector3.right * distance * mergeSpeed;
-                redSphere.transform.Rotate(Vector3.forward, spinSpeed);
-                redSphere.transform.position = redPosition;
+                redSphere.transform.position = Vector3.Lerp(redStartPosition, combinationPoint, smoothT);
             }
+
+            if(Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 0.075f && !isTouched)
+            {
+                isTouched = true;
+                purple.Play();
+            }
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        // Ensure the spheres are exactly at the combination point at the end
+        if (blueSphere != null) blueSphere.transform.position = combinationPoint;
+        if (redSphere != null) redSphere.transform.position = combinationPoint;
+    }
+
+    private float SmoothStep(float t)
+    {
+        // Smoothstep function for easing
+        return t * t * (3f - 2f * t);
     }
 }
