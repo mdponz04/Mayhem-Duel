@@ -10,7 +10,7 @@ public class HollowPurple : MonoBehaviour
     private float particleSystemScaleSpeed = 1.25f;
 
     public Vector3 direction;
-    private bool isScaling = false;
+    public bool isScaling = true;
 
     private void Start()
     {
@@ -25,21 +25,16 @@ public class HollowPurple : MonoBehaviour
             return;
         }
         StartCoroutine(ScaleSphere());
-        StartCoroutine(ScaleParticleSystem());
 
     }
 
     private IEnumerator ScaleSphere()
     {
         transform.localScale *= scaleSpeed;
+        particleSystem.transform.localScale *= particleSystemScaleSpeed;
         isScaling = true;
         yield return new WaitForSeconds(0.5f);
         isScaling = false;
     }
 
-    private IEnumerator ScaleParticleSystem()
-    {
-        particleSystem.transform.localScale *= particleSystemScaleSpeed;
-        yield return new WaitForSeconds(0.5f);
-    }
 }
