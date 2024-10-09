@@ -96,3 +96,15 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -246431722756940903, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+  malevolentShrineAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Malevolent Shrine
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6eec13f1-42f0-4453-8646-ca16d59db64f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}

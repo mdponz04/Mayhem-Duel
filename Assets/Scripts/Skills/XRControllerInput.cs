@@ -37,13 +37,13 @@ public class XRControllerInput : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Remove listeners when the script is destroyed
-        redSphereAction.action.performed -= ctx => OnRedSphereButtonPressed();
-        blueSphereAction.action.performed -= ctx => OnBlueSphereButtonPressed();
+        //// Remove listeners when the script is destroyed
+        //redSphereAction.action.performed -= ctx => OnRedSphereButtonPressed();
+        //blueSphereAction.action.performed -= ctx => OnBlueSphereButtonPressed();
 
-        // Disable the actions
-        redSphereAction.action.Disable();
-        blueSphereAction.action.Disable();
+        //// Disable the actions
+        //redSphereAction.action.Disable();
+        //blueSphereAction.action.Disable();
     }
 
     private void OnRedSphereButtonPressed()
