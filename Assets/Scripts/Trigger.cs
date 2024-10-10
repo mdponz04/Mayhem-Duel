@@ -21,6 +21,7 @@ public class Trigger : MonoBehaviour
             _meshRenderer.material.color = Color.red;
             other.attachedRigidbody.useGravity = false;
         }
+        Debug.Log("Triggered");
     }
 
     private void OnTriggerExit(Collider other)
@@ -30,5 +31,9 @@ public class Trigger : MonoBehaviour
             _meshRenderer.material.color = Color.green;
             other.attachedRigidbody.useGravity = true;
         }
+    }
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Particle Collision Detected");
     }
 }

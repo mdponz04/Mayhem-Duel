@@ -21,33 +21,31 @@ public class MalevolentShrine : MonoBehaviour
     bool canExecute = true;
 
 
-    private void Start()
-    {
-        
-    }
-
     private void Awake()
     {
         malevolentShrinePrefab = Instantiate(malevolentShrinePrefab, player.transform.position + (Vector3.down * riseHeight), Quaternion.identity);
-        List<GameObject> gameObjects = new List<GameObject>(); 
+        Deactive();
+    }
+    private void Deactive()
+    {
+        List<GameObject> gameObjects = new List<GameObject>();
         malevolentShrinePrefab.GetChildGameObjects(gameObjects);
         spherebound = gameObjects[gameObjects.Count - 1];
-        shrineLight = gameObjects[gameObjects.Count -1].GetComponentInChildren<Light>();
+        shrineLight = gameObjects[gameObjects.Count - 1].GetComponentInChildren<Light>();
         particleSystem = gameObjects[gameObjects.Count - 2].GetComponent<ParticleSystem>();
         particleSystem.Stop();
         shrineLight.enabled = false;
         spherebound.SetActive(false);
-
     }
 
     private void Update()
     {
 
     }
-    
+
     public void DomainExpansion()
     {
-        if(!canExecute) return;
+        if (!canExecute) return;
         AudioManager.instance.PlayAudioClip(shrineSound);
         StartCoroutine(RiseShrine());
     }
@@ -58,7 +56,8 @@ public class MalevolentShrine : MonoBehaviour
         yield return new WaitForSeconds(5f);
         float elapsedTime = 0f;
         Vector3 startPosition = player.transform.position + (Vector3.down * riseHeight);
-
+        malevolentShrinePrefab.SetActive(true);
+        Deactive();
         while (elapsedTime < riseTime)
         {
             malevolentShrinePrefab.transform.position = Vector3.Lerp(startPosition, startPosition + (Vector3.up * riseHeight), elapsedTime / riseTime);
@@ -71,7 +70,9 @@ public class MalevolentShrine : MonoBehaviour
         AudioManager.instance.PlayAudioClip(slashSound);
         shrineLight.enabled = true;
         particleSystem.Play();
-        Destroy(malevolentShrinePrefab, 15f);
+        yield return new WaitForSeconds(15f);
+        malevolentShrinePrefab.SetActive(false);
+        canExecute = true;
         yield break;
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -26,7 +27,7 @@ public class HollowPurpleSkill : MonoBehaviour
     public void SpawnRedSphere()
     {
         if (isCombining) return;
-        Vector3 spawnPosition = leftController.transform.position + leftController.transform.forward * 2f;
+        Vector3 spawnPosition = leftController.transform.position + leftController.transform.forward * 0.5f;
         if (redSphere == null)
         {
             redSphere = Instantiate(redSpherePrefab, spawnPosition, Quaternion.identity);
@@ -54,7 +55,7 @@ public class HollowPurpleSkill : MonoBehaviour
     public void SpawnBlueSphere()
     {
         if (isCombining) return;
-        Vector3 spawnPosition = rightController.transform.position + rightController.transform.forward * 0.25f;
+        Vector3 spawnPosition = rightController.transform.position + rightController.transform.forward * 0.5f;
         if (blueSphere == null)
         {
             blueSphere = Instantiate(blueSpherePrefab, spawnPosition, Quaternion.identity);
@@ -69,8 +70,8 @@ public class HollowPurpleSkill : MonoBehaviour
 
     private void Update()
     {
-        Vector3 spawnPositionRed = leftController.transform.position + leftController.transform.forward * 0.25f;
-        Vector3 spawnPositionBlue = rightController.transform.position + rightController.transform.forward * 0.25f;
+        Vector3 spawnPositionRed = leftController.transform.position + leftController.transform.forward * 0.5f;
+        Vector3 spawnPositionBlue = rightController.transform.position + rightController.transform.forward * 0.5f;
         MoveSphere(redSphere, spawnPositionRed);
         MoveSphere(blueSphere, spawnPositionBlue);
         if (redSphere != null && blueSphere != null && !isCombining && redSphere.activeSelf && blueSphere.activeSelf)
@@ -86,7 +87,7 @@ public class HollowPurpleSkill : MonoBehaviour
     private void MoveSphere(GameObject sphere, Vector3 targetTransform)
     {
         Vector3 targetPosition = targetTransform;
-        targetPosition*= 1.1f;
+        //targetPosition*= 1.1f;
         if (sphere != null)
         {
             sphere.transform.position = Vector3.Lerp(sphere.transform.position, targetPosition, Time.deltaTime * sphereSpeed);
@@ -121,25 +122,28 @@ public class HollowPurpleSkill : MonoBehaviour
         hollowPurple.GetChildGameObjects(spheres);
         spheres[0].GetComponent<MeshRenderer>().enabled = false;
         spheres[1].GetComponent<ParticleSystem>().Stop();
-        yield return StartCoroutine(SpinAndMergeSphere(spheres[1].GetComponent<ParticleSystem>()));
+        yield return StartCoroutine(SpinAndMergeSphere(spheres[1].GetComponent<ParticleSystem>(), hollowPurple));
         hollowPurple.GetComponent<MeshRenderer>().enabled = true;
         spheres[0].GetComponent<MeshRenderer>().enabled = true;
-                redSphere.SetActive(false);
+        redSphere.SetActive(false);
         blueSphere.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         hollowPurple.GetComponent<HollowPurple>().direction = leftController.transform.forward;
         hollowPurple.GetComponent<HollowPurple>().isScaling = false;
-        isCombining = false;
 
         // Add any additional effects or behaviors for the Hollow Purple skill heress
 
         //Optionally, destroy the Hollow Purple effect after some time
+        spheres.Clear();
         Destroy(hollowPurple, 6f);
+        isCombining = false;
     }
 
-    private IEnumerator SpinAndMergeSphere(ParticleSystem purple)
+    private IEnumerator SpinAndMergeSphere(ParticleSystem purple, GameObject hollows)
     {
-        Vector3 combinationPoint = (redSphere.transform.position + blueSphere.transform.position) / 2;
+        Vector3 redPoint = rightController.transform.position + rightController.transform.forward * 0.5f;
+        Vector3 bluePoint = leftController.transform.position + leftController.transform.forward * 0.5f;
+        Vector3 combinationPoint = (bluePoint + redPoint) / 2;
         Vector3 redStartPosition = redSphere.transform.position;
         Vector3 blueStartPosition = blueSphere.transform.position;
         float mergeTime = 5f; // Adjust this value to control the speed of the merge
@@ -149,7 +153,9 @@ public class HollowPurpleSkill : MonoBehaviour
         {
             float t = elapsedTime / mergeTime;
             float smoothT = SmoothStep(t); // Apply easing function
-
+            redPoint = rightController.transform.position + rightController.transform.forward * 0.5f;
+            bluePoint = leftController.transform.position + leftController.transform.forward * 0.5f;
+            combinationPoint = (bluePoint + redPoint) / 2;
             if (blueSphere != null)
             {
                 blueSphere.transform.position = Vector3.Lerp(blueStartPosition, combinationPoint, smoothT);
@@ -158,6 +164,11 @@ public class HollowPurpleSkill : MonoBehaviour
             if (redSphere != null)
             {
                 redSphere.transform.position = Vector3.Lerp(redStartPosition, combinationPoint, smoothT);
+            }
+
+            if (purple != null)
+            {
+                hollows.transform.position = combinationPoint;
             }
 
             if(Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 0.075f && !isTouched)
