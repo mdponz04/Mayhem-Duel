@@ -7,22 +7,24 @@ public class Cube : MonoBehaviour
     #region Fields
     private Vector3 _basePosition = new Vector3(0, 0.1f, 0);
     private Vector3 _baseScale = new Vector3(0.2f, 0.2f, 0.2f);
-
+     
     private bool isQuitting = false;
     #endregion
 
     #region Methods
     private void Start()
     {
-        
+        // Set Cube to default state
         ResetCube();
     }
+
     // Make sure some function doesn't get called when game end
     private void OnApplicationQuit()
     {
         isQuitting = true;
     }
 
+    // Called when object leave the screen
     private void OnBecameInvisible()
     {
         if (!isQuitting)

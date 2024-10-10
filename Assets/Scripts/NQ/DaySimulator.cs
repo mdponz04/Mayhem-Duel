@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DaySimulator : MonoBehaviour
 {
+    // How fast day and night passed
     public float rotateSpeed = 0.1f;
+
     // Update is called once per frame
     void Update()
     {
