@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 2343887590652060446}
   scaleSpeed: 1.35
-  moveSpeed: 1
+  moveSpeed: 5
   particleSystem: {fileID: 6503705354054551119}
   direction: {x: 0, y: 0, z: 0}
   isScaling: 0

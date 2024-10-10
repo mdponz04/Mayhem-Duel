@@ -48,7 +48,12 @@ public class XRControllerInput : MonoBehaviour
 
     private void OnRedSphereButtonPressed()
     {
-        hollowPurpleSkill.SpawnRedSphere();
+        if(redSphereAction != null)
+        {
+            Debug.Log("Red Sphere Button Pressed");
+            hollowPurpleSkill.SpawnRedSphere();
+        }
+
     }
 
     private void OnBlueSphereButtonPressed()

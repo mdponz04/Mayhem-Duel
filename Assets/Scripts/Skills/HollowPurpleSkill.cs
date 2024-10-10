@@ -70,7 +70,6 @@ public class HollowPurpleSkill : MonoBehaviour
 
     private void Update()
     {
-
         Vector3 spawnPositionRed = leftController.transform.position + leftController.transform.forward * 0.5f;
         Vector3 spawnPositionBlue = rightController.transform.position + rightController.transform.forward * 0.5f;
         MoveSphere(redSphere, spawnPositionRed);
@@ -131,12 +130,13 @@ public class HollowPurpleSkill : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         hollowPurple.GetComponent<HollowPurple>().direction = leftController.transform.forward;
         hollowPurple.GetComponent<HollowPurple>().isScaling = false;
-        isCombining = false;
 
         // Add any additional effects or behaviors for the Hollow Purple skill heress
 
         //Optionally, destroy the Hollow Purple effect after some time
+        spheres.Clear();
         Destroy(hollowPurple, 6f);
+        isCombining = false;
     }
 
     private IEnumerator SpinAndMergeSphere(ParticleSystem purple, GameObject hollows)
