@@ -40,7 +40,7 @@ public class TowerDefense : MonoBehaviour
             GeneratePathPositions();
         }
 
-        CreatePath();
+        //CreatePath();
         CreateGridTiles();
 
         //towerDefenseOverlay.SetMoneyAmount((int)money);
