@@ -70,8 +70,8 @@ public class HollowPurpleSkill : MonoBehaviour
 
     private void Update()
     {
-        Vector3 spawnPositionRed = leftController.transform.position + leftController.transform.forward * 0.5f;
-        Vector3 spawnPositionBlue = rightController.transform.position + rightController.transform.forward * 0.5f;
+        Vector3 spawnPositionRed = leftController.transform.position + (leftController.transform.forward * 2 + Vector3.left) * 0.75f;
+        Vector3 spawnPositionBlue = rightController.transform.position + (rightController.transform.forward * 2 + Vector3.right) * 0.75f;
         MoveSphere(redSphere, spawnPositionRed);
         MoveSphere(blueSphere, spawnPositionBlue);
         if (redSphere != null && blueSphere != null && !isCombining && redSphere.activeSelf && blueSphere.activeSelf)
@@ -99,7 +99,7 @@ public class HollowPurpleSkill : MonoBehaviour
         AudioSource.PlayClipAtPoint(hollowPurpleSound, combinationPoint);
         isCombining = true;
         yield return new WaitForSeconds(0.5f);
-        blueSphere.GetComponent<MeshRenderer>().enabled = true;
+        //blueSphere.GetComponent<MeshRenderer>().enabled = true;
         yield return new WaitForSeconds(combinationTime/2);
         foreach (GameObject sphere in spheres)
         {
@@ -113,7 +113,7 @@ public class HollowPurpleSkill : MonoBehaviour
             }
         }
         spheres.Clear();
-        redSphere.GetComponent<MeshRenderer>().enabled = true;
+        //redSphere.GetComponent<MeshRenderer>().enabled = true;
         yield return new WaitForSeconds(combinationTime/2);
         combinationPoint = (redSphere.transform.position + blueSphere.transform.position) / 2;
         GameObject hollowPurple = Instantiate(hollowPurplePrefab, combinationPoint, Quaternion.identity);
@@ -122,6 +122,7 @@ public class HollowPurpleSkill : MonoBehaviour
         hollowPurple.GetChildGameObjects(spheres);
         spheres[0].GetComponent<MeshRenderer>().enabled = false;
         spheres[1].GetComponent<ParticleSystem>().Stop();
+        spheres[2].GetComponent<ParticleSystem>().Stop();
         yield return StartCoroutine(SpinAndMergeSphere(spheres[1].GetComponent<ParticleSystem>(), hollowPurple));
         hollowPurple.GetComponent<MeshRenderer>().enabled = true;
         spheres[0].GetComponent<MeshRenderer>().enabled = true;
@@ -153,8 +154,8 @@ public class HollowPurpleSkill : MonoBehaviour
         {
             float t = elapsedTime / mergeTime;
             float smoothT = SmoothStep(t); // Apply easing function
-            redPoint = rightController.transform.position + rightController.transform.forward * 0.5f;
-            bluePoint = leftController.transform.position + leftController.transform.forward * 0.5f;
+            redPoint = leftController.transform.position + (leftController.transform.forward * 2 + Vector3.left) * 0.75f;
+            bluePoint = rightController.transform.position + (rightController.transform.forward * 2 + Vector3.right) * 0.75f;
             combinationPoint = (bluePoint + redPoint) / 2;
             if (blueSphere != null)
             {
@@ -171,10 +172,11 @@ public class HollowPurpleSkill : MonoBehaviour
                 hollows.transform.position = combinationPoint;
             }
 
-            if(Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 0.075f && !isTouched)
+            if(Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 1f && !isTouched)
             {
                 isTouched = true;
                 purple.Play();
+                spheres[2].GetComponent<ParticleSystem>().Play();
             }
 
             elapsedTime += Time.deltaTime;
