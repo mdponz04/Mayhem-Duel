@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class HollowPurple : MonoBehaviour
 {
-    [SerializeField] private Transform transform;
+    [SerializeField] private Transform transformPurple;
     [SerializeField] private float scaleSpeed = 1.1f;
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem outer;
+    [SerializeField] private ParticleSystem core;
     private float particleSystemScaleSpeed = 1.25f;
 
     public Vector3 direction;
@@ -14,7 +15,7 @@ public class HollowPurple : MonoBehaviour
 
     private void Start()
     {
-        transform = GetComponent<Transform>();
+        transformPurple = GetComponent<Transform>();
     }
 
     private void Update()
@@ -25,13 +26,12 @@ public class HollowPurple : MonoBehaviour
             return;
         }
         StartCoroutine(ScaleSphere());
-
     }
 
     private IEnumerator ScaleSphere()
     {
         transform.localScale *= scaleSpeed;
-        particleSystem.transform.localScale *= particleSystemScaleSpeed;
+        outer.transform.localScale *= particleSystemScaleSpeed;
         isScaling = true;
         yield return new WaitForSeconds(0.5f);
         isScaling = false;

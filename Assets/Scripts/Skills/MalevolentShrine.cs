@@ -53,6 +53,7 @@ public class MalevolentShrine : MonoBehaviour
     private IEnumerator RiseShrine()
     {
         canExecute = false;
+        malevolentShrinePrefab.transform.position = player.transform.position + (Vector3.down * riseHeight);
         yield return new WaitForSeconds(5f);
         float elapsedTime = 0f;
         Vector3 startPosition = player.transform.position + (Vector3.down * riseHeight);
