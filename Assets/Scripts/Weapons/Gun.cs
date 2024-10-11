@@ -17,8 +17,16 @@ public class Gun : MonoBehaviour
     private bool canFire = true;
     private bool isTriggerPressed = false;
     private Coroutine firingCoroutine;
-    private Mag currentMag;
+    [SerializeField] private Mag currentMag;
     public Mag Mag => currentMag;
+
+    private void Start()
+    {
+        if(currentMag != null)
+        {
+            currentMag.AttachToGun(magAttachPoint);
+        }
+    }
 
     public void TriggerPress()
     {
@@ -85,13 +93,13 @@ public class Gun : MonoBehaviour
         switch (soundName)
         {
             case "GunShot":
-                AudioManager.instance.PlayAudioClip(gunShotSound);
+                AudioSource.PlayClipAtPoint(gunShotSound, transform.position);
                 break;
             case "EmptyClip":
-                AudioManager.instance.PlayAudioClip(emptyClipSound);
+                AudioSource.PlayClipAtPoint(emptyClipSound, transform.position);
                 break;
             case "Reload":
-                AudioManager.instance.PlayAudioClip(reloadClipSound);
+                AudioSource.PlayClipAtPoint(reloadClipSound, transform.position);
                 break;
         }
     }
