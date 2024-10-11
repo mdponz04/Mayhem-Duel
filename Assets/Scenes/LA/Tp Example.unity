@@ -908,7 +908,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_TeleportationProvider: {fileID: 1504032647}
-  m_MatchOrientation: 0
+  m_MatchOrientation: 1
   m_MatchDirectionalInput: 1
   m_TeleportTrigger: 0
   m_FilterSelectionByHitNormal: 1
@@ -1406,14 +1406,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294774467}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 14.15}
+  m_LocalRotation: {x: -0.0001735717, y: 0.0009454821, z: -0.002049877, w: 0.99999744}
+  m_LocalPosition: {x: 7.998536, y: 0.0000030100346, z: 14.150125}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 443699819}
   m_Father: {fileID: 13440298}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.02, y: 0.108, z: -0.235}
 --- !u!114 &294774469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1518,7 +1518,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_TeleportationProvider: {fileID: 1504032647}
-  m_MatchOrientation: 0
+  m_MatchOrientation: 1
   m_MatchDirectionalInput: 1
   m_TeleportTrigger: 0
   m_FilterSelectionByHitNormal: 1
@@ -2970,7 +2970,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_TeleportationProvider: {fileID: 1504032647}
-  m_MatchOrientation: 0
+  m_MatchOrientation: 1
   m_MatchDirectionalInput: 1
   m_TeleportTrigger: 0
   m_FilterSelectionByHitNormal: 1

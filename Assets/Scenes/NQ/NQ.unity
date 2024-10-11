@@ -1523,10 +1523,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1364789648}
-    - targetCorrespondingSourceObject: {fileID: 4616165200164398447, guid: 76f3439a0ae796e4b81bee3f91f888ee,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2147212326}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
 --- !u!4 &331988843 stripped
@@ -5991,12 +5987,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134831495}
   m_CullTransparentMesh: 1
---- !u!4 &2147212326 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 860251874829618987, guid: 9fa633c3b29d1ab458b198948783bf48,
-    type: 3}
-  m_PrefabInstance: {fileID: 6330311539312108258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2208547446852533567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6071,22 +6061,22 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 331988843}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 860251874829618987, guid: 9fa633c3b29d1ab458b198948783bf48,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.009000003
+      value: -0.519
       objectReference: {fileID: 0}
     - target: {fileID: 860251874829618987, guid: 9fa633c3b29d1ab458b198948783bf48,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.136
+      value: 0.00049999356
       objectReference: {fileID: 0}
     - target: {fileID: 860251874829618987, guid: 9fa633c3b29d1ab458b198948783bf48,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.168
+      value: -1.182
       objectReference: {fileID: 0}
     - target: {fileID: 860251874829618987, guid: 9fa633c3b29d1ab458b198948783bf48,
         type: 3}
@@ -6153,6 +6143,7 @@ SceneRoots:
   - {fileID: 1476617939}
   - {fileID: 548016431}
   - {fileID: 2208547446852533567}
+  - {fileID: 6330311539312108258}
   - {fileID: 259033252}
   - {fileID: 1213163223}
   - {fileID: 1470437489}
