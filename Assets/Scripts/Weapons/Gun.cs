@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
     [SerializeField] protected Mag currentMag;
     public Mag Mag => currentMag;
 
-    private void Start()
+    protected virtual void Start()
     {
         if(currentMag != null)
         {
@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    protected IEnumerator AutoFire()
+    protected virtual IEnumerator AutoFire()
     {
         while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
         {
@@ -104,7 +104,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void AttachMag(Mag mag)
+    public virtual void AttachMag(Mag mag)
     {
         if (currentMag != null)
         {

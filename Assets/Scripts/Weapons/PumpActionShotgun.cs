@@ -19,7 +19,7 @@ public class PumpActionShotgun : Gun
     private bool isPumped = false;
     private bool isPumpGrabbed = false;
     private Vector3 lastHandPosition;
-    private IXRSelectInteractor pumpGrabbingInteractor;
+    private IXRSelectInteractor pumpGrabbingHand;
 
     void Start()
     {
@@ -97,34 +97,34 @@ public class PumpActionShotgun : Gun
         if (mainGrabInteractable.interactorsSelecting.Count > 1)
         {
             Debug.Log("Pump grabbed");
-            pumpGrabbingInteractor = args.interactorObject;
+            pumpGrabbingHand = args.interactorObject;
             isPumpGrabbed = true;
-            lastHandPosition = pumpGrabbingInteractor.transform.position;
+            lastHandPosition = pumpGrabbingHand.transform.position;
         }
     }
 
     void OnReleased(SelectExitEventArgs args)
     {
         // Check if the pump is being released
-        if (args.interactorObject == pumpGrabbingInteractor)
+        if (args.interactorObject == pumpGrabbingHand)
         {
             Debug.Log("Pump released");
             isPumpGrabbed = false;
-            pumpGrabbingInteractor = null;
+            pumpGrabbingHand = null;
         }
     }
 
     void MovePump()
     {
-        if (pumpGrabbingInteractor != null)
+        if (pumpGrabbingHand != null)
         {
 
-            Vector3 handDelta = lastHandPosition - pumpGrabbingInteractor.transform.position;
+            Vector3 handDelta = lastHandPosition - pumpGrabbingHand.transform.position;
             float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward);
 
             Vector3 newPosition = pumpTransform.localPosition - pumpTransform.forward * 4 * pumpDelta * pumpForce;
             pumpTransform.localPosition = ClampPumpPosition(newPosition);
-            lastHandPosition = pumpGrabbingInteractor.transform.position;
+            lastHandPosition = pumpGrabbingHand.transform.position;
         }
     }
 
@@ -139,7 +139,7 @@ public class PumpActionShotgun : Gun
         return new Vector3(
             pumpStartTransform.localPosition.x,
             pumpStartTransform.localPosition.y,
-            Mathf.Clamp(position.z, pumpEndTransform.localPosition.z, pumpStartTransform.localPosition.z)
+            Mathf.Clamp(position.z, pumpStartTransform.localPosition.z, pumpEndTransform.localPosition.z)
         );
     }
 
