@@ -5,22 +5,22 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private float fireRate = 0.1f;
-    [SerializeField] private bool isAuto = false;
-    [SerializeField] private XRBaseInteractor interactor;
-    [SerializeField] private Transform barrel;
-    [SerializeField] private AudioClip gunShotSound;
-    [SerializeField] private AudioClip emptyClipSound;
-    [SerializeField] private AudioClip reloadClipSound;
-    [SerializeField] private Transform magAttachPoint;
+    [SerializeField] protected float fireRate = 0.1f;
+    [SerializeField] protected bool isAuto = false;
+    [SerializeField] protected XRBaseInteractor interactor;
+    [SerializeField] protected Transform barrel;
+    [SerializeField] protected AudioClip gunShotSound;
+    [SerializeField] protected AudioClip emptyClipSound;
+    [SerializeField] protected AudioClip reloadClipSound;
+    [SerializeField] protected Transform magAttachPoint;
 
-    private bool canFire = true;
-    private bool isTriggerPressed = false;
-    private Coroutine firingCoroutine;
-    [SerializeField] private Mag currentMag;
+    protected bool canFire = true;
+    protected bool isTriggerPressed = false;
+    protected Coroutine firingCoroutine;
+    [SerializeField] protected Mag currentMag;
     public Mag Mag => currentMag;
 
-    private void Start()
+    protected virtual void Start()
     {
         if(currentMag != null)
         {
@@ -51,7 +51,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private void Fire()
+    protected virtual void Fire()
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
@@ -67,7 +67,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private IEnumerator AutoFire()
+    protected virtual IEnumerator AutoFire()
     {
         while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
         {
@@ -88,7 +88,7 @@ public class Gun : MonoBehaviour
         canFire = true;
     }
 
-    private void PlaySound(string soundName)
+    protected virtual void PlaySound(string soundName)
     {
         switch (soundName)
         {
@@ -104,7 +104,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    public void AttachMag(Mag mag)
+    public virtual void AttachMag(Mag mag)
     {
         if (currentMag != null)
         {
