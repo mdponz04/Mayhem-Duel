@@ -482,7 +482,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -550,7 +550,7 @@ MonoBehaviour:
   pumpStartTransform: {fileID: 3640487891064498034}
   pumpEndTransform: {fileID: 4613909609731584029}
   pumpSound: {fileID: 0}
-  pumpForce: 5
+  pumpForce: 20
   pumpReturnSpeed: 2
   pumpThreshold: 0.05
   currentAmmo: 0

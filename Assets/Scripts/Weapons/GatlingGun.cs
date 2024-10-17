@@ -9,7 +9,7 @@ public class GatlingGun : Gun
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.CreateBullet(barrel.position, barrel, 10);
+            Bullet.CreateBullet(barrel.position, barrel, 20);
             PlaySound("GunShot");
             currentMag.UseAmmo();
         }
@@ -17,13 +17,20 @@ public class GatlingGun : Gun
 
     protected override IEnumerator AutoFire()
     {
+        int fireCount = 0;
         StartCoroutine(SpinWarmUp());
         yield return new WaitForSeconds(0.5f);
         while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
         {
             Fire();
+            fireCount++;
             yield return new WaitForSeconds(fireRate);
+            if(fireCount >= 20)
+            {
+                fireRate = Mathf.Lerp(0.1f, 0.05f, 0.5f);
+            }
         }
+        fireRate = 0.1f;
     }
 
     private IEnumerator SpinWarmUp()

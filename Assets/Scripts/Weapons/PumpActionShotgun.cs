@@ -21,7 +21,7 @@ public class PumpActionShotgun : Gun
     private Vector3 lastHandPosition;
     private IXRSelectInteractor pumpGrabbingHand;
 
-    void Start()
+    protected override void Start()
     {
         mainGrabInteractable.activated.AddListener(TryFire);
         mainGrabInteractable.selectEntered.AddListener(OnGrabbed);
@@ -118,11 +118,9 @@ public class PumpActionShotgun : Gun
     {
         if (pumpGrabbingHand != null)
         {
-
             Vector3 handDelta = lastHandPosition - pumpGrabbingHand.transform.position;
-            float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward);
-
-            Vector3 newPosition = pumpTransform.localPosition - pumpTransform.forward * 4 * pumpDelta * pumpForce;
+            float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward);;
+            Vector3 newPosition = pumpTransform.localPosition - pumpTransform.forward * (pumpDelta * pumpForce);
             pumpTransform.localPosition = ClampPumpPosition(newPosition);
             lastHandPosition = pumpGrabbingHand.transform.position;
         }
@@ -131,15 +129,15 @@ public class PumpActionShotgun : Gun
     void ReturnPump()
     {
             pumpTransform.localPosition = Vector3.MoveTowards(pumpTransform.localPosition,
-            pumpStartTransform.localPosition, pumpReturnSpeed * Time.deltaTime);
+            pumpStartTransform.localPosition, 4 * pumpReturnSpeed * Time.deltaTime);
     }
 
     Vector3 ClampPumpPosition(Vector3 position)
     {
         return new Vector3(
-            pumpStartTransform.localPosition.x,
-            pumpStartTransform.localPosition.y,
-            Mathf.Clamp(position.z, pumpStartTransform.localPosition.z, pumpEndTransform.localPosition.z)
+            pumpTransform.localPosition.x,
+            pumpTransform.localPosition.y,
+            Mathf.Clamp(position.z, pumpEndTransform.localPosition.z, pumpStartTransform.localPosition.z)
         );
     }
 
