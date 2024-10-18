@@ -55,4 +55,8 @@ public class TargetDummyTemp : MonoBehaviour, IEnemyTemp
     {
         return gameObject;
     }
+    private void OnParticleCollision(GameObject other)
+    {
+        TakeDamage(1);
+    }
 }
