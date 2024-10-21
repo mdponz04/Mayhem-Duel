@@ -19,6 +19,7 @@ public class LeverInteractable : XRSimpleInteractable
         initialGrabPosition = args.interactorObject.transform.position;
         isGrabbed = true;
         rifle.OnLeverGrabbed(this);
+        Debug.Log("Lever grabbed");
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -26,6 +27,7 @@ public class LeverInteractable : XRSimpleInteractable
         base.OnSelectExited(args);
         isGrabbed = false;
         rifle.OnLeverReleased();
+        Debug.Log("Lever released");
     }
 
     private void Update()

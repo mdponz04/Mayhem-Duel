@@ -19,7 +19,7 @@ public class Rifle : Gun
     private bool isLeverActionInProgress = false;
     private bool needsManualPull = false;
     private LeverInteractable leverInteractable;
-    private bool isFirstMag = true;
+    private bool isFirstMag = false;
 
     protected override void Start()
     {
@@ -117,6 +117,7 @@ public class Rifle : Gun
         {
             isPulled = true;
             needsManualPull = false;
+            canFire = true;
             //PlaySound("PumpSound");
         }
     }
@@ -126,7 +127,7 @@ public class Rifle : Gun
         return new Vector3(
             leverStartTransform.localPosition.x,
             leverStartTransform.localPosition.y,
-            Mathf.Clamp(newPosition.z, leverStartTransform.localPosition.z, leverEndTransform.localPosition.z)
+            Mathf.Clamp(newPosition.z, leverEndTransform.localPosition.z, leverStartTransform.localPosition.z)
         );
     }
 
@@ -143,7 +144,7 @@ public class Rifle : Gun
     public void OnLeverGrabbed(LeverInteractable lever)
     {
         // You can add any additional logic here when the lever is grabbed
-        MoveLever(leverEndTransform.transform.position);
+        //MoveLever(leverEndTransform.transform.position);
     }
 
     public void OnLeverReleased()
