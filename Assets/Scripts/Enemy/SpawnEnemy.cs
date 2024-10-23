@@ -11,7 +11,6 @@ namespace TheEnemy
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
         private float spawnInterval = 3f;
-        private float nextTimeSpawn = 0f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
         private Vector3 minSpawnArea;

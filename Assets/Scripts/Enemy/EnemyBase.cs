@@ -34,9 +34,9 @@ namespace TheEnemy
                     pathfinding.StopMoving();
                     HandleAttack();
                 }
-                else if (distanceToTarget <= bufferDistance)
+                else if (distanceToTarget >= bufferDistance)
                 {
-                    pathfinding.ResumeMoving();
+                    pathfinding.ResumeMoving(); 
                 }
             }
         }
