@@ -7,7 +7,7 @@ namespace TheEnemy
 {
     public class Pathfinding : MonoBehaviour
     {
-        [SerializeField] private Transform castleTransform;
+        private Transform castleTransform;
         private Transform targetDestination;
         private NavMeshAgent agent;
         private float originalSpeed;
@@ -16,6 +16,7 @@ namespace TheEnemy
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            castleTransform = GameObject.Find("Castle").transform;
             targetDestination = castleTransform;
             agent.destination = targetDestination.position;
             originalSpeed = agent.speed;

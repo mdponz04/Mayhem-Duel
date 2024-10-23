@@ -28,7 +28,7 @@ namespace TheEnemy
             {
                 float bufferDistance = 0.5f;
                 float distanceToTarget = GetEdgeDistance(other, attackRange);
-                Debug.Log("distance to target = " + distanceToTarget);
+                
                 if (distanceToTarget <= 0f)
                 {
                     pathfinding.StopMoving();
