@@ -12,6 +12,7 @@ public class GameAssets : MonoBehaviour
             return _i;
         }
     }
-    [SerializeField]
+
     public Transform pfBullet;
+    public Transform pfRocket;
 }
