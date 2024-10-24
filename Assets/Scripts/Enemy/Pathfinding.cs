@@ -7,53 +7,56 @@ namespace TheEnemy
 {
     public class Pathfinding : MonoBehaviour
     {
-        [SerializeField] private Transform castleTransform;
+        private Transform castleTransform;
         private Transform targetDestination;
         private NavMeshAgent agent;
-
+        private float originalSpeed;
+        private float resumeMovingCooldown = 1f;
+        private float nextTimeResumeMoving = 0f;
         private void Start()
         {
             agent = GetComponent<NavMeshAgent>();
+            castleTransform = GameObject.Find("Castle").transform;
             targetDestination = castleTransform;
-        }
-        private void Update()
-        {
-            HandleMoving();
-        }
-        private void HandleMoving()
-        {
-            if(!agent.isStopped)
-            {
-                if (agent.destination != targetDestination.position)
-                {
-                    agent.destination = targetDestination.position;  // Only update when target changes
-
-                    Debug.Log(gameObject.name + " chase: " + targetDestination.name);
-                }
-            }
+            agent.destination = targetDestination.position;
+            originalSpeed = agent.speed;
+            
         }
         //Chase the transform(Default is castle transfrom) 
-        public void ChaseTarget(Transform transform)
+        public void ChaseTarget(Transform target)
         {
-            ResumeMoving();
-            if(transform != null)
+            if(target != null)
             {
-                targetDestination = transform;
-                
-                return;
+                targetDestination = target;
+            }
+            else
+            {
+                targetDestination = castleTransform;
             }
 
-            targetDestination = castleTransform;
-            
+            // Set the new destination immediately
+            agent.SetDestination(targetDestination.position);
         }
         public void StopMoving()
         {
-            agent.isStopped = true;
+            agent.speed = Mathf.Lerp(agent.speed, 0f, Time.deltaTime * 3f); 
+            if (agent.speed < 0.1f)
+            {
+                agent.speed = 0f;
+                agent.isStopped = true;
+            }
         }
         public void ResumeMoving()
         {
-            agent.isStopped = false;
+            if(Time.time > nextTimeResumeMoving)
+            {
+                agent.speed = originalSpeed;
+                agent.isStopped = false;
+            }
+            nextTimeResumeMoving = Time.time + resumeMovingCooldown;
         }
+
+        
     }
 }
 
