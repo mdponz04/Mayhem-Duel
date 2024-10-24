@@ -57,7 +57,7 @@ Material:
     m_Floats:
     - _CamSize: 0
     - _Depth: 5
-    - _LensShadowDepth: 7.5
+    - _LensShadowDepth: 10
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Thickness: 1

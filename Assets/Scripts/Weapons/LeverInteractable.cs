@@ -39,5 +39,9 @@ public class LeverInteractable : XRSimpleInteractable
             rifle.MoveLever(movement);
             initialGrabPosition = currentPosition;
         }
+        else
+        {
+            rifle.ReturnLever();
+        }
     }
 }

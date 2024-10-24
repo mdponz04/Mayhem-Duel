@@ -50,7 +50,16 @@ public class Rifle : Gun
         if (isPulled && canFire && currentMag != null && currentMag.Ammo > 0 && !isLeverActionInProgress && !needsManualPull)
         {
             base.Fire();
-            StartCoroutine(AutomateLeverAction());
+            if(isAuto)
+            {
+                StartCoroutine(AutomateLeverAction());
+            }
+            else
+            {
+                needsManualPull = true;
+                canFire = false;
+                isPulled = false;
+            }
         }
         else if (currentMag == null || currentMag.Ammo <= 0)
         {
@@ -102,7 +111,7 @@ public class Rifle : Gun
         leverInteractable.enabled = true;
     }
 
-    private void ReturnLever()
+    public void ReturnLever()
     {
         if (!needsManualPull)
         {
@@ -138,7 +147,7 @@ public class Rifle : Gun
 
     void OnMainReleased(SelectExitEventArgs args)
     {
-        leverInteractable.enabled = false;
+        //leverInteractable.enabled = false;
     }
 
     public void OnLeverGrabbed(LeverInteractable lever)
