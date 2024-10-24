@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 5992700969941577839, guid: de9292ec1f2833b42a5e868ed7dd764a,
     type: 3}
+  pfRocket: {fileID: 5992700969941577839, guid: 7274e0148a03f35498ffa64ca8a1daa7,
+    type: 3}
