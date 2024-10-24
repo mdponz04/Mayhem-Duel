@@ -9,7 +9,7 @@ public class GatlingGun : Gun
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.CreateBullet(barrel.position, barrel, 20);
+            Bullet.Create(barrel.position, barrel, 20);
             PlaySound("GunShot");
             currentMag.UseAmmo();
         }

@@ -73,7 +73,7 @@ public class PumpActionShotgun : Gun
         {
             Transform randomRotation = barrel;
             randomRotation.Rotate(Vector3.up, Random.Range(-5, 5));
-            Bullet.CreateBullet(barrel.position, randomRotation, 20);
+            Bullet.Create(barrel.position, randomRotation, 20);
         }
         currentAmmo--;
     }

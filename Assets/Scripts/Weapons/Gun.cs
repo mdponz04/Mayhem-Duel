@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour
     protected bool canFire = true;
     protected bool isTriggerPressed = false;
     protected Coroutine firingCoroutine;
-    [SerializeField] protected Mag currentMag;
+    [SerializeField] public Mag currentMag;
     public Mag Mag => currentMag;
 
     protected virtual void Start()
@@ -55,7 +55,7 @@ public class Gun : MonoBehaviour
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.CreateBullet(barrel.position, barrel, 10);
+            Bullet.Create(barrel.position, barrel, 100);
             PlaySound("GunShot");
             currentMag.UseAmmo();
             StartCoroutine(FireCooldown());
@@ -81,7 +81,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private IEnumerator FireCooldown()
+    protected IEnumerator FireCooldown()
     {
         canFire = false;
         yield return new WaitForSeconds(fireRate);
