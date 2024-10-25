@@ -432,7 +432,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &240984673
@@ -495,8 +495,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1534363076}
   m_Father: {fileID: 0}
@@ -618,6 +618,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757989558642409566, guid: f624b75d3c35da34195007a0cce79707,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7573942318231860424, guid: f624b75d3c35da34195007a0cce79707,
         type: 3}
@@ -745,10 +750,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2662078094357814002, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
+        type: 3}
+      propertyPath: currentMag
+      value: 
+      objectReference: {fileID: 1150144637}
     - target: {fileID: 2878704846575611423, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
       propertyPath: m_Name
       value: BarretM107
+      objectReference: {fileID: 0}
+    - target: {fileID: 2878704846575611423, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8427418690869956388, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
@@ -758,7 +773,7 @@ PrefabInstance:
     - target: {fileID: 8427418690869956388, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.186
+      value: 1.404
       objectReference: {fileID: 0}
     - target: {fileID: 8427418690869956388, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
@@ -931,6 +946,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BarretMag
+      objectReference: {fileID: 0}
+    - target: {fileID: 3699135815989733398, guid: 0c73520f4ce8ade4fa39a5b1080d5d2a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8918639194575398061, guid: 0c73520f4ce8ade4fa39a5b1080d5d2a,
         type: 3}
@@ -1139,7 +1159,7 @@ GameObject:
   - component: {fileID: 1072218937}
   - component: {fileID: 1072218936}
   - component: {fileID: 1072218938}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Castle
   m_TagString: Damageable
   m_Icon: {fileID: 0}
@@ -1175,7 +1195,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1394,6 +1414,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1150144637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 807244780117948254, guid: 0c73520f4ce8ade4fa39a5b1080d5d2a,
+    type: 3}
+  m_PrefabInstance: {fileID: 793551526}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31af7fe9ca34ce4499cc713b55f59d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1364827023
 GameObject:
   m_ObjectHideFlags: 0
