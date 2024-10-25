@@ -1071,6 +1071,9 @@
                     "name": "Custom Teleport Select",
                     "type": "Button",
                     "id": "2f5f79aa-442f-416c-b92b-7871985519f3",
+                    "name": "Tp",
+                    "type": "Button",
+                    "id": "d3d7b2ba-1163-49b2-960e-a8328d2aaa05",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1174,6 +1177,12 @@
                     "processors": "",
                     "groups": ";Generic XR Controller",
                     "action": "Custom Teleport Select",
+                    "id": "03e84626-6996-4faa-a5fd-d569c7e33fc6",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
