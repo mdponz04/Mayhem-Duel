@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Cube
   - PlayerHand
+  - Meteor
+  - Enemy
+  - Damageable
+  - Spawnable
   layers:
   - Default
   - TransparentFX
@@ -14,8 +18,10 @@ TagManager:
   - Water
   - UI
   - Player
+  - Gun
   - 
-  - 
+  - Enemy
+  - Damageable
   - 
   - 
   - 

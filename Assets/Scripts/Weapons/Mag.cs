@@ -28,6 +28,10 @@ public class Mag : MonoBehaviour
     public void DetachFromGun()
     {
         transform.SetParent(null);
+        if(attachedGun != null)
+        {
+            attachedGun.GetComponent<Gun>().currentMag = null;
+        }
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {

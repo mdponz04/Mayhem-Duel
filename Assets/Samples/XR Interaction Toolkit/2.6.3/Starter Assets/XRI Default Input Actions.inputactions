@@ -705,7 +705,7 @@
                     "name": "Activate",
                     "type": "Button",
                     "id": "0c0991c5-d329-4afc-8892-1076b440477c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -723,7 +723,7 @@
                     "name": "UI Press",
                     "type": "Button",
                     "id": "7e1eced7-c774-4fe5-be8f-d8711f646d9e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -768,7 +768,7 @@
                     "name": "Scale Toggle",
                     "type": "Button",
                     "id": "80ed7d74-56de-473c-bf76-da3bdd16b562",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -786,6 +786,15 @@
                     "name": "Red",
                     "type": "Button",
                     "id": "f373fd0a-f251-49bd-b301-728ed7390f92",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "QMenu",
+                    "type": "Button",
+                    "id": "246d17ec-7e06-4463-a148-3ebdd673a33c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -968,6 +977,17 @@
                     "action": "Red",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04f3a8e9-4dfc-4ac2-825d-eaa5a4249e07",
+                    "path": "<XRController>{LeftHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -1051,6 +1071,9 @@
                     "name": "Custom Teleport Select",
                     "type": "Button",
                     "id": "2f5f79aa-442f-416c-b92b-7871985519f3",
+                    "name": "Tp",
+                    "type": "Button",
+                    "id": "d3d7b2ba-1163-49b2-960e-a8328d2aaa05",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1154,6 +1177,12 @@
                     "processors": "",
                     "groups": ";Generic XR Controller",
                     "action": "Custom Teleport Select",
+                    "id": "03e84626-6996-4faa-a5fd-d569c7e33fc6",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1635,6 +1664,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "QMenu",
+                    "type": "Button",
+                    "id": "25e932ff-c492-47c4-886b-cd5464d239cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1822,6 +1860,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MalavolentShrine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d38036b6-e474-4df0-b89a-4ae39969e33b",
+                    "path": "<XRController>{RightHand}/menuButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "QMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -21,11 +21,13 @@ public class Grid3D
 
         gridArray = new int[width, height, depth];
         debugTextArray = new TextMesh[width, height, depth];
+        // offset to center the object to the middle of the grid
         offset = new Vector3(-0.5f, 0.5f, 0.5f);
     }
 
     public Vector3 GetWorldPosition(int x, int y, int z, Vector3 localScale)
     {
+        // offset to make the object stick to the floor
         offset.y = localScale.y / 2;
         return new Vector3(x, y, z) * cellSize + originPosition + offset;
     }

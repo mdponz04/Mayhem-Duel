@@ -5,20 +5,28 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private float fireRate = 0.1f;
-    [SerializeField] private bool isAuto = false;
-    [SerializeField] private XRBaseInteractor interactor;
-    [SerializeField] private Transform barrel;
-    [SerializeField] private AudioClip gunShotSound;
-    [SerializeField] private AudioClip emptyClipSound;
-    [SerializeField] private AudioClip reloadClipSound;
-    [SerializeField] private Transform magAttachPoint;
+    [SerializeField] protected float fireRate = 0.1f;
+    [SerializeField] protected bool isAuto = false;
+    [SerializeField] protected XRBaseInteractor interactor;
+    [SerializeField] protected Transform barrel;
+    [SerializeField] protected AudioClip gunShotSound;
+    [SerializeField] protected AudioClip emptyClipSound;
+    [SerializeField] protected AudioClip reloadClipSound;
+    [SerializeField] protected Transform magAttachPoint;
 
-    private bool canFire = true;
-    private bool isTriggerPressed = false;
-    private Coroutine firingCoroutine;
-    private Mag currentMag;
+    protected bool canFire = true;
+    protected bool isTriggerPressed = false;
+    protected Coroutine firingCoroutine;
+    [SerializeField] public Mag currentMag;
     public Mag Mag => currentMag;
+
+    protected virtual void Start()
+    {
+        if(currentMag != null)
+        {
+            currentMag.AttachToGun(magAttachPoint);
+        }
+    }
 
     public void TriggerPress()
     {
@@ -43,11 +51,11 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private void Fire()
+    protected virtual void Fire()
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.CreateBullet(barrel.position, barrel, 10);
+            Bullet.Create(barrel.position, barrel, 100);
             PlaySound("GunShot");
             currentMag.UseAmmo();
             StartCoroutine(FireCooldown());
@@ -59,7 +67,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private IEnumerator AutoFire()
+    protected virtual IEnumerator AutoFire()
     {
         while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
         {
@@ -73,30 +81,30 @@ public class Gun : MonoBehaviour
         }
     }
 
-    private IEnumerator FireCooldown()
+    protected IEnumerator FireCooldown()
     {
         canFire = false;
         yield return new WaitForSeconds(fireRate);
         canFire = true;
     }
 
-    private void PlaySound(string soundName)
+    protected virtual void PlaySound(string soundName)
     {
         switch (soundName)
         {
             case "GunShot":
-                AudioManager.instance.PlayAudioClip(gunShotSound);
+                AudioSource.PlayClipAtPoint(gunShotSound, transform.position);
                 break;
             case "EmptyClip":
-                AudioManager.instance.PlayAudioClip(emptyClipSound);
+                AudioSource.PlayClipAtPoint(emptyClipSound, transform.position);
                 break;
             case "Reload":
-                AudioManager.instance.PlayAudioClip(reloadClipSound);
+                AudioSource.PlayClipAtPoint(reloadClipSound, transform.position);
                 break;
         }
     }
 
-    public void AttachMag(Mag mag)
+    public virtual void AttachMag(Mag mag)
     {
         if (currentMag != null)
         {
