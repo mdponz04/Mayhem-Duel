@@ -13,6 +13,12 @@ public class GatlingGun : Gun
             PlaySound("GunShot");
             currentMag.UseAmmo();
         }
+        else if (currentMag == null || currentMag.Ammo <= 0)
+        {
+            PlaySound("EmptyClip");
+            DetachMag();
+            Debug.Log("Mag detached");
+        }
     }
 
     protected override IEnumerator AutoFire()
@@ -20,7 +26,7 @@ public class GatlingGun : Gun
         int fireCount = 0;
         StartCoroutine(SpinWarmUp());
         yield return new WaitForSeconds(0.5f);
-        while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
+        while (isTriggerPressed)
         {
             Fire();
             fireCount++;
@@ -46,7 +52,4 @@ public class GatlingGun : Gun
         }
     }
 
-    private void Update()
-    {
-    }
 }
