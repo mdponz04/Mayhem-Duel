@@ -46,6 +46,25 @@ namespace TheCastle
                 }
             }
         }
+        //return the x, y of the cell and the value of the cell
+        private GridCell GetXY(Vector3 worldPosition, out int x, out int z)
+        {
+            // Convert the world position to the local position relative to the cube's top center
+            Vector3 localPosition = worldPosition - cubeTop;    //cubeTop = (cubeSize.x + cubeSize.z) / 2f
+
+            // Map the local position to the grid's X and Z indices
+            x = Mathf.FloorToInt((localPosition.x + cubeSize.x / 2f) / cellSize);
+            z = Mathf.FloorToInt((localPosition.z + cubeSize.z / 2f) / cellSize);
+            // Check if the calculated indices are out of bounds
+            if (x < 0 || x >= gridSizeX || z < 0 || z >= gridSizeZ)
+            {
+                // Return null if the position is outside the grid
+                return null;
+            }
+
+            return GetCell(x, z);
+        }
+        //return the cell value
         private GridCell GetCell(int x, int z)
         {
             if (x >= 0 && x < gridSizeX && z >= 0 && z < gridSizeZ)
@@ -57,6 +76,7 @@ namespace TheCastle
                 return null; // Return null if the indices are out of bounds
             }
         }
+        
         //Debug draw cannot use like UI
         private void OnDrawGizmos()
         {
@@ -80,13 +100,6 @@ namespace TheCastle
                             grid[x, z].gridCenterPosition + cubeTop + new Vector3(-cellSize / 2f, 0f, cellSize / 2f));
                     }
                 }
-                //Draw the top line
-                Gizmos.DrawLine(grid[0, gridSizeZ - 1].gridCenterPosition + cubeTop + new Vector3(-cellSize / 2f, 0f, -cellSize / 2f),
-                            grid[gridSizeX - 1, gridSizeZ - 1].gridCenterPosition + cubeTop + new Vector3(cellSize / 2f, 0f, -cellSize / 2f));
-                //Draw the right most line
-                Gizmos.DrawLine(
-                            grid[gridSizeX -1, 0].gridCenterPosition + cubeTop + new Vector3(-cellSize / 2f, 0f, -cellSize / 2f),
-                            grid[gridSizeX - 1, gridSizeZ - 1].gridCenterPosition + cubeTop + new Vector3(-cellSize / 2f, 0f, cellSize / 2f));
             }
         }
     }
