@@ -14,9 +14,9 @@ public class TargetDummyTemp : MonoBehaviour, IEnemyTemp
         return transform.position;
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
-        Debug.Log("I take damage");
+        //Debug.Log("I take damage");
         if (isDead)
         {
             return;
@@ -38,7 +38,7 @@ public class TargetDummyTemp : MonoBehaviour, IEnemyTemp
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         
     }
@@ -55,8 +55,8 @@ public class TargetDummyTemp : MonoBehaviour, IEnemyTemp
     {
         return gameObject;
     }
-    private void OnParticleCollision(GameObject other)
-    {
-        TakeDamage(1);
-    }
+    //private void OnParticleCollision(GameObject other)
+    //{
+    //    TakeDamage(1);
+    //}
 }

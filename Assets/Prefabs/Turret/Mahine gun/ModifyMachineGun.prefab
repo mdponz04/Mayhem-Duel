@@ -955,7 +955,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5868,7 +5868,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10266,6 +10266,7 @@ GameObject:
   - component: {fileID: 7234700889888955922}
   - component: {fileID: 6283766599003305963}
   - component: {fileID: 228355613904715329}
+  - component: {fileID: 6901708062827654303}
   m_Layer: 0
   m_Name: Traser_ParticleSystem
   m_TagString: Untagged
@@ -11126,7 +11127,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 6
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -14058,7 +14059,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -15098,6 +15099,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6901708062827654303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843414825670989149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b345912d2b6d2304ca8249c7c23fa027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4151852611385975356
 GameObject:
   m_ObjectHideFlags: 0
@@ -15208,7 +15221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4988743661209715103}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15291,9 +15304,30 @@ MonoBehaviour:
   go_baseRotation: {fileID: 161479864448069394}
   go_GunBody: {fileID: 1534067911203456809}
   go_barrel: {fileID: 8139652105822302966}
-  barrelRotationSpeed: 1000
-  firingRange: 10
   muzzelFlash: {fileID: 4201948606389178977}
+  bulletShell: {fileID: 5184077087024952087}
+  bulletTraser: {fileID: 6283766599003305963}
+  gunMeshes:
+  - {fileID: 1196171024742851339}
+  - {fileID: 7260046730782972603}
+  - {fileID: 2396035153529465320}
+  - {fileID: 7307103825085970079}
+  - {fileID: 2585937417072841161}
+  - {fileID: 1414833337025208149}
+  - {fileID: 1029931052118815750}
+  - {fileID: 584799571550874472}
+  - {fileID: 4570487324971030356}
+  - {fileID: 5383790562234531131}
+  - {fileID: 5822257422797287991}
+  - {fileID: 4346441052648889755}
+  - {fileID: 4979349177887058761}
+  - {fileID: 603277111314801400}
+  - {fileID: 8707552392393650722}
+  AvailabelTiers:
+  - {fileID: 11400000, guid: 7d572b4372f69fd47b3ac2a48e80de09, type: 2}
+  - {fileID: 11400000, guid: 449e546708736074ab941ef67a461b57, type: 2}
+  - {fileID: 11400000, guid: e72f0dfa488f0664f86dbc4a1d5c5409, type: 2}
+  allowFire: 1
 --- !u!1 &5491083728631484530
 GameObject:
   m_ObjectHideFlags: 0
