@@ -12,18 +12,38 @@ public class Elevator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    private void OnEnable()
+    //private void OnEnable()
+    //{
+    //    StartCoroutine(ElevatorMove());
+    //}
+
+    public void MoveUp()
     {
+        if (!_isAtBottom)
+        {
+            return;
+        }
+
         StartCoroutine(ElevatorMove());
+    }
+
+    public void MoveDown()
+    {
+        if (_isAtBottom)
+        {
+            return;
+        }
+        StartCoroutine(ElevatorMove());
+
     }
 
     public IEnumerator ElevatorMove()
@@ -32,7 +52,8 @@ public class Elevator : MonoBehaviour
         _isAnimating = true;
         Vector3 currentPos = transform.position;
         Vector3 destination;
-        if (_isAtBottom) {
+        if (_isAtBottom)
+        {
             destination = currentPos + Vector3.up;
         }
         else
