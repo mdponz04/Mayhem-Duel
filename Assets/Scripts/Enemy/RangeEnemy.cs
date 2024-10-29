@@ -7,9 +7,10 @@ namespace TheEnemy
 {
     public class RangeEnemy : EnemyBase
     {
-        private void Start()
+        protected override void Start()
         {
             UpdateStats();
+            base.Start();
 
             layerMask = LayerMask.GetMask("Player", "Damageable");
 

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Turret.Machine_gun;
+using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ public class ModifyMachineGun : MonoBehaviour
     [SerializeField] Transform go_baseRotation;
     [SerializeField] Transform go_GunBody;
     [SerializeField] Transform go_barrel;
+    [SerializeField] float rotationDamping = 5f;
 
     [Space(5)]
     [Header("Particle system")]
@@ -32,6 +34,10 @@ public class ModifyMachineGun : MonoBehaviour
     int minimunTier = 0;
     int maximunTier;
     int currentTierIndex = 0;
+
+    [Space(5)]
+    [Header("Layers to attack")]
+    [SerializeField] LayerMask layersToTarget;
     // Gun barrel rotation
     public bool allowFire = true;
 
@@ -70,6 +76,7 @@ public class ModifyMachineGun : MonoBehaviour
             if (currentTarget != null)
             {
                 canFire = true;
+                //Debug.Log(currentTarget);
             }
         }
         else if (targetList.Count == 0)
@@ -77,6 +84,21 @@ public class ModifyMachineGun : MonoBehaviour
             canFire = false;
         }
 
+        //Aim();
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            UpgradeTier();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            DowngradeTier();
+        }
+    }
+
+    void FixedUpdate()
+    {
         Aim();
     }
 
@@ -87,7 +109,7 @@ public class ModifyMachineGun : MonoBehaviour
         int i = 0;
         while (i < numberOfCollisionEvent)
         {
-            IEnemyTemp enemy = bulletCollisionEvent[i].colliderComponent.gameObject.GetComponent<IEnemyTemp>();
+            IEnemy enemy = UtilsClass.GetInterfaceComponent<IEnemy>(bulletCollisionEvent[i].colliderComponent.gameObject);
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
@@ -105,7 +127,7 @@ public class ModifyMachineGun : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (UtilsClass.IsLayerInLayerMask(other.gameObject.layer, layersToTarget))
         {
             if (!targetList.Contains(other.gameObject))
             {
@@ -117,7 +139,7 @@ public class ModifyMachineGun : MonoBehaviour
     // Stop firing
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (UtilsClass.IsLayerInLayerMask(other.gameObject.layer, layersToTarget))
         {
             targetList.Remove(other.gameObject);
             if (other.gameObject == currentTarget)
@@ -149,17 +171,22 @@ public class ModifyMachineGun : MonoBehaviour
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
 
         // if can fire turret activates
-        if (canFire)
+        if (canFire && currentTarget != null)
         {
             // start rotation
             currentRotationSpeed = barrelRotationSpeed;
 
             // aim at enemy
             Vector3 baseTargetPostition = new Vector3(currentTarget.transform.position.x, this.transform.position.y, currentTarget.transform.position.z);
-            Vector3 gunBodyTargetPostition = new Vector3(currentTarget.transform.position.x, currentTarget.transform.position.y, currentTarget.transform.position.z);
+            Vector3 gunBodyTargetPostition = new Vector3(currentTarget.transform.position.x, currentTarget.transform.position.y * 0.5f, currentTarget.transform.position.z);
+            var baseTargetRotationPosistion = Quaternion.LookRotation(baseTargetPostition - this.transform.position);
+            var gunBodyRotationPosition = Quaternion.LookRotation(gunBodyTargetPostition - this.transform.position);
 
-            go_baseRotation.transform.LookAt(baseTargetPostition);
-            go_GunBody.transform.LookAt(gunBodyTargetPostition);
+            go_baseRotation.transform.rotation = Quaternion.Lerp(go_baseRotation.transform.rotation, baseTargetRotationPosistion, Time.deltaTime * rotationDamping);
+            go_GunBody.transform.rotation = Quaternion.Lerp(go_GunBody.transform.rotation, gunBodyRotationPosition, Time.deltaTime * rotationDamping);
+
+            //go_baseRotation.transform.LookAt(baseTargetPostition);
+            //go_GunBody.transform.LookAt(gunBodyTargetPostition);
 
             // start particle system 
             if (!muzzelFlash.isPlaying)

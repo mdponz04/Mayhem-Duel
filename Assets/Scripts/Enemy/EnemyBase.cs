@@ -1,3 +1,4 @@
+using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TheDamage;
@@ -5,10 +6,11 @@ using UnityEngine;
 
 namespace TheEnemy
 {
-    public class EnemyBase : MonoBehaviour, IDamageSource
+    public class EnemyBase : MonoBehaviour, IDamageSource, IEnemy
     {
         public LayerMask layerMask { get; set; }
         public float maxHealth { get; set; }
+        private float currentHealth;
         public float attackDamage { get; set; }
         public float attackCooldown { get; set; }
         public float nextTimeAttack { get; set; }
@@ -17,18 +19,24 @@ namespace TheEnemy
         public float attackRange { get; set; }
         [SerializeField] private SphereCollider aggroRange;
         private Collider other;
-        public void Update()
+
+        protected virtual void Start()
+        {
+            currentHealth = maxHealth;
+        }
+
+        protected virtual void Update()
         {
             HandleMoving();
         }
         //Stop moving if attack and vice versa
         public void HandleMoving()
         {
-            if(other != null)
+            if (other != null)
             {
                 float bufferDistance = 0.5f;
                 float distanceToTarget = GetEdgeDistance(other, attackRange);
-                
+
                 if (distanceToTarget <= 0f)
                 {
                     pathfinding.StopMoving();
@@ -36,7 +44,7 @@ namespace TheEnemy
                 }
                 else if (distanceToTarget >= bufferDistance)
                 {
-                    pathfinding.ResumeMoving(); 
+                    pathfinding.ResumeMoving();
                 }
             }
         }
@@ -97,6 +105,16 @@ namespace TheEnemy
             return distanceEdgeToEdge;
         }
         float IDamageSource.GetAttackDamage() => attackDamage;
+
+        public void TakeDamage(float damage)
+        {
+            currentHealth-= damage;
+            UtilsClass.CreateWorldTextPopup($"{damage}", this.transform.position);
+            if (currentHealth < 0)
+            {
+                Destroy(gameObject, 0.2f);
+            }
+        }
     }
 }
 

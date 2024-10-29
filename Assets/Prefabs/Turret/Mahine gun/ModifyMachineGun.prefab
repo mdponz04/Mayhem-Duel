@@ -15206,7 +15206,7 @@ GameObject:
   - component: {fileID: 6132881005192823298}
   - component: {fileID: 6717827020335434967}
   - component: {fileID: 3368907223876294349}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ModifyMachineGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15327,6 +15327,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d572b4372f69fd47b3ac2a48e80de09, type: 2}
   - {fileID: 11400000, guid: 449e546708736074ab941ef67a461b57, type: 2}
   - {fileID: 11400000, guid: e72f0dfa488f0664f86dbc4a1d5c5409, type: 2}
+  layersToTarget:
+    serializedVersion: 2
+    m_Bits: 512
   allowFire: 1
 --- !u!1 &5491083728631484530
 GameObject:

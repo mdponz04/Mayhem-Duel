@@ -10,7 +10,7 @@ namespace TheEnemy
     {
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
-        private float spawnInterval = 3f;
+        [SerializeField] private float spawnInterval = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
         private Vector3 minSpawnArea;
@@ -29,7 +29,8 @@ namespace TheEnemy
                 0f, 
                 RandomFloat(minSpawnArea.z, maxSpawnArea.z));
             //Spawn the enemy in the position
-            Instantiate(RandomEnemy(),randomPosition, Quaternion.identity);
+            Instantiate(RandomEnemy(), randomPosition, Quaternion.identity);
+
         }
         private float RandomFloat(float min, float max)
         {
@@ -37,8 +38,8 @@ namespace TheEnemy
         }
         private GameObject RandomEnemy()
         {
-            
-            if(RandomFloat(1f, 10f) <= 5)
+
+            if (RandomFloat(1f, 10f) <= 5)
             {
                 return meleeEnemyPrefab;
             }

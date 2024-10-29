@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetDummyTemp : MonoBehaviour, IEnemyTemp 
+public class TargetDummyTemp : MonoBehaviour, IEnemy 
 {
     public float HP = 10f;
     public float DestroyDuration = 2f;
