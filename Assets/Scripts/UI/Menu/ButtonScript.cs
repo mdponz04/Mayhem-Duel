@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class Button : MonoBehaviour
+public class ButtonScript : MonoBehaviour
 {
     public void OnPlayButtonClick()
     {
@@ -14,6 +14,10 @@ public class Button : MonoBehaviour
     public void OnQuitButtonClick()
     {
         Application.Quit();
-       
+    }
+
+    public void OnReturnButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 }

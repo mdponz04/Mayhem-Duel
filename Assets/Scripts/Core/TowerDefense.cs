@@ -221,7 +221,7 @@ public class TowerDefense : MonoBehaviour
             if (health <= 0)
             {
                 Debug.Log("Game Over");
-               // FindAnyObjectByType<UIManager>().GameOver();
+               // FindAnyObjectByType<PauseMenu>().GameOver();
             }
         }
     }
