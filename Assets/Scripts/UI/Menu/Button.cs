@@ -7,7 +7,7 @@ public class Button : MonoBehaviour
     public void OnPlayButtonClick()
     {
         // Add the Scene you'd like to load in File --> Build Setting
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("TowerDefense", LoadSceneMode.Single);
         
     }
 
