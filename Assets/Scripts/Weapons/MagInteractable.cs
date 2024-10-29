@@ -6,6 +6,7 @@ public class MagInteractable : XRGrabInteractable
     private Gun attachedGun;
     private Mag magComponent;
     private Rigidbody rb;
+    [SerializeField] private float attachDistance = 0.1f;
 
     protected override void Awake()
     {
@@ -29,7 +30,7 @@ public class MagInteractable : XRGrabInteractable
     {          
         base.OnSelectExited(args);
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.1f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, attachDistance);
         foreach (Collider collider in colliders)
         {
             Gun nearbyGun = collider.GetComponent<Gun>();
