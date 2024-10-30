@@ -1,4 +1,0 @@
-repository "Mayhem Duel@Ryaan10@cloud"
-  path "/"
-    br "/main"
-    co "/main"
