@@ -11,11 +11,11 @@ namespace TheCastle
         public GridCell[,] grid {  get; private set; }
         
         private BoxCollider boxCollider;
-        private Vector3 cubeSize;
+        public Vector3 cubeSize { get; private set; }
         private int gridSizeX;
         private int gridSizeZ;
-        private Vector3 cubeTop;
-        private void Start()
+        public Vector3 cubeTop { get; private set; }
+        private void Awake()
         {
             boxCollider = GetComponent<BoxCollider>();
             
@@ -47,7 +47,7 @@ namespace TheCastle
             }
         }
         //return the x, y of the cell and the value of the cell
-        private GridCell GetXY(Vector3 worldPosition, out int x, out int z)
+        public GridCell GetXY(Vector3 worldPosition, out int x, out int z)
         {
             // Convert the world position to the local position relative to the cube's top center
             Vector3 localPosition = worldPosition - cubeTop;    //cubeTop = (cubeSize.x + cubeSize.z) / 2f

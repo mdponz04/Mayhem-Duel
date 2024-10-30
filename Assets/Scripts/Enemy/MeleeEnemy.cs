@@ -7,15 +7,17 @@ namespace TheEnemy
 {
     public class MeleeEnemy : EnemyBase
     {
-        private void Start()
+        protected override void Start()
         {
             UpdateStats();
+            
 
             layerMask = LayerMask.GetMask("Player", "Damageable");
 
             pathfinding = GetComponent<Pathfinding>();
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
+            base.Start();
         }
 
         private void UpdateStats()
