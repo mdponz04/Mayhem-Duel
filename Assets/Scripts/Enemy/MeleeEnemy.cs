@@ -10,13 +10,14 @@ namespace TheEnemy
         protected override void Start()
         {
             UpdateStats();
-            base.Start();
+            
 
             layerMask = LayerMask.GetMask("Player", "Damageable");
 
             pathfinding = GetComponent<Pathfinding>();
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
+            base.Start();
         }
 
         private void UpdateStats()
