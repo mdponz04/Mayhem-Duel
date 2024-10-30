@@ -9,6 +9,7 @@ namespace TheEnemy
     public class EnemyBase : MonoBehaviour, IDamageSource, IEnemy
     {
         public LayerMask layerMask { get; set; }
+        //TODO: replace by health system
         public float maxHealth { get; set; }
         private float currentHealth;
         public float attackDamage { get; set; }
@@ -106,6 +107,7 @@ namespace TheEnemy
         }
         float IDamageSource.GetAttackDamage() => attackDamage;
 
+        //TODO: replace by health system
         public void TakeDamage(float damage)
         {
             currentHealth-= damage;

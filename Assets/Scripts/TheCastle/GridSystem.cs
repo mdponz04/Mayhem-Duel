@@ -120,7 +120,7 @@ namespace TheCastle
             }
 
             //debugging
-            bool showDebug = true;
+            bool showDebug = false;
             if (showDebug)
             {
                 TextMesh[,] debugTextArray = new TextMesh[gridSizeX, gridSizeZ];
