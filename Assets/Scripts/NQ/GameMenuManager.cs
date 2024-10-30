@@ -33,7 +33,7 @@ public class GameMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Activate Menu when menu key is pressed on either controller
+        // Activate Menu when pauseMenu key is pressed on either controller
         if (vrLeftShowButton.action.WasPressedThisFrame() || vrRightShowButton.action.WasPressedThisFrame()) 
         {
             menu.SetActive(!menu.activeSelf);
