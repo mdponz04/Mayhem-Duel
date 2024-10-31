@@ -1,5 +1,6 @@
 using TheDamage;
 using TheEnemy;
+using TheHealth;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour, IDamageSource
@@ -17,11 +18,13 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     public float attackRange { get; set; }
 
     [SerializeField] private SphereCollider aggroRange;
-
+    private HealthSystem healthSystem;
     protected virtual void Start()
     {
         enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
         enemyMove = new EnemyMove(pathfinding);
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetUp(maxHealth);
     }
 
     protected void Update()
