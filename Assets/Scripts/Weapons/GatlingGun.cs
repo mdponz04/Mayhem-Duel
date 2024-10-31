@@ -5,11 +5,12 @@ public class GatlingGun : Gun
 {
     [SerializeField] private Transform gatlingBarrel;
 
+
     protected override void Fire()
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.Create(barrel.position, barrel, 20);
+            Bullet.Create(barrel.position, barrel, 75, attackDamage);
             PlaySound("GunShot");
             currentMag.UseAmmo();
         }

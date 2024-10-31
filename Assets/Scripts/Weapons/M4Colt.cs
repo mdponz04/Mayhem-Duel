@@ -28,7 +28,7 @@ public class M4Colt : Rifle
     {
         if(rocketReady && rocketMag> 0)
         {
-            Rocket.Create(rocketBarrel.position, rocketBarrel, 10);
+            Rocket.Create(rocketBarrel.position, rocketBarrel, 10, attackDamage);
             PlaySound("GunShot");
             rocketMag--;
             StartCoroutine(RocketCoolDown());
