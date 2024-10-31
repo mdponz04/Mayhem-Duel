@@ -1,3 +1,4 @@
+using System;
 using TheDamage;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace TheEnemy
 {
     public class EnemyAttack
     {
+        public event EventHandler OnAttack;
         private float attackCooldown;
         private float nextTimeAttack;
         private float attackRange;
@@ -35,6 +37,7 @@ namespace TheEnemy
                         if (vulnerableComponent != null)
                         {
                             damageDealer.DoDamage(vulnerableComponent);
+                            OnAttack?.Invoke(this, EventArgs.Empty);
                             nextTimeAttack = Time.time + attackCooldown;
                         }
                     }

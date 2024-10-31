@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour, IDamageSource
 {
     private EnemyAttack enemyAttack;
     private EnemyMove enemyMove;
-
+    private EnemyVisual enemyVisual;
     public LayerMask layerMask { get; set; }
     public float maxHealth { get; set; }
     public float attackDamage { get; set; }
@@ -25,12 +25,31 @@ public class EnemyBase : MonoBehaviour, IDamageSource
         enemyMove = new EnemyMove(pathfinding);
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetUp(maxHealth);
+        enemyVisual = GetComponentInChildren<EnemyVisual>();
+        enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
+        healthSystem.OnHealthChange += HealthSystem_OnHealthChange;
+        healthSystem.OnDeath += HealthSystem_OnDeath;
     }
 
+    private void HealthSystem_OnDeath(object sender, System.EventArgs e)
+    {
+        enemyVisual.TriggerDied();
+    }
+
+    private void HealthSystem_OnHealthChange(object sender, System.EventArgs e)
+    {
+        enemyVisual.TriggerHit();
+    }
+
+    private void EnemyAttack_OnNormalAttack(object sender, System.EventArgs e)
+    {
+        enemyVisual.TriggerNormalAttack();
+    }
     protected void Update()
     {
         // Move and attack behavior handled per frame
         enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
+        enemyVisual.HandleMoving(enemyMove.IsMoving());
         enemyAttack.HandleAttack(transform.position);
     }
 

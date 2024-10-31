@@ -18,7 +18,6 @@ namespace TheDamage
 
         public void DoDamage(Vulnerable opponent)
         {
-            Debug.Log("Damage" + attackDamage); 
             opponent.TakeDamge(attackDamage);
         }
     }
