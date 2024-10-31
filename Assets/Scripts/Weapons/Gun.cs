@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
     [SerializeField] protected AudioClip emptyClipSound;
     [SerializeField] protected AudioClip reloadClipSound;
     [SerializeField] protected Transform magAttachPoint;
+    [SerializeField] protected float attackDamage = 10;
 
     protected bool canFire = true;
     protected bool isTriggerPressed = false;
@@ -55,7 +56,7 @@ public class Gun : MonoBehaviour
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Bullet.Create(barrel.position, barrel, 100);
+            Bullet.Create(barrel.position, barrel, 100, attackDamage);
             PlaySound("GunShot");
             currentMag.UseAmmo();
             StartCoroutine(FireCooldown());

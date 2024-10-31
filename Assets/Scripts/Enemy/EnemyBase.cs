@@ -21,11 +21,13 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     private HealthSystem healthSystem;
     protected virtual void Start()
     {
+
         enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
         enemyMove = new EnemyMove(pathfinding);
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetUp(maxHealth);
     }
+
 
     protected void Update()
     {
@@ -42,6 +44,7 @@ public class EnemyBase : MonoBehaviour, IDamageSource
             enemyMove.SetTarget(other);
         }
     }
+
 
     //Stop chasing when player or damageable object exits the aggro range
     protected void OnTriggerExit(Collider other)
