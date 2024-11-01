@@ -56,7 +56,7 @@ namespace TheEnemy
             nextTimeResumeMoving = Time.time + resumeMovingCooldown;
         }
 
-        
+        public bool IsMoving() => !agent.isStopped;
     }
 }
 

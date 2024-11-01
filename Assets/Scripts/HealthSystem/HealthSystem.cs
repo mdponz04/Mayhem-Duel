@@ -9,6 +9,7 @@ namespace TheHealth
     public class HealthSystem : MonoBehaviour
     {
         public event EventHandler OnHealthChange;
+        public event EventHandler OnDeath;
         public class OnHealthChangeEventArgs : EventArgs
         {
             public float currentHealth { get; set; }
@@ -56,6 +57,7 @@ namespace TheHealth
         private void Die()
         {
             Debug.Log(gameObject.name + " has died!");
+            OnDeath?.Invoke(this, EventArgs.Empty);
             // Add your death behavior here, like destroying the object, triggering animations, etc.
         }
     }
