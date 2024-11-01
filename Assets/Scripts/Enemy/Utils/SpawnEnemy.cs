@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TheDamage;
-using UnityEditor;
 using UnityEngine;
 
 namespace TheEnemy
@@ -10,7 +8,8 @@ namespace TheEnemy
     {
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
-        [SerializeField] private float spawnInterval = 3f;
+        private float spawnInterval = 60f;
+        private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
         private Vector3 minSpawnArea;
@@ -19,42 +18,34 @@ namespace TheEnemy
         {
             minSpawnArea = spawnAreaMin.position;
             maxSpawnArea = spawnAreaMax.position;
-            InvokeRepeating(nameof(Spawn), spawnInterval, spawnInterval);
+            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
         }
         private void Spawn()
         {
-            //Random position to spawn an enemy
-            Vector3 randomPosition = new Vector3(
-                RandomFloat(minSpawnArea.x, maxSpawnArea.x), 
-                0f, 
-                RandomFloat(minSpawnArea.z, maxSpawnArea.z));
-            //Spawn the enemy in the position
-            Instantiate(RandomEnemy(), randomPosition, Quaternion.identity);
-
+            int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
+            while (waveOrder <= 5)
+            {
+                RandomPositionSpawn(rangeEnemyPrefab, waveOrder * 2);
+                RandomPositionSpawn(meleeEnemyPrefab, waveOrder * 3);
+            }
+        }
+        //Spawn prefab in random positions for prefab amount 
+        private void RandomPositionSpawn(GameObject prefab, int prefabAmount)
+        {
+            for (int x = 1; x <= prefabAmount; x++)
+            {
+                //Random position to spawn an enemy
+                Vector3 randomPosition = new Vector3(
+                    RandomFloat(minSpawnArea.x, maxSpawnArea.x),
+                    0f,
+                    RandomFloat(minSpawnArea.z, maxSpawnArea.z));
+                //Spawn the enemy in the position
+                Instantiate(prefab, randomPosition, Quaternion.identity);
+            }
         }
         private float RandomFloat(float min, float max)
         {
             return Random.Range(min, max);
-        }
-        private GameObject RandomEnemy()
-        {
-
-            if (RandomFloat(1f, 10f) <= 5)
-            {
-                return meleeEnemyPrefab;
-            }
-            else
-            {
-                return rangeEnemyPrefab;
-            }
-        }
-        private void OnDrawGizmos()
-        {
-            // Draw a wireframe cube in the Editor to show the spawnable area
-            Gizmos.color = Color.green;
-            Vector3 center = (minSpawnArea + maxSpawnArea) / 2;
-            Vector3 size = minSpawnArea - maxSpawnArea;
-            Gizmos.DrawWireCube(center, size);
         }
     }
 }

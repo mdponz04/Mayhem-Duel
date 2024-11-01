@@ -537,7 +537,7 @@ PrefabInstance:
     - target: {fileID: 5536016755921339209, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5555309042054956056, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
@@ -1768,7 +1768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1534363076
 Transform:
   m_ObjectHideFlags: 0
@@ -1802,7 +1802,6 @@ MonoBehaviour:
     type: 3}
   rangeEnemyPrefab: {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
     type: 3}
-  spawnInterval: 3
   spawnAreaMin: {fileID: 1364827024}
   spawnAreaMax: {fileID: 776967513}
 --- !u!1 &1653567805
@@ -2409,7 +2408,7 @@ PrefabInstance:
     - target: {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3169874218604851770, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
         type: 3}
