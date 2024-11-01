@@ -16,19 +16,29 @@ namespace TheEnemy
         public void HandleMoving(bool isMoving)
         {
             animator.SetBool(IS_RUNNING_PARAMETER, isMoving);
+            
         }
         public void TriggerNormalAttack()
         {
             animator.SetTrigger(NORMAL_ATTACK_PARAMETER);
+            StartCoroutine(ResetTriggerAfterDelay(NORMAL_ATTACK_PARAMETER));
         }
         public void TriggerHit()
         {
             animator.SetTrigger(HIT_PARAMETER);
+            StartCoroutine(ResetTriggerAfterDelay(HIT_PARAMETER));
         }
         public void TriggerDied()
         {
             animator.SetTrigger(DIED_PARAMETER);
+            StartCoroutine(ResetTriggerAfterDelay(DIED_PARAMETER));
         }
+        private IEnumerator ResetTriggerAfterDelay(string parameter)
+        {
+            yield return new WaitForSeconds(1.1f);
+            animator.ResetTrigger(parameter);
+        }
+
     }
 }
 

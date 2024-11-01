@@ -24,7 +24,7 @@ namespace TheEnemy
         {
             attackDamage = 10f;
             maxHealth = 100f;
-            attackCooldown = 1.5f;
+            attackCooldown = 2f;
             attackRange = 2f;
             nextTimeAttack = 0f;
         }

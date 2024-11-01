@@ -6,7 +6,15 @@ namespace TheEnemy
 {
     public class EnemyAttack
     {
-        public event EventHandler OnAttack;
+        public event EventHandler<OnAttackEventArgs> OnAttack;
+        public class OnAttackEventArgs : EventArgs
+        {
+            public Vector3 targetPosition { get; set; }
+            public OnAttackEventArgs(Vector3 targetPosition)
+            {
+                this.targetPosition = targetPosition;
+            }
+        }
         private float attackCooldown;
         private float nextTimeAttack;
         private float attackRange;
@@ -21,12 +29,12 @@ namespace TheEnemy
             this.damageDealer = damageDealer;
         }
 
-        public void HandleAttack(Vector3 position)
+        public void HandleAttack(Vector3 currentPosition)
         {
             if (Time.time >= nextTimeAttack)
             {
                 float heightOffset = 1f;
-                Vector3 sphereCenter = position + new Vector3(0f, heightOffset, 0f);
+                Vector3 sphereCenter = currentPosition + new Vector3(0f, heightOffset, 0f);
                 Collider[] attackHits = Physics.OverlapSphere(sphereCenter, attackRange, layerMask);
 
                 foreach (Collider hit in attackHits)
@@ -37,7 +45,7 @@ namespace TheEnemy
                         if (vulnerableComponent != null)
                         {
                             damageDealer.DoDamage(vulnerableComponent);
-                            OnAttack?.Invoke(this, EventArgs.Empty);
+                            OnAttack?.Invoke(this, new OnAttackEventArgs(hit.transform.position));
                             nextTimeAttack = Time.time + attackCooldown;
                         }
                     }

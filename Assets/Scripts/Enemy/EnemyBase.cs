@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour, IDamageSource
 {
-    private EnemyAttack enemyAttack;
-    private EnemyMove enemyMove;
-    private EnemyVisual enemyVisual;
+    public EnemyAttack enemyAttack { get; private set; }
+    public EnemyMove enemyMove { get; private set; }
+    public EnemyVisual enemyVisual { get; private set; }
     public LayerMask layerMask { get; set; }
     public float maxHealth { get; set; }
     public float attackDamage { get; set; }
@@ -21,7 +21,6 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     private HealthSystem healthSystem;
     protected virtual void Start()
     {
-
         enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
         enemyMove = new EnemyMove(pathfinding);
         healthSystem = GetComponent<HealthSystem>();
@@ -42,7 +41,7 @@ public class EnemyBase : MonoBehaviour, IDamageSource
         enemyVisual.TriggerHit();
     }
 
-    private void EnemyAttack_OnNormalAttack(object sender, System.EventArgs e)
+    private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
     {
         enemyVisual.TriggerNormalAttack();
     }

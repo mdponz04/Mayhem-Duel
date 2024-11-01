@@ -1,36 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace TheEnemy
 {
     public class Projectile : MonoBehaviour
     {
-        private float orbitRadius = 1f;
-        private float orbitSpeed = 180f;
-        private float homingSpeed = 5f;
-        [SerializeField] private Transform projectileTransform;
-
-        private Vector3 orbitOffset;      
-
+        private float projectileSpeed = 20f;
+        private Vector3 parentPosition;
         private void Start()
         {
-            // Set the initial orbit offset perpendicular to the direction toward the target
-            orbitOffset = transform.right * orbitRadius;
+            parentPosition = transform.position;
+            
         }
 
         public void HandleShootingProjectile(Vector3 targetPosition)
         {
+            EnableProjectile();
             if (targetPosition == null) return;
+            
+            
+            StartCoroutine(MoveProjectile(targetPosition));
+        }
+        private IEnumerator MoveProjectile(Vector3 targetPosition)
+        {
+            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(
+                    transform.position,
+                    targetPosition,
+                    projectileSpeed * Time.deltaTime
+                );
+                yield return null;
+            }
 
-            // Move towards the target position with a Lerp speed
-            projectileTransform.position = Vector3.MoveTowards(projectileTransform.position, targetPosition, homingSpeed * Time.deltaTime);
-
-            // Rotate orbit offset around the Y-axis (or desired axis) to create orbiting effect
-            orbitOffset = Quaternion.Euler(0, orbitSpeed * Time.deltaTime, 0) * orbitOffset;
-
-            // Update position with orbit offset
-            projectileTransform.position = targetPosition + orbitOffset;
+            DisableProjectile();
+            transform.position = parentPosition;
+        }
+        private void EnableProjectile()
+        {
+            transform.gameObject.SetActive(true);
+        }
+        private void DisableProjectile()
+        {
+            transform.gameObject.SetActive(false);
         }
     }
 }
