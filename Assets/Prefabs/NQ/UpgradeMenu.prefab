@@ -2350,7 +2350,7 @@ GameObject:
   - component: {fileID: 6819129232830741392}
   - component: {fileID: 893864687730246159}
   m_Layer: 0
-  m_Name: Upgrade Menu
+  m_Name: UpgradeMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
