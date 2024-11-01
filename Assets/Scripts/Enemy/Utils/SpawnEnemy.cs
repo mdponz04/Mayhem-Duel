@@ -8,7 +8,7 @@ namespace TheEnemy
     {
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
-        private float spawnInterval = 60f;
+        private float spawnInterval = 10f;
         private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
@@ -23,7 +23,7 @@ namespace TheEnemy
         private void Spawn()
         {
             int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
-            while (waveOrder <= 5)
+            if (waveOrder <= 5)
             {
                 RandomPositionSpawn(rangeEnemyPrefab, waveOrder * 2);
                 RandomPositionSpawn(meleeEnemyPrefab, waveOrder * 3);
