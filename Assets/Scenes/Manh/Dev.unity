@@ -652,7 +652,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: be63772b803a7d749badf7a8030d1b4a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 972a3a5519ccfc142abfb19b2633061d, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &543541362
 Transform:
@@ -1174,7 +1174,6 @@ MonoBehaviour:
     type: 3}
   rangeEnemyPrefab: {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
     type: 3}
-  spawnInterval: 3
   spawnAreaMin: {fileID: 1364827024}
   spawnAreaMax: {fileID: 776967513}
 --- !u!1 &1653567805

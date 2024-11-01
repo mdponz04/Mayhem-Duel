@@ -4,22 +4,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-public class PauseMenu : MonoBehaviour
+public class Menus : MonoBehaviour
 {
     #region Fields
 
-    [SerializeField]
-    GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private TextMeshProUGUI gameOverMessage;
 
-    [SerializeField]
-    InputActionProperty vrLeftPauseButton;
+    [SerializeField] private InputActionProperty vrLeftPauseButton;
 
-    [SerializeField]
-    InputActionProperty vrRightPauseButton;
+    [SerializeField] private InputActionProperty vrRightPauseButton;
 
     bool isPaused = false;
     #endregion
-
+    private void Start()
+    {
+        // Test Game Over Menu
+        //GameOver("You Won!");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -62,9 +65,18 @@ public class PauseMenu : MonoBehaviour
     private void UnPause()
     {
         isPaused = false;
-        Time.timeScale = 1f;
+        Time.timeScale = 1;
         Debug.Log("Continuing");
     }
-
+    /// <summary>
+    /// Bring up the Game Over Menu
+    /// </summary>
+    /// <param name="message">Set the title for the menu, should be 'You Won!' or 'You Lost!'</param>
+    public void GameOver(string message)
+    {
+        //Time.timeScale = 0;
+        gameOverMenu.SetActive(!pauseMenu.activeSelf);
+        gameOverMessage.text = message;
+    }
 
 }

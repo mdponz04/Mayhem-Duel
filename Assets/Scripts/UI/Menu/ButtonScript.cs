@@ -8,6 +8,8 @@ public class ButtonScript : MonoBehaviour
     {
         // Add the Scene you'd like to load in File --> Build Setting
         SceneManager.LoadScene("TowerDefense", LoadSceneMode.Single);
+        // Just in case game start in paused state idk
+        Time.timeScale = 1.0f;
         
     }
 

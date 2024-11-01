@@ -1,5 +1,6 @@
 using TheEnemy;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace TheEnemy
 {
@@ -51,6 +52,6 @@ namespace TheEnemy
             float distanceToClosestPoint = Vector3.Distance(currentTransform.position, closestPointOnOther);
             return distanceToClosestPoint - myColliderRadius;
         }
+        public bool IsMoving() => pathfinding.IsMoving();
     }
-
 }

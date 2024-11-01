@@ -7,7 +7,7 @@ public class RocketLauncher : Gun
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)
         {
-            Rocket.Create(barrel.position, barrel, 10);
+            Rocket.Create(barrel.position, barrel, 10, attackDamage);
             PlaySound("GunShot");
             currentMag.UseAmmo();
             StartCoroutine(FireCooldown());
