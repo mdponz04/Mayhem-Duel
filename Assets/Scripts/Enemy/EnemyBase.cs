@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TheDamage;
 using TheEnemy;
 using TheHealth;
@@ -34,6 +36,12 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     private void HealthSystem_OnDeath(object sender, System.EventArgs e)
     {
         enemyVisual.TriggerDied();
+        StartCoroutine(DelayOnDeath());
+    }
+    private IEnumerator DelayOnDeath()
+    {
+        yield return new WaitForSeconds(10f);
+        Destroy(this.gameObject);
     }
 
     private void HealthSystem_OnHealthChange(object sender, System.EventArgs e)
