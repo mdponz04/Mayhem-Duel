@@ -31,7 +31,6 @@ namespace TheEnemy
         public void TriggerDied()
         {
             animator.SetTrigger(DIED_PARAMETER);
-            StartCoroutine(ResetTriggerAfterDelay(DIED_PARAMETER));
         }
         private IEnumerator ResetTriggerAfterDelay(string parameter)
         {

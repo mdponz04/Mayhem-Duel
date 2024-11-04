@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &114971663
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: be63772b803a7d749badf7a8030d1b4a, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4264bd33cbbd4154abc85bad99a69e0a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &543541362
 Transform:
@@ -1130,6 +1130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas TD
       objectReference: {fileID: 0}
+    - target: {fileID: 7984021931109114879, guid: db2d24f0155063949920247efaa4ba24,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1335,6 +1340,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Device Simulator
       objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1463,6 +1473,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GatlingMag
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541488896720473125, guid: 96461e2e73d10f541b00ac81dd3f9f58,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5724326938976953645, guid: 96461e2e73d10f541b00ac81dd3f9f58,
         type: 3}
@@ -1635,6 +1650,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 496401988}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1458839351 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6018729261132014612, guid: 96461e2e73d10f541b00ac81dd3f9f58,
+    type: 3}
+  m_PrefabInstance: {fileID: 1367429158}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31af7fe9ca34ce4499cc713b55f59d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1460517012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1701,7 +1728,7 @@ PrefabInstance:
     - target: {fileID: 5536016755921339209, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7043412343444909813, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
@@ -1729,7 +1756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1534363076
 Transform:
   m_ObjectHideFlags: 0
@@ -2014,6 +2041,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3259649392883363202, guid: 58bedcae6f0d9594ea0719faec657242,
+        type: 3}
+      propertyPath: currentMag
+      value: 
+      objectReference: {fileID: 1458839351}
     - target: {fileID: 4716340227343243481, guid: 58bedcae6f0d9594ea0719faec657242,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2068,6 +2100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GatlingGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5595528837278879276, guid: 58bedcae6f0d9594ea0719faec657242,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
