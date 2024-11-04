@@ -1763,7 +1763,6 @@ MonoBehaviour:
     type: 3}
   rangeEnemyPrefab: {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
     type: 3}
-  spawnInterval: 3
   spawnAreaMin: {fileID: 1364827024}
   spawnAreaMax: {fileID: 776967513}
 --- !u!1 &1576728911 stripped
