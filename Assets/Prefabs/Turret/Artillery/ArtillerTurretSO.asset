@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58958b8428a79564a90c27791fed4e8e, type: 3}
+  m_Name: ArtillerTurretSO
+  m_EditorClassIdentifier: 
+  nameString: Artillery Turret
+  prefab: {fileID: 2154979907709803535, guid: d1b1a262706c3224ca7c0117b1091c92, type: 3}
+  width: 1
+  height: 1

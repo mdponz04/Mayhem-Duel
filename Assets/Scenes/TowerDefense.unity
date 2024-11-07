@@ -1143,6 +1143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placedObjectTypeSOList:
   - {fileID: 11400000, guid: cb7b3b72567fdc84fbd9990297d54ffd, type: 2}
+  - {fileID: 11400000, guid: cc637f0ed5f4df24f92e664cb8420dec, type: 2}
+  - {fileID: 11400000, guid: d5eb54e2f799c3d4da782c3c46081e4f, type: 2}
   playerPosition: {fileID: 1939508345}
 --- !u!1001 &1095103001
 PrefabInstance:
