@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour, IDamageSource
     public float attackDamage = 10;
     public static void Create(Vector3 position, Transform direction, float speed, float damage)
     {
-        LayerMask layerMask = LayerMask.GetMask("Damageable");
         Transform bulleTransform = Instantiate(GameAssets.i.pfBullet, position, Quaternion.identity);
         Bullet bullet = bulleTransform.GetComponent<Bullet>();
         bullet.SetUp(direction, speed, damage);
@@ -30,7 +29,7 @@ public class Bullet : MonoBehaviour, IDamageSource
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Damageable"))
+        if (other.CompareTag("Enemy"))
         {
             Vulnerable damageable = other.GetComponent<Vulnerable>();
             if (damageable != null)
