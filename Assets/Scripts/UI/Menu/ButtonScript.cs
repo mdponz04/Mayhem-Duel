@@ -14,7 +14,7 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private GameObject ShotgunPrefab;
     [SerializeField] private GameObject SMAWPrefab;
     [SerializeField] private GameObject UziPrefab;
-
+    [SerializeField] private Transform SpawnPosition;
 
     #endregion
     public void OnPlayButtonClick()
@@ -39,6 +39,6 @@ public class ButtonScript : MonoBehaviour
     // Test Spawn
     public void SpawnAK()
     {
-        //Instantiate(AkPrefab, new Vector3(0, 1.131f,42), Quaternion.identity);
+        Instantiate(AkPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
     }
 }
