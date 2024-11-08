@@ -4,6 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
+    #region Serialized Field
+
+    [SerializeField] private GameObject AkPrefab;
+    [SerializeField] private GameObject BarretPrefab;
+    [SerializeField] private GameObject ColtPrefab;
+    [SerializeField] private GameObject GatlingPrefab;
+    [SerializeField] private GameObject HandgunPrefab;
+    [SerializeField] private GameObject ShotgunPrefab;
+    [SerializeField] private GameObject SMAWPrefab;
+    [SerializeField] private GameObject UziPrefab;
+
+
+    #endregion
     public void OnPlayButtonClick()
     {
         // Add the Scene you'd like to load in File --> Build Setting
@@ -21,5 +34,11 @@ public class ButtonScript : MonoBehaviour
     public void OnReturnButtonClick()
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    // Test Spawn
+    public void SpawnAK()
+    {
+        //Instantiate(AkPrefab, new Vector3(0, 1.131f,42), Quaternion.identity);
     }
 }

@@ -122,39 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &15033334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5809638390747880340, guid: db2d24f0155063949920247efaa4ba24,
-    type: 3}
-  m_PrefabInstance: {fileID: 1045586458}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &15033338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15033334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 5c6b29fabcb89f74a8157a88ab9f2c95, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
 --- !u!1 &114971662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,51 +1015,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4209021023621529782, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_text
-      value: Upgrade
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.r
-      value: 0.9920001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 0.2509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.7372549
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0.7137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 0.24852253
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.735849
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481314114004867618, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0.7125699
-      objectReference: {fileID: 0}
     - target: {fileID: 4892984220854567213, guid: db2d24f0155063949920247efaa4ba24,
         type: 3}
       propertyPath: lookAt
@@ -1203,80 +1125,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5497437820320714938, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_text
-      value: Buy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5497437820320714938, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 35.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.b
-      value: 0.0039215684
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_NormalColor.r
-      value: 0.071114466
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 0.24313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.6784314
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0.23137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 0.23978546
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.6754716
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287862845071033107, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0.22813092
-      objectReference: {fileID: 0}
-    - target: {fileID: 7348307459030515426, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7984021931109114879, guid: db2d24f0155063949920247efaa4ba24,
         type: 3}
       propertyPath: m_Name
       value: Canvas TD
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7348307459030515426, guid: db2d24f0155063949920247efaa4ba24, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5809638390747880340, guid: db2d24f0155063949920247efaa4ba24,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 15033338}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db2d24f0155063949920247efaa4ba24, type: 3}
 --- !u!1 &1072218928
 GameObject:
