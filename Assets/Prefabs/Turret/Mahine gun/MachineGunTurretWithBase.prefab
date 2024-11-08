@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6099774483811193876}
   m_Layer: 0
-  m_Name: MachineGunTurretVisual
+  m_Name: MachineGunTurretWithBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5620766173405323944}
   - component: {fileID: 2890615167412877925}
   - component: {fileID: 7371108467090998693}
+  - component: {fileID: 4827745261707285546}
   m_Layer: 0
   m_Name: Area
   m_TagString: Untagged
@@ -117,6 +118,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4827745261707285546
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483575331297531890}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8651916458286299557
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,18 +322,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3368907223876294349, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 6901708062827654303, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 4201948606389178977, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 7625901733861165075, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 5184077087024952087, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 543358696302419122, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 6283766599003305963, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 228355613904715329, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 8072109402101075438, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 3936856862832045169, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
-    - {fileID: 6132881005192823298, guid: bff50485d2d3d2d4ab66f56f1ba0329b, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

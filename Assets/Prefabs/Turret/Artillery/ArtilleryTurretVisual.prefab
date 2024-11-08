@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 1558184585776704140}
   - component: {fileID: 2352288550605822803}
   - component: {fileID: 2820661536243072795}
-  - component: {fileID: 811312344626888959}
   m_Layer: 0
   m_Name: Area
   m_TagString: Untagged
@@ -190,27 +189,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &811312344626888959
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3829066084254890989}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5633137568306636622
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 5633137568306636622}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.894784, y: 0, z: -16.234201}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -327,7 +305,9 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6132704142343936341, guid: dee5c8c75a665e5428c1e4bace930f98, type: 3}
+    - {fileID: 6079602803612759756, guid: dee5c8c75a665e5428c1e4bace930f98, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

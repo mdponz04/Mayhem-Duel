@@ -9,9 +9,11 @@ namespace Assets.Scripts.TheCastle
 {
     public class PlacedObject_Done : MonoBehaviour
     {
-        public static PlacedObject_Done Create(Vector3 worldPosition, PlacedObjectTypeSO placedObjectTypeSO)
+        public static PlacedObject_Done Create(Vector3 worldPosition, PlacedObjectTypeSO placedObjectTypeSO, Vector3 objectScalling)
         {
             Transform placedObjectTransform = Instantiate(placedObjectTypeSO.prefab, worldPosition, Quaternion.identity);
+
+            placedObjectTransform.localScale = objectScalling;
 
             PlacedObject_Done placedObject = placedObjectTransform.GetComponent<PlacedObject_Done>();
             placedObject.Setup(placedObjectTypeSO);

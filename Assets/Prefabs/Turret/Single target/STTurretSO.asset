@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: Single Target Turret
   prefab: {fileID: 2725992668144643484, guid: 4d54edc5e3ea51a4aaf3be15e032c6a2, type: 3}
+  visual: {fileID: 372624965063526686, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
   width: 1
   height: 1

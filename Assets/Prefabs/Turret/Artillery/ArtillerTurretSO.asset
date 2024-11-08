@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: Artillery Turret
   prefab: {fileID: 2154979907709803535, guid: d1b1a262706c3224ca7c0117b1091c92, type: 3}
+  visual: {fileID: 4123672060708789961, guid: 4207dd3823e90c44594c250225dd1de3, type: 3}
   width: 1
   height: 1

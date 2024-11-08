@@ -24,6 +24,7 @@ namespace TheCastle
 
         [Header("Turrets")]
         [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList = null;
+        [SerializeField] private Vector3 turretScalling = new Vector3(0.4f, 0.4f, 0.4f);
         private PlacedObjectTypeSO placedObjectTypeSO;
 
         [Header("Player")]
@@ -69,10 +70,11 @@ namespace TheCastle
 
                 if (canBuild)
                 {
-                    PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), placedObjectTypeSO);
+                    PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), placedObjectTypeSO, turretScalling);
 
                     placedGridCell.SetPlacedObject(placedObject);
-                } else
+                }
+                else
                 {
                     UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", playerPosition.position, 15, Color.red, playerPosition.position + new Vector3(0, 10), 1f);
                 }
@@ -82,10 +84,10 @@ namespace TheCastle
             if (Input.GetKeyDown(KeyCode.O))
             {
                 var clearedGridCell = GetXZ(playerPosition.position, out int x, out int z);
-                if(clearedGridCell != null)
+                if (clearedGridCell != null)
                 {
                     PlacedObject_Done placedObject = clearedGridCell.GetPlacedObject();
-                    if(placedObject != null)
+                    if (placedObject != null)
                     {
                         placedObject.DestroySelf();
 
@@ -140,6 +142,19 @@ namespace TheCastle
 
             }
         }
+
+        public Vector3 GetWorldSnappedPosition(Vector3 worldPosition)
+        {
+            Vector3 snappedPosition = worldPosition;
+            var gridCell = GetXZ(snappedPosition, out int x, out int z);
+            if(gridCell.CanBuild())
+            {
+                snappedPosition = GetWorldPosition(x, z);
+            }
+
+            return snappedPosition;
+        }
+
         //return the x, y of the cell and the value of the cell
         private GridCell GetXZ(Vector3 worldPosition, out int x, out int z)
         {
@@ -176,10 +191,37 @@ namespace TheCastle
             OnGridObjectChange?.Invoke(this, new OnGridObjectChangeEventArgs { x = x, z = z });
         }
 
+        public void GridObjectPlace(Vector3 placePosition, PlacedObjectTypeSO objectToPlace)
+        {
+            var placedGridCell = GetXZ(placePosition, out int x, out int z);
+
+            bool canBuild = true;
+            if (placedGridCell == null || !placedGridCell.CanBuild())
+            {
+                canBuild = false;
+            }
+
+            if (canBuild)
+            {
+                PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), objectToPlace, turretScalling);
+                placedGridCell.SetPlacedObject(placedObject);
+            }
+            else
+            {
+                UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", playerPosition.position, 15, Color.red, playerPosition.position + new Vector3(0, 10), 1f);
+            }
+        }
+
         public Vector3 GetWorldPosition(int x, int z)
         {
             return grid[x, z].gridCenterPosition + cubeTop;
         }
+
+        public PlacedObjectTypeSO GetPlacedObjectTypeSO()
+        {
+            return placedObjectTypeSO;
+        }
+
         //Debug draw cannot use like UI
         private void OnDrawGizmos()
         {
