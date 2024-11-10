@@ -60,7 +60,7 @@ namespace TheCastle
             //place holder input
             if (Input.GetKeyDown(KeyCode.P) && placedObjectTypeSO != null)
             {
-                var placedGridCell = GetXZ(playerPosition.position, out int x, out int z);
+                GridCell placedGridCell = GetXZ(playerPosition.position, out int x, out int z);
 
                 bool canBuild = true;
                 if (placedGridCell == null || !placedGridCell.CanBuild())
@@ -76,7 +76,7 @@ namespace TheCastle
                 }
                 else
                 {
-                    UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", playerPosition.position, 15, Color.red, playerPosition.position + new Vector3(0, 10), 1f);
+                    UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition  + new Vector3(0, 10), 1f);
                 }
             }
 
@@ -193,7 +193,7 @@ namespace TheCastle
 
         public void GridObjectPlace(Vector3 placePosition, PlacedObjectTypeSO objectToPlace)
         {
-            var placedGridCell = GetXZ(placePosition, out int x, out int z);
+            GridCell placedGridCell = GetXZ(placePosition, out int x, out int z);
 
             bool canBuild = true;
             if (placedGridCell == null || !placedGridCell.CanBuild())
@@ -208,7 +208,8 @@ namespace TheCastle
             }
             else
             {
-                UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", playerPosition.position, 15, Color.red, playerPosition.position + new Vector3(0, 10), 1f);
+                Vector3 gridCellGlobalPosition = GetWorldPosition(x, z);
+                UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", gridCellGlobalPosition, 15, Color.red, gridCellGlobalPosition + new Vector3(0, 10), 1f);
             }
         }
 

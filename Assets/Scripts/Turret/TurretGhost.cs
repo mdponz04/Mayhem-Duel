@@ -20,6 +20,10 @@ public class TurretGhost : MonoBehaviour
     [SerializeField] private Vector3 ghostScalling = new Vector3(0.3f, 0.3f, 0.3f);
     [SerializeField] private int layerToGhost;
 
+    [Header("Item")]
+    [SerializeField] private bool isDestroyAfterUse = false;
+
+
     private Vector3 direction;
     private LineRenderer lineRender;
     private Transform visual;
@@ -67,6 +71,18 @@ public class TurretGhost : MonoBehaviour
         if (rayHit.collider != null && objectToPlace != null)
         {
             GridSystem.Instance.GridObjectPlace(rayHit.point, objectToPlace);
+            if (isDestroyAfterUse)
+            {
+                DestroyItem();
+            }
+        }
+    }
+
+    public void DestroyItem()
+    {
+        if(gameObject != null)
+        {
+            Destroy(gameObject, Time.deltaTime);
         }
     }
 
