@@ -4,6 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour
 {
+    #region Serialized Field
+
+    [SerializeField] private GameObject AkPrefab;
+    [SerializeField] private GameObject BarretPrefab;
+    [SerializeField] private GameObject ColtPrefab;
+    [SerializeField] private GameObject GatlingPrefab;
+    [SerializeField] private GameObject HandgunPrefab;
+    [SerializeField] private GameObject ShotgunPrefab;
+    [SerializeField] private GameObject SMAWPrefab;
+    [SerializeField] private GameObject UziPrefab;
+    [SerializeField] private Transform SpawnPosition;
+
+    #endregion
     public void OnPlayButtonClick()
     {
         // Add the Scene you'd like to load in File --> Build Setting
@@ -21,5 +34,46 @@ public class ButtonScript : MonoBehaviour
     public void OnReturnButtonClick()
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    // Test Spawn
+    public void SpawnAK()
+    {
+        Instantiate(AkPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnBarret()
+    {
+        Instantiate(BarretPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+    
+    public void SpawnColt()
+    {
+        Instantiate(ColtPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnGatling()
+    {
+        Instantiate(GatlingPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnHandgun()
+    {
+        Instantiate(HandgunPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnShotgun()
+    {
+        Instantiate(ShotgunPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnSMAW()
+    {
+        Instantiate(SMAWPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+    }
+
+    public void SpawnUzi()
+    {
+        Instantiate(UziPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
     }
 }
