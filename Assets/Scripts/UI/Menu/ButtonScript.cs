@@ -39,41 +39,76 @@ public class ButtonScript : MonoBehaviour
     // Test Spawn
     public void SpawnAK()
     {
-        Instantiate(AkPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfAK, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfAKMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
+        
     }
 
     public void SpawnBarret()
     {
-        Instantiate(BarretPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfBarret, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfBarretMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
     
     public void SpawnColt()
     {
-        Instantiate(ColtPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfColt, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfColtMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnGatling()
     {
-        Instantiate(GatlingPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfGatling, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfGatlingMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnHandgun()
     {
-        Instantiate(HandgunPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfHandgun, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfHandgunMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnShotgun()
     {
-        Instantiate(ShotgunPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfShotgun, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfShotgunMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnSMAW()
     {
-        Instantiate(SMAWPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        Instantiate(GameAssets.i.pfSMAW, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfSMAWMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnUzi()
     {
-        Instantiate(UziPrefab, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+       Instantiate(GameAssets.i.pfUzi, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
+        for(int i = 0; i < 2; i++)
+        {
+            Instantiate(GameAssets.i.pfUziMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
+
+
 }

@@ -48,3 +48,30 @@ MonoBehaviour:
     type: 3}
   pfRocket: {fileID: 5992700969941577839, guid: 7274e0148a03f35498ffa64ca8a1daa7,
     type: 3}
+  pfAK: {fileID: 701429804668999968, guid: e4df31d91253ee54ca8006a3a2c163d1, type: 3}
+  pfBarret: {fileID: 8427418690869956388, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
+    type: 3}
+  pfColt: {fileID: 3701006454006875655, guid: a7363d2833ce3bd49a449a99113f0cf0, type: 3}
+  pfGatling: {fileID: 4716340227343243481, guid: 58bedcae6f0d9594ea0719faec657242,
+    type: 3}
+  pfHandgun: {fileID: 4536140889807842768, guid: 94dc6569e0dc17c4ba2781122ca8ec94,
+    type: 3}
+  pfShotgun: {fileID: 7784433595568733556, guid: 4aebc8572614ad54bafba66019f9118d,
+    type: 3}
+  pfSMAW: {fileID: 5070060778268776150, guid: fab3d1ce92d6e69469aed5351a62805e, type: 3}
+  pfUzi: {fileID: 4536140889807842768, guid: 94dc6569e0dc17c4ba2781122ca8ec94, type: 3}
+  pfAKMag: {fileID: 6058391567988038135, guid: bfb134f96c115274a96d9e345f5c629a, type: 3}
+  pfBarretMag: {fileID: 8918639194575398061, guid: 0c73520f4ce8ade4fa39a5b1080d5d2a,
+    type: 3}
+  pfColtMag: {fileID: 1392930512692500972, guid: 73f20077626b1694ba60ae15199f05bd,
+    type: 3}
+  pfGatlingMag: {fileID: 5724326938976953645, guid: 96461e2e73d10f541b00ac81dd3f9f58,
+    type: 3}
+  pfHandgunMag: {fileID: 3382601041623099450, guid: 1c219763460239949ae32a67d4e2aba5,
+    type: 3}
+  pfShotgunMag: {fileID: 6058391567988038135, guid: bfb134f96c115274a96d9e345f5c629a,
+    type: 3}
+  pfSMAWMag: {fileID: 9057195967242738844, guid: 9c71d891f5fec1f41a05553397477dcf,
+    type: 3}
+  pfUziMag: {fileID: 6058391567988038135, guid: bfb134f96c115274a96d9e345f5c629a,
+    type: 3}
