@@ -76,7 +76,7 @@ namespace TheCastle
                 }
                 else
                 {
-                    UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition  + new Vector3(0, 10), 1f);
+                    UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition + new Vector3(0, 10), 1f);
                 }
             }
 
@@ -143,13 +143,19 @@ namespace TheCastle
             }
         }
 
-        public Vector3 GetWorldSnappedPosition(Vector3 worldPosition)
+        public Vector3 GetWorldSnappedPosition(Vector3 worldPosition, out bool validPosition)
         {
+            validPosition = false;
             Vector3 snappedPosition = worldPosition;
-            var gridCell = GetXZ(snappedPosition, out int x, out int z);
-            if(gridCell.CanBuild())
+            var gridCell = GetXZ(worldPosition, out int x, out int z);
+            Debug.Log($"X:{x}, Z:{z}");
+            if (gridCell != null)
             {
-                snappedPosition = GetWorldPosition(x, z);
+                if (gridCell.CanBuild())
+                {
+                    snappedPosition = GetWorldPosition(x, z);
+                    validPosition = true;
+                }
             }
 
             return snappedPosition;

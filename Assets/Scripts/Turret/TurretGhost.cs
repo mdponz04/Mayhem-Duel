@@ -35,9 +35,6 @@ public class TurretGhost : MonoBehaviour
 
     private void Update()
     {
-        #region Debug
-        lineRender.enabled = isRayActive;
-        #endregion
 
         if (isRayActive)
         {
@@ -45,10 +42,13 @@ public class TurretGhost : MonoBehaviour
             RaycastHit rayHit = FireRay();
             if (rayHit.collider != null)
             {
-                Vector3 ghostPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point);
-                TurnOnVisual(ghostPosition);
-                MoveVisual(ghostPosition);
+                Vector3 ghostPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
+                if (validPosition)
+                {
+                    TurnOnVisual(ghostPosition);
+                    MoveVisual(ghostPosition);
 
+                }
             }
             else
             {
@@ -70,17 +70,22 @@ public class TurretGhost : MonoBehaviour
         RaycastHit rayHit = FireRay();
         if (rayHit.collider != null && objectToPlace != null)
         {
-            GridSystem.Instance.GridObjectPlace(rayHit.point, objectToPlace);
-            if (isDestroyAfterUse)
+            Vector3 snappedPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
+            if (validPosition)
             {
-                DestroyItem();
+                GridSystem.Instance.GridObjectPlace(snappedPosition, objectToPlace);
+
+                if (isDestroyAfterUse)
+                {
+                    DestroyItem();
+                }
             }
         }
     }
 
     public void DestroyItem()
     {
-        if(gameObject != null)
+        if (gameObject != null)
         {
             Destroy(gameObject, Time.deltaTime);
         }
@@ -89,7 +94,7 @@ public class TurretGhost : MonoBehaviour
     #region Handle Visual
     private void TurnOnVisual(Vector3 visualPosition)
     {
-        if(visualPosition == null)
+        if (visualPosition == Vector3.positiveInfinity)
         {
             return;
         }
@@ -112,11 +117,11 @@ public class TurretGhost : MonoBehaviour
             Destroy(visual.gameObject);
             visual = null;
         }
-    } 
+    }
 
     private void MoveVisual(Vector3 targetPosition)
     {
-        if (targetPosition == null)
+        if (targetPosition == Vector3.positiveInfinity)
         {
             return;
         }
@@ -160,8 +165,8 @@ public class TurretGhost : MonoBehaviour
 
     private void DrawRayLine(Vector3 endPosition)
     {
-            lineRender.SetPosition(0, rayOrigin.position);
-            lineRender.SetPosition(1, endPosition);
+        lineRender.SetPosition(0, rayOrigin.position);
+        lineRender.SetPosition(1, endPosition);
     }
     #endregion
 
@@ -173,6 +178,6 @@ public class TurretGhost : MonoBehaviour
         {
             SetLayerRecursive(child.gameObject, layer);
         }
-    } 
+    }
     #endregion
 }

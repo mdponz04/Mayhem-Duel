@@ -3,6 +3,7 @@ using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TheDamage;
 using UnityEngine;
 
 [System.Serializable]
@@ -67,7 +68,7 @@ public class TurretUpgrade
 
     public int maximunTierIndex { get { return availableTiers.Length - 1; } }
 
-    public TurretTier currentTier { get { return  availableTiers[currentTierIndex]; } }
+    public TurretTier currentTier { get { return availableTiers[currentTierIndex]; } }
 }
 
 [System.Serializable]
@@ -79,6 +80,8 @@ public class TurretMeshes
 [RequireComponent(typeof(AudioSource))]
 public class TurretBase : MonoBehaviour
 {
+    public bool isDebug = false;
+
 
     [Space(5)]
     [Header("Mesh control")]
@@ -89,6 +92,8 @@ public class TurretBase : MonoBehaviour
     public TurretFX VFX;
     public TurretAudio SFX;
     public TurretUpgrade upgrade;
+
+    //private DamageDealer damageDealer;
 
     private void Awake()
     {
@@ -243,7 +248,7 @@ public class TurretBase : MonoBehaviour
     protected bool CheckLayer(Collider toMatch)
     {
         bool match = false;
-        if(UtilsClass.IsLayerInLayerMask(toMatch.gameObject.layer, targeting.layersToFire))
+        if (UtilsClass.IsLayerInLayerMask(toMatch.gameObject.layer, targeting.layersToFire))
         {
             match = true;
         }
@@ -322,7 +327,7 @@ public class TurretBase : MonoBehaviour
 
     public virtual void TierChange()
     {
-        if(upgrade.maximunTierIndex <= 0)
+        if (upgrade.maximunTierIndex <= 0)
         {
             return;
         }
@@ -333,12 +338,12 @@ public class TurretBase : MonoBehaviour
 
         if (upgrade.currentTier.TierMaterial != null)
         {
-            for( int i = 0; i < turretPart.Length; i++)
+            for (int i = 0; i < turretPart.Length; i++)
             {
-                for ( int j = 0; j < turretPart[i].meshes.Length; j++)
+                for (int j = 0; j < turretPart[i].meshes.Length; j++)
                 {
                     var material = upgrade.currentTier.TierMaterial[i];
-                    if(material != null)
+                    if (material != null)
                     {
                         turretPart[i].meshes[j].material = material;
                     }
@@ -382,7 +387,7 @@ public class TurretBase : MonoBehaviour
     protected void RotateTurretHeadByDegree(Transform turretHead, float degreeX, float degreeY, float degreeZ, float rotationDamping, float turretHeadOffset)
     {
         var rotation = turretHead.rotation;
-        rotation *= Quaternion.Euler(degreeX, degreeY, degreeZ);  
+        rotation *= Quaternion.Euler(degreeX, degreeY, degreeZ);
 
         turretHead.rotation = Quaternion.Lerp(turretHead.rotation, rotation, Time.deltaTime * rotationDamping);
     }
@@ -391,10 +396,15 @@ public class TurretBase : MonoBehaviour
     #region Do damage
     protected void DoDamage(GameObject target, float damage)
     {
-        IEnemy enemy = UtilsClass.GetInterfaceComponent<IEnemy>(target);
-        if( enemy != null)
+        Vulnerable damageable = target.GetComponent<Vulnerable>();
+
+        if (damageable != null)
         {
-            enemy.TakeDamage(damage);
+            damageable.TakeDamge(damage);
+            if (isDebug)
+            {
+                UtilsClass.CreateWorldTextPopup(damage.ToString(), target.transform.position);
+            }
         }
     }
     #endregion

@@ -1,6 +1,7 @@
 using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using TheDamage;
 using UnityEngine;
 
 public class ArtilleryProjectile : MonoBehaviour
@@ -11,14 +12,14 @@ public class ArtilleryProjectile : MonoBehaviour
     [SerializeField] protected bool isAoe;
     [SerializeField] protected float damageRadious;
     [SerializeField] protected LayerMask layerToDamage;
-
+    public bool isDebug = false;
     protected float speed;
     protected Transform target;
 
     protected Rigidbody rb;
     private void FixedUpdate()
     {
-        Homing();   
+        Homing();
     }
 
     public void SetUp(Transform direction, float speed)
@@ -38,9 +39,9 @@ public class ArtilleryProjectile : MonoBehaviour
     {
         if (rb == null || target == null) { return; }
 
-        if(rb.velocity.y <= 0)
+        if (rb.velocity.y <= 0)
         {
-           
+
             var targetXZ = new Vector3(target.transform.position.x, gameObject.transform.position.y, target.transform.position.z);
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetXZ, homingSpeed * Time.deltaTime);
         }
@@ -48,7 +49,7 @@ public class ArtilleryProjectile : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if( UtilsClass.IsLayerInLayerMask(collision.gameObject.layer, layerToDamage))
+        if (UtilsClass.IsLayerInLayerMask(collision.gameObject.layer, layerToDamage))
         {
             Explode();
         }
@@ -61,10 +62,16 @@ public class ArtilleryProjectile : MonoBehaviour
         {
             foreach (var enemy in hit)
             {
-                var tempEnemy = UtilsClass.GetInterfaceComponent<IEnemy>(enemy.gameObject);
+                var tempEnemy = enemy.gameObject.GetComponent<Vulnerable>();
+                //var tempEnemy = UtilsClass.GetInterfaceComponent<IEnemy>(enemy.gameObject);
                 if (tempEnemy != null)
                 {
-                    tempEnemy.TakeDamage(damage);
+                    tempEnemy.TakeDamge(damage);
+                    if (isDebug)
+                    {
+                        UtilsClass.CreateWorldTextPopup(damage.ToString(), enemy.gameObject.transform.position);
+
+                    }
                 }
             }
         }

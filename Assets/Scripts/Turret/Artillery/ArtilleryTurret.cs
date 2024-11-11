@@ -45,7 +45,7 @@ public class ArtilleryTurret : TurretBase
     protected override void Shooting()
     {
         base.Shooting();
-        if (currentFireRateCoolDown <= 0)
+        if (currentFireRateCoolDown <= 0 && targeting.target != null)
         {
             Transform tempProjectile = Instantiate(pfProjectile, muzzlePosition.position, Quaternion.LookRotation(muzzlePosition.transform.forward, Vector3.up));
 
