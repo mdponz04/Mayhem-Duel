@@ -545,7 +545,7 @@ MonoBehaviour:
   isAuto: 1
   interactor: {fileID: 0}
   barrel: {fileID: 746685349736301779}
-  gunShotSound: {fileID: 8300000, guid: 3c5e590db8c75134d9d2f80bca26f448, type: 3}
+  gunShotSound: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 7efe4e0446424364eb128730253a1f7c, type: 3}
   reloadClipSound: {fileID: 8300000, guid: 15a14c747ccdc4b479bb282da4d78edb, type: 3}
   magAttachPoint: {fileID: 6631113624684959290}
