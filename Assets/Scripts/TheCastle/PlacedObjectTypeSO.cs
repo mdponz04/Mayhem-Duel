@@ -12,6 +12,7 @@ namespace Assets.Scripts.TheCastle
     {
         public string nameString;
         public Transform prefab;
+        public Transform visual;
         public int width;
         public int height;
     }

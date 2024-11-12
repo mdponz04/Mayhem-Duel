@@ -15,4 +15,20 @@ public class GameAssets : MonoBehaviour
 
     public Transform pfBullet;
     public Transform pfRocket;
+    public Transform pfAK;
+    public Transform pfBarret;
+    public Transform pfColt;
+    public Transform pfGatling;
+    public Transform pfHandgun;
+    public Transform pfShotgun;
+    public Transform pfSMAW;
+    public Transform pfUzi;
+    public Transform pfAKMag;
+    public Transform pfBarretMag;
+    public Transform pfColtMag;
+    public Transform pfGatlingMag;
+    public Transform pfHandgunMag;
+    public Transform pfShotgunMag;
+    public Transform pfSMAWMag;
+    public Transform pfUziMag;
 }

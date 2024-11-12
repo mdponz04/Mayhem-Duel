@@ -10,6 +10,8 @@ public class Menus : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private GameObject weaponMenu;
+
     [SerializeField] private TextMeshProUGUI gameOverMessage;
 
     [SerializeField] private InputActionProperty vrLeftPauseButton;
@@ -47,11 +49,12 @@ public class Menus : MonoBehaviour
                 Pause();
             }
         }
-        //// Activate Menu when "1" is pressed by keyboard
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    pauseMenu.SetActive(!pauseMenu.activeSelf);
-        //}
+
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            weaponMenu.SetActive(!weaponMenu.activeSelf);
+        }
 
     }
 

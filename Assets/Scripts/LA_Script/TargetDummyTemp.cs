@@ -23,7 +23,7 @@ public class TargetDummyTemp : MonoBehaviour, IEnemy
         }
 
         HP -= damage;
-        UtilsClass.CreateWorldTextPopup(damage.ToString(), gameObject.transform.localPosition);
+        UtilsClass.CreateWorldTextPopup(damage.ToString(), gameObject.transform.position);
 
         if(HP <= 0)
         {

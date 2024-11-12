@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameString: Machine Gun Turret
   prefab: {fileID: 4553182718501738854, guid: 38d4d3fb7578bd04a91f61e0caadf264, type: 3}
-  visual: {fileID: 6099774483811193876, guid: 6d34a3d710878ad4185c9e4fee77a340, type: 3}
+  visual: {fileID: 6099774483811193876, guid: 95ac78519b303f1459eaaf3cf4690673, type: 3}
   width: 1
   height: 1
