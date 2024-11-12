@@ -2,20 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMenu : MonoBehaviour
+public class WeaponSpawner : MonoBehaviour
 {
     #region Serialized Field
-
-    [SerializeField] private GameObject AkPrefab;
-    [SerializeField] private GameObject BarretPrefab;
-    [SerializeField] private GameObject ColtPrefab;
-    [SerializeField] private GameObject GatlingPrefab;
-    [SerializeField] private GameObject HandgunPrefab;
-    [SerializeField] private GameObject ShotgunPrefab;
-    [SerializeField] private GameObject SMAWPrefab;
-    [SerializeField] private GameObject UziPrefab;
     [SerializeField] private Transform SpawnPosition;
-
     #endregion
 
     public void SpawnAK()
