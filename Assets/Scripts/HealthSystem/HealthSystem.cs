@@ -31,7 +31,7 @@ namespace TheHealth
                 currentHealth = 0;
                 Die();
             }
-            OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { currentHealth = currentHealth});
+            OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs {currentHealth = currentHealth});
             Debug.Log("Remaining health = " + currentHealth);
         }
 

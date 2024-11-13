@@ -46,6 +46,11 @@ namespace TheEnemy
                 agent.isStopped = true;
             }
         }
+        public void StopMovingInstantly()
+        {
+            agent.speed = 0f;
+            agent.isStopped = true;
+        }
         public void ResumeMoving()
         {
             if(Time.time > nextTimeResumeMoving)
@@ -56,7 +61,11 @@ namespace TheEnemy
             nextTimeResumeMoving = Time.time + resumeMovingCooldown;
         }
 
-        public bool IsMoving() => !agent.isStopped;
+        public bool IsMoving()
+        {
+            if (agent == null) return false;
+            return !agent.isStopped;
+        }
     }
 }
 

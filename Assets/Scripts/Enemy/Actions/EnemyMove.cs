@@ -52,6 +52,11 @@ namespace TheEnemy
             float distanceToClosestPoint = Vector3.Distance(currentTransform.position, closestPointOnOther);
             return distanceToClosestPoint - myColliderRadius;
         }
-        public bool IsMoving() => pathfinding.IsMoving();
+        public void StopMovingInstantly() => pathfinding.StopMovingInstantly();
+        public bool IsMoving()
+        {
+            if (pathfinding == null) return false;
+            return pathfinding.IsMoving();
+        } 
     }
 }
