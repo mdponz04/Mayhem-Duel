@@ -10,6 +10,7 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     public EnemyAttack enemyAttack { get; private set; }
     public EnemyMove enemyMove { get; private set; }
     public EnemyVisual enemyVisual { get; private set; }
+    public EnemyVFX enemyVFX { get; private set; }
     public LayerMask layerMask { get; set; }
     public float maxHealth { get; set; }
     public float attackDamage { get; set; }
@@ -28,8 +29,9 @@ public class EnemyBase : MonoBehaviour, IDamageSource
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetUp(maxHealth);
         enemyVisual = GetComponentInChildren<EnemyVisual>();
+        enemyVFX = GetComponentInChildren<EnemyVFX>();
         enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
-        healthSystem.OnHealthChange += HealthSystem_OnHealthChange;
+        healthSystem.OnHealthChange += HealthSystem_OnBeHit;
         healthSystem.OnDeath += HealthSystem_OnDeath;
     }
 
@@ -45,9 +47,10 @@ public class EnemyBase : MonoBehaviour, IDamageSource
         Destroy(this.gameObject);
     }
 
-    private void HealthSystem_OnHealthChange(object sender, System.EventArgs e)
+    private void HealthSystem_OnBeHit(object sender, System.EventArgs e)
     {
         enemyVisual.TriggerHit();
+        enemyVFX.PlayBloodBurstEffect();
     }
 
     private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
