@@ -53,6 +53,10 @@ namespace TheEnemy
             return distanceToClosestPoint - myColliderRadius;
         }
         public void StopMovingInstantly() => pathfinding.StopMovingInstantly();
-        public bool IsMoving() => pathfinding.IsMoving();
+        public bool IsMoving()
+        {
+            if (pathfinding == null) return false;
+            return pathfinding.IsMoving();
+        } 
     }
 }

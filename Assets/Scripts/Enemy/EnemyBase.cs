@@ -57,9 +57,15 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     protected void Update()
     {
         // Move and attack behavior handled per frame
-        enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
-        enemyVisual.HandleMoving(enemyMove.IsMoving());
-        enemyAttack.HandleAttack(transform.position);
+        if (enemyMove != null && enemyVisual != null)
+        {
+            enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
+            enemyVisual.HandleMoving(enemyMove.IsMoving());
+        }
+        if(enemyAttack != null)
+        {
+            enemyAttack.HandleAttack(transform.position);
+        }
     }
 
     //Chase player if player enters the aggro range
