@@ -10,7 +10,6 @@ public class Menus : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
-    [SerializeField] private GameObject weaponMenu;
 
     [SerializeField] private TextMeshProUGUI gameOverMessage;
 
@@ -48,12 +47,6 @@ public class Menus : MonoBehaviour
             {
                 Pause();
             }
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            weaponMenu.SetActive(!weaponMenu.activeSelf);
         }
 
     }

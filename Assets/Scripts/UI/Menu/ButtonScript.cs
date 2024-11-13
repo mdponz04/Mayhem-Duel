@@ -36,7 +36,6 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
-    // Test Spawn
     public void SpawnAK()
     {
         Instantiate(GameAssets.i.pfAK, SpawnPosition.position + new Vector3(0,1,0), Quaternion.identity);
