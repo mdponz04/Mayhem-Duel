@@ -35,6 +35,7 @@ public class EnemyBase : MonoBehaviour, IDamageSource
 
     private void HealthSystem_OnDeath(object sender, System.EventArgs e)
     {
+        enemyMove.StopMovingInstantly();
         enemyVisual.TriggerDied();
         StartCoroutine(DelayOnDeath());
     }
