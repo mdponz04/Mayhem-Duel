@@ -13,6 +13,11 @@ public class LeverInteractable : XRSimpleInteractable
         rifle = GetComponentInParent<Rifle>();
     }
 
+    protected void Start()
+    {
+        rifle = GetComponentInParent<Rifle>();
+    }
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);

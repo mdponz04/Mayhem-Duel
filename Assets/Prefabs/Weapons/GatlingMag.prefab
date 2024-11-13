@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31af7fe9ca34ce4499cc713b55f59d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 10
+  maxAmmo: 100
   attachedGun: {fileID: 0}
 --- !u!54 &3977113445118929216
 Rigidbody:

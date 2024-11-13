@@ -1554,8 +1554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5112f7f70e3b4989df6fb51604ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1943270179}
-  _collider: {fileID: 0}
 --- !u!1001 &1165255517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2060,8 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5112f7f70e3b4989df6fb51604ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1943270179}
-  _collider: {fileID: 0}
 --- !u!1 &1498382795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2510,18 +2506,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7463214766745354548}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2139635348 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2297459263835615111, guid: bfb134f96c115274a96d9e345f5c629a,
-    type: 3}
-  m_PrefabInstance: {fileID: 2292578756740673900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31af7fe9ca34ce4499cc713b55f59d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &28336646969804113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3678,36 +3662,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK_47
       objectReference: {fileID: 0}
-    - target: {fileID: 5011276008630473124, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1224137848}
-    - target: {fileID: 5011276008630473124, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1224137848}
-    - target: {fileID: 5011276008630473124, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TriggerPress
-      objectReference: {fileID: 0}
-    - target: {fileID: 5011276008630473124, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: m_Deactivated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: TriggerRelease
-      objectReference: {fileID: 0}
-    - target: {fileID: 8198637125107346658, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: currentMag
-      value: 
-      objectReference: {fileID: 2139635348}
-    - target: {fileID: 9088487504186473439, guid: e4df31d91253ee54ca8006a3a2c163d1,
-        type: 3}
-      propertyPath: currentMag
-      value: 
-      objectReference: {fileID: 2139635348}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
