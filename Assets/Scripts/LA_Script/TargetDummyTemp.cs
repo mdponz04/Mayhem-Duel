@@ -1,9 +1,10 @@
 using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using TheDamage;
 using UnityEngine;
 
-public class TargetDummyTemp : MonoBehaviour, IEnemy 
+public class TargetDummyTemp : Vulnerable
 {
     public float HP = 10f;
     public float DestroyDuration = 2f;
@@ -14,9 +15,8 @@ public class TargetDummyTemp : MonoBehaviour, IEnemy
         return transform.position;
     }
 
-    public virtual void TakeDamage(float damage)
+    public override void TakeDamge(float damage)
     {
-        //Debug.Log("I take damage");
         if (isDead)
         {
             return;
@@ -31,18 +31,6 @@ public class TargetDummyTemp : MonoBehaviour, IEnemy
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    public virtual void Update()
-    {
-        
-    }
-
     void Dead()
     {
         isDead = true;
@@ -55,8 +43,5 @@ public class TargetDummyTemp : MonoBehaviour, IEnemy
     {
         return gameObject;
     }
-    //private void OnParticleCollision(GameObject other)
-    //{
-    //    TakeDamage(1);
-    //}
+
 }

@@ -334,7 +334,6 @@ public class TurretBase : MonoBehaviour
         parameters.FireRate = upgrade.currentTier.FireRate;
         parameters.fireRangeRadius = upgrade.currentTier.FireRange;
         parameters.damage = upgrade.currentTier.Damage;
-        //barrelRotationSpeed = fireRate / 3 * 360;
 
         if (upgrade.currentTier.TierMaterial != null)
         {

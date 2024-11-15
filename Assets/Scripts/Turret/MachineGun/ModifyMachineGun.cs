@@ -22,6 +22,7 @@ public class ModifyMachineGun : TurretBase
     [SerializeField] ParticleSystem muzzelFlash;
     [SerializeField] ParticleSystem bulletShell;
     [SerializeField] ParticleSystem bulletTraser;
+    [SerializeField] ParticleSystem bulletImpact;
     List<ParticleCollisionEvent> bulletCollisionEvent;
 
     float barrelRotationSpeed;
@@ -40,6 +41,9 @@ public class ModifyMachineGun : TurretBase
         while (i < numberOfCollisionEvent)
         {
             DoDamage(bulletCollisionEvent[i].colliderComponent.gameObject, parameters.damage);
+            Vector3 pos = bulletCollisionEvent[i].intersection;
+            ParticleSystem vfx = Instantiate(bulletImpact, pos, Quaternion.identity);
+            vfx.transform.parent = gameObject.transform;
             i++;
         }
     }
@@ -98,6 +102,7 @@ public class ModifyMachineGun : TurretBase
     public override void TierChange()
     {
         base.TierChange();
+        barrelRotationSpeed = parameters.FireRate / 3 * 360;
 
         var emission = muzzelFlash.emission;
         emission.rateOverTime = parameters.FireRate;

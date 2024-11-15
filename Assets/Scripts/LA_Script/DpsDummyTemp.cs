@@ -16,10 +16,6 @@ public class DpsDummyTemp : TargetDummyTemp
         UtilsClass.CreateWorldTextUpdater(GetDpsText, transform.position);
     }
 
-    // Update is called once per frame
-    public override void Update()
-    {
-    }
     private void FixedUpdate()
     {
         currentTimeInterval -= Time.deltaTime;
@@ -31,9 +27,9 @@ public class DpsDummyTemp : TargetDummyTemp
         }
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamge(float damage)
     {
-        base.TakeDamage(damage);
+        base.TakeDamge(damage);
         damageInTimeInterval += damage;
     }
 
