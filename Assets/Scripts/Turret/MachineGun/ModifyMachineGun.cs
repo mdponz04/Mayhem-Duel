@@ -41,9 +41,7 @@ public class ModifyMachineGun : TurretBase
         while (i < numberOfCollisionEvent)
         {
             DoDamage(bulletCollisionEvent[i].colliderComponent.gameObject, parameters.damage);
-            Vector3 pos = bulletCollisionEvent[i].intersection;
-            ParticleSystem vfx = Instantiate(bulletImpact, pos, Quaternion.identity);
-            vfx.transform.parent = gameObject.transform;
+            BulletImpactFVX(bulletCollisionEvent[i].intersection, bulletImpact);            
             i++;
         }
     }
@@ -57,7 +55,7 @@ public class ModifyMachineGun : TurretBase
             {
                 muzzelFlash.Play();
             }
-            ShotFX();
+            ShotVFX();
         } else
         {
             // stop the particle system

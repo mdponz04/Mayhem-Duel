@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1438307273295983658}
   - component: {fileID: 8333994780934671822}
   - component: {fileID: 3602311807640224305}
+  - component: {fileID: 8211851017637399760}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -239,6 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bf4745e0bff984690828aebcecf02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 0
   turretPart:
   - meshes:
     - {fileID: 1296968028174286705}
@@ -275,6 +277,29 @@ MonoBehaviour:
     currentTierIndex: 0
   baseRotation: {fileID: 3815292981418091352}
   tracerBullet: {fileID: 1710555588468944181}
+  bulletImpact: {fileID: 928535968736720619, guid: 83bb4539e46e82d4bace6ab4a0935a55,
+    type: 3}
+--- !u!95 &8211851017637399760
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399872446952041856}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd989bb2668a44502a899b1c958733ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2252627425229605775
 GameObject:
   m_ObjectHideFlags: 0
@@ -5143,7 +5168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3202230513471131019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

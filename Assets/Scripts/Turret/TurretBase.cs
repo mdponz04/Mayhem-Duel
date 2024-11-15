@@ -144,12 +144,18 @@ public class TurretBase : MonoBehaviour
 
     #region Aiming and Shooting
 
-    protected virtual void ShotFX()
+    protected virtual void ShotVFX()
     {
 
         GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
         GameObject newShotFX = Instantiate(VFX.shotFX, VFX.muzzle);
         Destroy(newShotFX, 2);
+    }
+
+    protected virtual void BulletImpactFVX(Vector3 impactPosition, ParticleSystem impactVFX)
+    {
+        ParticleSystem vfx = Instantiate(impactVFX, impactPosition, Quaternion.identity);
+        //vfx.transform.parent = gameObject.transform;
     }
 
     protected virtual void Shooting()
