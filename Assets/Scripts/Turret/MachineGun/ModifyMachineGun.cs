@@ -22,7 +22,7 @@ public class ModifyMachineGun : TurretBase
     [SerializeField] ParticleSystem muzzelFlash;
     [SerializeField] ParticleSystem bulletShell;
     [SerializeField] ParticleSystem bulletTraser;
-    [SerializeField] ParticleSystem bulletImpact;
+    [SerializeField] Transform bulletImpact;
     List<ParticleCollisionEvent> bulletCollisionEvent;
 
     float barrelRotationSpeed;

@@ -277,7 +277,7 @@ MonoBehaviour:
     currentTierIndex: 0
   baseRotation: {fileID: 3815292981418091352}
   tracerBullet: {fileID: 1710555588468944181}
-  bulletImpact: {fileID: 928535968736720619, guid: 83bb4539e46e82d4bace6ab4a0935a55,
+  bulletImpact: {fileID: 9120302723592755316, guid: 83bb4539e46e82d4bace6ab4a0935a55,
     type: 3}
 --- !u!95 &8211851017637399760
 Animator:

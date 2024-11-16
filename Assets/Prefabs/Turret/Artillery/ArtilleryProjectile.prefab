@@ -105,8 +105,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.110961, y: 4.11095, z: 9.322172}
-  m_Center: {x: 0.015089992, y: 0.00000500679, z: -4.661086}
+  m_Size: {x: 1, y: 1, z: 8}
+  m_Center: {x: 0, y: 0, z: -4.661086}
 --- !u!54 &988530320138906815
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ Rigidbody:
   m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.1
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: 0, z: -6}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -149,7 +149,10 @@ MonoBehaviour:
   homingSpeed: 0.5
   damage: 10
   isAoe: 1
-  damageRadious: 5
+  damageRadious: 3
   layerToDamage:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
+  explosionVFX: {fileID: 2276913136618336534, guid: d9b00c43c77d24d4c9c66e97948285a0,
+    type: 3}
+  isDebug: 0

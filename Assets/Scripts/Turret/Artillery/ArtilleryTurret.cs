@@ -20,6 +20,14 @@ public class ArtilleryTurret : TurretBase
     protected float projectileSpeed;
     protected float currentFireRateCoolDown;
 
+    [Header("Animator")]
+    [SerializeField] Animator animator;
+
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+    }
 
     protected override void Aiming()
     {
@@ -47,11 +55,15 @@ public class ArtilleryTurret : TurretBase
         base.Shooting();
         if (currentFireRateCoolDown <= 0 && targeting.target != null)
         {
+            ShotVFX();
+
             Transform tempProjectile = Instantiate(pfProjectile, muzzlePosition.position, Quaternion.LookRotation(muzzlePosition.transform.forward, Vector3.up));
 
             ArtilleryProjectile artilleryProjectile = tempProjectile.GetComponent<ArtilleryProjectile>();
             artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.target.transform);
             currentFireRateCoolDown = parameters.FireCoolDown;
+
+                animator.SetTrigger("Shoot");
         }
         currentFireRateCoolDown -= Time.deltaTime;
     }
@@ -68,10 +80,13 @@ public class ArtilleryTurret : TurretBase
     protected float CalculateProjectileSpeed(float distantToTarget, float gravity, float fireAngleInDegree, float heightOffset)
     {
         //sin(2*alpha) = d*g/(v0)^2
+        //distantToTarget -= Mathf.Abs(heightOffset);
+        //distantToTarget *= 0.9f;
+
         float angleInRadian = Mathf.Abs(fireAngleInDegree) * Mathf.Deg2Rad;
         float speed = Mathf.Sqrt((distantToTarget * gravity) / (Mathf.Sin(2 * angleInRadian)));
 
-        speed -= Mathf.Sqrt(Mathf.Abs(heightOffset));
+        //speed -= Mathf.Sqrt(Mathf.Abs(heightOffset));
         return speed;
     }
 

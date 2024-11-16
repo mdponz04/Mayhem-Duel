@@ -152,9 +152,9 @@ public class TurretBase : MonoBehaviour
         Destroy(newShotFX, 2);
     }
 
-    protected virtual void BulletImpactFVX(Vector3 impactPosition, ParticleSystem impactVFX)
+    public static void BulletImpactFVX(Vector3 impactPosition, Transform impactVFX)
     {
-        ParticleSystem vfx = Instantiate(impactVFX, impactPosition, Quaternion.identity);
+        Transform vfx = Instantiate(impactVFX, impactPosition, Quaternion.identity);
         //vfx.transform.parent = gameObject.transform;
     }
 

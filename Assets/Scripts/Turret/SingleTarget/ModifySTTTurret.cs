@@ -9,7 +9,7 @@ public class ModifySTTTurret : TurretBase
     // Gameobjects need to control rotation and aiming
     [SerializeField] Transform baseRotation;
     [SerializeField] ParticleSystem tracerBullet;
-    [SerializeField] ParticleSystem bulletImpact;
+    [SerializeField] Transform bulletImpact;
 
     protected Animator animator;
 

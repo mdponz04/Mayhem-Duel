@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6920993629221347515}
   - component: {fileID: 3128537921907199446}
   - component: {fileID: 1110277406535067909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2352288550605822803}
   - component: {fileID: 2820661536243072795}
   - component: {fileID: 811312344626888959}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4123672060708789961}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArtilleryTurretWithBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
