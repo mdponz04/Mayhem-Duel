@@ -14,7 +14,7 @@ namespace TheDamage
             healthSystem = GetComponent<HealthSystem>();
         }
         
-        public void TakeDamge(float amount)
+        public virtual void TakeDamge(float amount)
         {
             healthSystem.TakeDamage(amount);
         }

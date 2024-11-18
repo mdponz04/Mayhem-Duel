@@ -12,6 +12,9 @@ public class ArtilleryProjectile : MonoBehaviour
     [SerializeField] protected bool isAoe;
     [SerializeField] protected float damageRadious;
     [SerializeField] protected LayerMask layerToDamage;
+
+    [Header("Explode VFX")]
+    [SerializeField] protected Transform explosionVFX;
     public bool isDebug = false;
     protected float speed;
     protected Transform target;
@@ -19,6 +22,7 @@ public class ArtilleryProjectile : MonoBehaviour
     protected Rigidbody rb;
     private void FixedUpdate()
     {
+        RotateTorwardVelocity();
         Homing();
     }
 
@@ -51,6 +55,7 @@ public class ArtilleryProjectile : MonoBehaviour
     {
         if (UtilsClass.IsLayerInLayerMask(collision.gameObject.layer, layerToDamage))
         {
+            TurretBase.BulletImpactFVX(transform.position, explosionVFX);
             Explode();
         }
     }
@@ -76,5 +81,12 @@ public class ArtilleryProjectile : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    private void RotateTorwardVelocity()
+    {
+        if(rb == null) { return; }
+        Vector3 dir = rb.velocity.normalized;
+        gameObject.transform.rotation = Quaternion.LookRotation(dir);
     }
 }

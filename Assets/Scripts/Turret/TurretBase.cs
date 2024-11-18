@@ -144,12 +144,18 @@ public class TurretBase : MonoBehaviour
 
     #region Aiming and Shooting
 
-    protected virtual void ShotFX()
+    protected virtual void ShotVFX()
     {
 
         GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
         GameObject newShotFX = Instantiate(VFX.shotFX, VFX.muzzle);
         Destroy(newShotFX, 2);
+    }
+
+    public static void BulletImpactFVX(Vector3 impactPosition, Transform impactVFX)
+    {
+        Transform vfx = Instantiate(impactVFX, impactPosition, Quaternion.identity);
+        //vfx.transform.parent = gameObject.transform;
     }
 
     protected virtual void Shooting()
@@ -334,7 +340,6 @@ public class TurretBase : MonoBehaviour
         parameters.FireRate = upgrade.currentTier.FireRate;
         parameters.fireRangeRadius = upgrade.currentTier.FireRange;
         parameters.damage = upgrade.currentTier.Damage;
-        //barrelRotationSpeed = fireRate / 3 * 360;
 
         if (upgrade.currentTier.TierMaterial != null)
         {

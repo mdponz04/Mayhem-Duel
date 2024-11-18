@@ -9,12 +9,20 @@ public class ModifySTTTurret : TurretBase
     // Gameobjects need to control rotation and aiming
     [SerializeField] Transform baseRotation;
     [SerializeField] ParticleSystem tracerBullet;
+    [SerializeField] Transform bulletImpact;
+
+    protected Animator animator;
+
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+    }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        bool debug = false;
-        if (debug)
+        if (isDebug)
         {
             Debug.DrawLine(VFX.muzzle.transform.position , VFX.muzzle.transform.forward * parameters.fireRangeRadius + VFX.muzzle.transform.position);
         }
@@ -31,10 +39,10 @@ public class ModifySTTTurret : TurretBase
 
     }
 
-    protected override void ShotFX()
+    protected override void ShotVFX()
     {
-        base.ShotFX();
-        tracerBullet.Play();
+        base.ShotVFX();
+        tracerBullet.Emit(1);
     }
 
     protected override void Shooting()
@@ -54,7 +62,9 @@ public class ModifySTTTurret : TurretBase
         {
             if (CheckTags(hit.collider) || CheckLayer(hit.collider))
             {
-                ShotFX();
+                animator.SetTrigger("Shot");
+                ShotVFX();
+                BulletImpactFVX(hit.point, bulletImpact);
                 DoDamage(hit.collider.gameObject, parameters.damage);
             }
 
