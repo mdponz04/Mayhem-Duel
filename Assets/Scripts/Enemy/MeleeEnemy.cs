@@ -18,6 +18,12 @@ namespace TheEnemy
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
             base.Start();
+            enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
+        }
+
+        private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
+        {
+            enemyVFX.PlayClawAttackEffect();
         }
 
         private void UpdateStats()

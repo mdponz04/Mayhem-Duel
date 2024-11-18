@@ -23,6 +23,7 @@ namespace TheEnemy
         private void EnemyAttack_OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             projectile.HandleShootingProjectile(e.targetPosition);
+            enemyVFX.PlaySphereProjectileEffect();
             /*Debug.Log("Shoot projectile to : " + e.targetPosition);*/
         }
 
