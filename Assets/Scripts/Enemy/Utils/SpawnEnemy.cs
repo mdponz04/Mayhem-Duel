@@ -8,7 +8,7 @@ namespace TheEnemy
     {
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
-        private float spawnInterval = 10f;
+        private float spawnInterval = 30f;
         private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
