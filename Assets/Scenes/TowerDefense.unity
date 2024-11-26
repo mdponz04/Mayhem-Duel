@@ -1890,6 +1890,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 78310380212925090, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2326225635135747032, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421450701792746104, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2457322447606023522, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1940,6 +1955,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2710434028857845465, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5536016755921339209, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
       propertyPath: m_Name
@@ -1950,10 +1970,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6852399833637369096, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7043412343444909813, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
         type: 3}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638198068320081838, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199107148202460688, guid: 0a42ba704d81d2f4e9a91934b9cf871b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

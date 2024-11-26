@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 6602050888847258157}
   - component: {fileID: 7352594123944420649}
   - component: {fileID: 5042834027394197468}
+  - component: {fileID: -6572628709777738666}
   m_Layer: 0
   m_Name: MachineTurretPlacer
   m_TagString: Untagged
@@ -611,6 +612,7 @@ MonoBehaviour:
   objectToPlace: {fileID: 11400000, guid: cb7b3b72567fdc84fbd9990297d54ffd, type: 2}
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
+  isDestroyAfterUse: 0
 --- !u!54 &7352594123944420649
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -826,6 +828,27 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-6572628709777738666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442810421550678480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2244035562
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!1 &1720654461558452463
 GameObject:
   m_ObjectHideFlags: 0

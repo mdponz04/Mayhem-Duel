@@ -15,6 +15,7 @@ public class ModifyMachineGun : TurretBase
     [SerializeField] Transform go_GunBody;
     [SerializeField] Transform go_barrel;
     [SerializeField] float barrleRotationDamping = 5f;
+    [SerializeField] float headAimOffSet = -0.5f;
 
     [Space(5)]
     [Header("Particle system")]
@@ -88,7 +89,7 @@ public class ModifyMachineGun : TurretBase
             // aim at enemy
             RotateTurretBaseTorwardTarget(go_baseRotation, targeting.target.transform, targeting.aimingSpeed);
 
-            RotateTurretHeadAimAtTarget(go_GunBody, targeting.target.transform, targeting.aimingSpeed, 0.5f);
+            RotateTurretHeadAimAtTarget(go_GunBody, targeting.target.transform, targeting.aimingSpeed, headAimOffSet);
         }
         else
         {

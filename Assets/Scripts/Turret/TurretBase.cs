@@ -1,15 +1,14 @@
-﻿using Assets.Scripts.Turret;
-using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Turret;
+using CodeMonkey.Utils;
 using TheDamage;
+using Unity.Netcode;
 using UnityEngine;
 
 [System.Serializable]
 public class TurretParameters
 {
-
     [Header("Status")]
     [Tooltip("Activate or deactivate the Turret")]
     public bool active;
@@ -18,10 +17,15 @@ public class TurretParameters
     [Header("Shooting")]
     [Tooltip("Burst the force when hit")]
     public float damage;
+
     [Tooltip("Fire rate per second")]
     [Range(0.1f, 20)]
     public float FireRate;
-    public float FireCoolDown { get { return 1f / FireRate; } }
+    public float FireCoolDown
+    {
+        get { return 1f / FireRate; }
+    }
+
     [Tooltip("Radius of the turret view")]
     public float fireRangeRadius;
 }
@@ -29,9 +33,9 @@ public class TurretParameters
 [System.Serializable]
 public class TurretFX
 {
-
     [Tooltip("Muzzle transform position")]
     public Transform muzzle;
+
     [Tooltip("Spawn this GameObject when shooting")]
     public GameObject shotFX;
 }
@@ -39,24 +43,23 @@ public class TurretFX
 [System.Serializable]
 public class TurretAudio
 {
-
     public AudioClip shotClip;
 }
 
 [System.Serializable]
 public class TurretTargeting
 {
-
     [Tooltip("Speed of aiming at the target")]
     public float aimingSpeed;
+
     [Tooltip("Pause before the aiming")]
     public float aimingDelay;
+
     [Tooltip("GameObject with folowing tags will be identify as enemy")]
     public string[] tagsToFire;
     public LayerMask layersToFire;
     public List<Collider> targets = new List<Collider>();
     public Collider target;
-
 }
 
 [System.Serializable]
@@ -66,9 +69,15 @@ public class TurretUpgrade
     public int minimunTierIndex = 0;
     public int currentTierIndex = 0;
 
-    public int maximunTierIndex { get { return availableTiers.Length - 1; } }
+    public int maximunTierIndex
+    {
+        get { return availableTiers.Length - 1; }
+    }
 
-    public TurretTier currentTier { get { return availableTiers[currentTierIndex]; } }
+    public TurretTier currentTier
+    {
+        get { return availableTiers[currentTierIndex]; }
+    }
 }
 
 [System.Serializable]
@@ -76,16 +85,23 @@ public class TurretMeshes
 {
     public MeshRenderer[] meshes;
 }
+public enum TurretType
+{
+    MachineGun,
+    SingleTarget,
+    Artillery
+}
+
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(AudioSource))]
-public class TurretBase : MonoBehaviour
+public class TurretBase : NetworkBehaviour
 {
     public bool isDebug = false;
 
-
     [Space(5)]
     [Header("Mesh control")]
-    [SerializeField] TurretMeshes[] turretPart;
+    [SerializeField]
+    TurretMeshes[] turretPart;
 
     public TurretParameters parameters;
     public TurretTargeting targeting;
@@ -97,7 +113,6 @@ public class TurretBase : MonoBehaviour
 
     private void Awake()
     {
-
         GetComponent<SphereCollider>().isTrigger = true;
         GetComponent<SphereCollider>().radius = parameters.fireRangeRadius;
     }
@@ -122,7 +137,6 @@ public class TurretBase : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-
         if (parameters.active == false)
         {
             return;
@@ -146,7 +160,6 @@ public class TurretBase : MonoBehaviour
 
     protected virtual void ShotVFX()
     {
-
         GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
         GameObject newShotFX = Instantiate(VFX.shotFX, VFX.muzzle);
         Destroy(newShotFX, 2);
@@ -174,7 +187,6 @@ public class TurretBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (parameters.active == false)
         {
             return;
@@ -213,7 +225,6 @@ public class TurretBase : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-
         if (parameters.active == false)
         {
             return;
@@ -237,7 +248,6 @@ public class TurretBase : MonoBehaviour
 
     protected bool CheckTags(Collider toMatch)
     {
-
         bool match = false;
 
         for (int i = 0; i < targeting.tagsToFire.Length; i++)
@@ -263,7 +273,6 @@ public class TurretBase : MonoBehaviour
 
     protected virtual void ClearTargets()
     {
-
         if (targeting.target != null)
         {
             if (targeting.target.GetComponent<Collider>().enabled == false)
@@ -274,7 +283,6 @@ public class TurretBase : MonoBehaviour
 
         foreach (Collider target in targeting.targets.ToList())
         {
-
             if (target == null)
             {
                 targeting.targets.Remove(target);
@@ -357,44 +365,83 @@ public class TurretBase : MonoBehaviour
         }
 
         this.GetComponent<SphereCollider>().radius = parameters.fireRangeRadius;
-
     }
 
     #endregion
 
     #region Turret Part Rotation
 
-    protected void RotateTurretBaseTorwardTarget(Transform turretBase, Transform target, float rotationDamping)
+    protected void RotateTurretBaseTorwardTarget(
+        Transform turretBase,
+        Transform target,
+        float rotationDamping
+    )
     {
-        Vector3 targetPosition = new Vector3(target.position.x, turretBase.position.y, target.position.z);
+        Vector3 targetPosition = new Vector3(
+            target.position.x,
+            turretBase.position.y,
+            target.position.z
+        );
         var rotationToTarget = Quaternion.LookRotation(targetPosition - turretBase.position);
 
-        turretBase.rotation = Quaternion.Lerp(turretBase.rotation, rotationToTarget, Time.deltaTime * rotationDamping);
+        turretBase.rotation = Quaternion.Lerp(
+            turretBase.rotation,
+            rotationToTarget,
+            Time.deltaTime * rotationDamping
+        );
     }
 
-    protected void RotateTurretHeadAimAtTarget(Transform turretHead, Transform target, float rotationDamping)
+    protected void RotateTurretHeadAimAtTarget(
+        Transform turretHead,
+        Transform target,
+        float rotationDamping
+    )
     {
         RotateTurretHeadAimAtTarget(turretHead, target, rotationDamping, 0);
     }
 
-    protected void RotateTurretHeadAimAtTarget(Transform turretHead, Transform target, float rotationDamping, float turretHeadOffset)
+    protected void RotateTurretHeadAimAtTarget(
+        Transform turretHead,
+        Transform target,
+        float rotationDamping,
+        float turretHeadOffset
+    )
     {
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y - turretHeadOffset, target.position.z);
+        Vector3 targetPosition = new Vector3(
+            target.position.x,
+            target.position.y - turretHeadOffset,
+            target.position.z
+        );
         var rotationToTarget = Quaternion.LookRotation(targetPosition - turretHead.position);
 
         //Quaternion rotationOffset = Quaternion.Euler(rotationXOffset, rotationYOffset, rotationZOffset);
 
         //rotationToTarget *= rotationOffset;
 
-        turretHead.rotation = Quaternion.Lerp(turretHead.rotation, rotationToTarget, Time.deltaTime * rotationDamping);
+        turretHead.rotation = Quaternion.Lerp(
+            turretHead.rotation,
+            rotationToTarget,
+            Time.deltaTime * rotationDamping
+        );
     }
 
-    protected void RotateTurretHeadByDegree(Transform turretHead, float degreeX, float degreeY, float degreeZ, float rotationDamping, float turretHeadOffset)
+    protected void RotateTurretHeadByDegree(
+        Transform turretHead,
+        float degreeX,
+        float degreeY,
+        float degreeZ,
+        float rotationDamping,
+        float turretHeadOffset
+    )
     {
         var rotation = turretHead.rotation;
         rotation *= Quaternion.Euler(degreeX, degreeY, degreeZ);
 
-        turretHead.rotation = Quaternion.Lerp(turretHead.rotation, rotation, Time.deltaTime * rotationDamping);
+        turretHead.rotation = Quaternion.Lerp(
+            turretHead.rotation,
+            rotation,
+            Time.deltaTime * rotationDamping
+        );
     }
     #endregion
 
@@ -423,3 +470,4 @@ public class TurretBase : MonoBehaviour
     }
     #endregion
 }
+

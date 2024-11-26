@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5404183574472292463}
   - component: {fileID: 7471844121730049857}
   - component: {fileID: 1343368638903787539}
+  - component: {fileID: 7607498636434573560}
   m_Layer: 0
   m_Name: SingleTargetTurretPlacer
   m_TagString: Untagged
@@ -88,8 +89,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.315445, y: 1.7160773, z: 2.3683448}
-  m_Center: {x: -0.02641201, y: -0.000004544854, z: 0.03190495}
+  m_Size: {x: 2.315445, y: 1.9289744, z: 2.3683448}
+  m_Center: {x: -0.02641201, y: 0.10644406, z: 0.03190495}
 --- !u!120 &760990010925755527
 LineRenderer:
   serializedVersion: 2
@@ -220,10 +221,11 @@ MonoBehaviour:
   rayMaxDistance: 10
   layersRayHit:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
   objectToPlace: {fileID: 11400000, guid: d5eb54e2f799c3d4da782c3c46081e4f, type: 2}
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
+  isDestroyAfterUse: 0
 --- !u!54 &7471844121730049857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -439,6 +441,27 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &7607498636434573560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432238316737763133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2234512595
+  InScenePlacedSourceGlobalObjectIdHash: 601248929
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!1 &9178987185979557353
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +577,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: STTurretVisual
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2986522318511023529, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 5294947566862837317, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 2965275121395523489, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 4847293240763351382, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 3132483219232022207, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 6926603314389182060, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

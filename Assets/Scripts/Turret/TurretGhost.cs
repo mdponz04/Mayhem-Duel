@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using TheCastle;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class TurretGhost : MonoBehaviour
+public class TurretGhost : NetworkBehaviour
 {
 
     [Header("Indicate ray")]
@@ -15,6 +16,7 @@ public class TurretGhost : MonoBehaviour
     [SerializeField] private float rayMaxDistance;
     [SerializeField] private LayerMask layersRayHit;
     [SerializeField] private PlacedObjectTypeSO objectToPlace;
+    [SerializeField] private TurretType turretTypeToPlace;
 
     [Header("Ghost")]
     [SerializeField] private Vector3 ghostScalling = new Vector3(0.3f, 0.3f, 0.3f);
@@ -67,6 +69,7 @@ public class TurretGhost : MonoBehaviour
 
     public void PlaceTurretOnGrid()
     {
+        Debug.Log("Placing Turret");
         RaycastHit rayHit = FireRay();
         if (rayHit.collider != null && objectToPlace != null)
         {
@@ -74,6 +77,24 @@ public class TurretGhost : MonoBehaviour
             if (validPosition)
             {
                 GridSystem.Instance.GridObjectPlace(snappedPosition, objectToPlace);
+
+                if (isDestroyAfterUse)
+                {
+                    DestroyItem();
+                }
+            }
+        }
+    }
+    public void PlaceTurretOnGridServer()
+    {
+        Debug.Log("Placing Turret");
+        RaycastHit rayHit = FireRay();
+        if (rayHit.collider != null)
+        {
+            Vector3 snappedPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
+            if (validPosition)
+            {
+                GridSystem.Instance.GridObjectPlaceServerRpc(snappedPosition, turretTypeToPlace);
 
                 if (isDestroyAfterUse)
                 {
@@ -159,7 +180,7 @@ public class TurretGhost : MonoBehaviour
         {
             DrawRayLine(rayOrigin.position + rayOrigin.forward * rayMaxDistance);
         }
-        Debug.Log(hit.collider);
+        //Debug.Log(hit.collider);
         return hit;
     }
 

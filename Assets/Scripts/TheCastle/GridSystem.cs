@@ -5,11 +5,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 namespace TheCastle
 {
+    [RequireComponent(typeof(ServerTurretManager))]
     //The grid system take the bottom right corner as its root
-    public class GridSystem : MonoBehaviour
+    public class GridSystem : NetworkBehaviour
     {
         private const float cellSize = 1f;
 
@@ -26,6 +28,7 @@ namespace TheCastle
         [SerializeField] private List<PlacedObjectTypeSO> placedObjectTypeSOList = null;
         [SerializeField] private Vector3 turretScalling = new Vector3(0.4f, 0.4f, 0.4f);
         private PlacedObjectTypeSO placedObjectTypeSO;
+        private ServerTurretManager serverTurretManager;
 
         [Header("Player")]
         [SerializeField] private Transform playerPosition;
@@ -50,52 +53,52 @@ namespace TheCastle
         private void Start()
         {
             boxCollider = GetComponent<BoxCollider>();
-
+            serverTurretManager = GetComponent<ServerTurretManager>();
 
             GenerateGrid();
         }
 
-        private void Update()
-        {
-            //place holder input
-            if (Input.GetKeyDown(KeyCode.P) && placedObjectTypeSO != null)
-            {
-                GridCell placedGridCell = GetXZ(playerPosition.position, out int x, out int z);
+        //private void Update()
+        //{
+        //    //place holder input
+        //    if (Input.GetKeyDown(KeyCode.P) && placedObjectTypeSO != null)
+        //    {
+        //        GridCell placedGridCell = GetXZ(playerPosition.position, out int x, out int z);
 
-                bool canBuild = true;
-                if (placedGridCell == null || !placedGridCell.CanBuild())
-                {
-                    canBuild = false;
-                }
+        //        bool canBuild = true;
+        //        if (placedGridCell == null || !placedGridCell.CanBuild())
+        //        {
+        //            canBuild = false;
+        //        }
 
-                if (canBuild)
-                {
-                    PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), placedObjectTypeSO, turretScalling);
+        //        if (canBuild)
+        //        {
+        //            PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), placedObjectTypeSO, turretScalling);
 
-                    placedGridCell.SetPlacedObject(placedObject);
-                }
-                else
-                {
-                    UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition + new Vector3(0, 10), 1f);
-                }
-            }
+        //            placedGridCell.SetPlacedObject(placedObject);
+        //        }
+        //        else
+        //        {
+        //            UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition + new Vector3(0, 10), 1f);
+        //        }
+        //    }
 
-            //place holder input
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                var clearedGridCell = GetXZ(playerPosition.position, out int x, out int z);
-                if (clearedGridCell != null)
-                {
-                    PlacedObject_Done placedObject = clearedGridCell.GetPlacedObject();
-                    if (placedObject != null)
-                    {
-                        placedObject.DestroySelf();
+        //    //place holder input
+        //    if (Input.GetKeyDown(KeyCode.O))
+        //    {
+        //        var clearedGridCell = GetXZ(playerPosition.position, out int x, out int z);
+        //        if (clearedGridCell != null)
+        //        {
+        //            PlacedObject_Done placedObject = clearedGridCell.GetPlacedObject();
+        //            if (placedObject != null)
+        //            {
+        //                placedObject.DestroySelf();
 
-                        clearedGridCell.ClearPlacedObject();
-                    }
-                }
-            }
-        }
+        //                clearedGridCell.ClearPlacedObject();
+        //            }
+        //        }
+        //    }
+        //}
 
         private void GenerateGrid()
         {
@@ -148,7 +151,7 @@ namespace TheCastle
             validPosition = false;
             Vector3 snappedPosition = worldPosition;
             var gridCell = GetXZ(worldPosition, out int x, out int z);
-            Debug.Log($"X:{x}, Z:{z}");
+            //Debug.Log($"X:{x}, Z:{z}");
             if (gridCell != null)
             {
                 if (gridCell.CanBuild())
@@ -216,6 +219,37 @@ namespace TheCastle
             {
                 Vector3 gridCellGlobalPosition = GetWorldPosition(x, z);
                 UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", gridCellGlobalPosition, 15, Color.red, gridCellGlobalPosition + new Vector3(0, 10), 1f);
+            }
+        }
+
+        [Rpc(SendTo.Server)]
+        public void GridObjectPlaceServerRpc(Vector3 placePosition, TurretType turretType)
+        {
+            GridCell placedGridCell = GetXZ(placePosition, out int x, out int z);
+            PlacedObjectTypeSO objectToPlace = serverTurretManager.GetTurretPf(turretType);
+
+            string errMessage = "";
+            bool isValidTurret = true;
+            bool canBuild = true;
+            if (placedGridCell == null || !placedGridCell.CanBuild())
+            {
+                canBuild = false;
+                errMessage += " Invalid build position";
+            }
+            if (objectToPlace == null)
+            {
+                isValidTurret = false;
+                errMessage += " Invalid turret";
+            }
+            if (canBuild && isValidTurret)
+            {
+                PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), objectToPlace, turretScalling);
+                placedGridCell.SetPlacedObject(placedObject);
+            }
+            else
+            {
+                Vector3 gridCellGlobalPosition = GetWorldPosition(x, z);
+                UtilsClass.CreateWorldTextPopup(null, errMessage, gridCellGlobalPosition, 15, Color.red, gridCellGlobalPosition + new Vector3(0, 10), 1f);
             }
         }
 
