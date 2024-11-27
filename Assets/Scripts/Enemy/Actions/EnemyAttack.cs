@@ -20,6 +20,7 @@ namespace TheEnemy
         private float attackRange;
         private LayerMask layerMask;
         private DamageDealer damageDealer;
+        private bool isAttackingEnabled = true;
 
         public EnemyAttack(float attackCooldown, float attackRange, LayerMask layerMask, DamageDealer damageDealer)
         {
@@ -31,6 +32,8 @@ namespace TheEnemy
 
         public void HandleAttack(Vector3 currentPosition)
         {
+            if (!isAttackingEnabled) return;
+
             if (Time.time >= nextTimeAttack)
             {
                 float heightOffset = 1f;
@@ -44,13 +47,21 @@ namespace TheEnemy
                         Vulnerable vulnerableComponent = hit.GetComponent<Vulnerable>();
                         if (vulnerableComponent != null)
                         {
-                            damageDealer.DoDamage(vulnerableComponent);
+                            damageDealer.TryDoDamage(vulnerableComponent);
                             OnAttack?.Invoke(this, new OnAttackEventArgs(hit.transform.position));
                             nextTimeAttack = Time.time + attackCooldown;
                         }
                     }
                 }
             }
+        }
+        public void StopAttackingInstantly()
+        {
+            isAttackingEnabled = false;
+        }
+        public void ResumeAttacking()
+        {
+            isAttackingEnabled = true;
         }
     }
 }

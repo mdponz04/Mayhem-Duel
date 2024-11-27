@@ -66,7 +66,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2154238992484350488}
   - component: {fileID: 2111624565588938059}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: AggroRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,9 +121,9 @@ GameObject:
   - component: {fileID: 8582656476718518123}
   - component: {fileID: 5766707826447671072}
   - component: {fileID: 7641909982612354027}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Visual
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,10 +220,13 @@ GameObject:
   - component: {fileID: 7043412343444909813}
   - component: {fileID: 2846923894955190215}
   - component: {fileID: 5320555364133004454}
-  - component: {fileID: 2163021808795998444}
+  - component: {fileID: -7312799671826300190}
   - component: {fileID: 62749577783831937}
+  - component: {fileID: 2163021808795998444}
   - component: {fileID: 5020409970148795052}
   - component: {fileID: 3515558529154007111}
+  - component: {fileID: 3445724376673079828}
+  - component: {fileID: 7977069731748202673}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -333,6 +336,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed93cbc15da663e4d8e1e0a98b003624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7312799671826300190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536016755921339209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2200835907
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &62749577783831937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536016755921339209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d8e41bd3e07e81448c9d0c1d1468bb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2163021808795998444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,18 +382,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aggroRange: {fileID: 2111624565588938059}
---- !u!114 &62749577783831937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5536016755921339209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8e41bd3e07e81448c9d0c1d1468bb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5020409970148795052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c726cb2a97c3394c8697ffec2cfa159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkHealth:
+    m_InternalValue: 0
 --- !u!114 &3515558529154007111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +408,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edcefa659f970941939b83975bb1075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3445724376673079828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536016755921339209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e8a34998cdd3346b7dc1ee4d055e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 0
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &7977069731748202673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536016755921339209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b699b789b7b3f24fb81be3264db6e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 1523721793
+    TransitionDuration: 0.25
+    TriggerNameHash: 1523721793
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 964231127
+    TransitionDuration: 0.25
+    TriggerNameHash: -2142014140
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -601574123
+    DestinationState: 848348862
+    TransitionDuration: 0.25
+    TriggerNameHash: -2014107701
+    TransitionIndex: 3
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 1349952704
+    DestinationState: 848348862
+    TransitionDuration: 0.25
+    TriggerNameHash: -2014107701
+    TransitionIndex: 1
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 1349952704
+    DestinationState: 1523721793
+    TransitionDuration: 0.25
+    TriggerNameHash: 1523721793
+    TransitionIndex: 2
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 1349952704
+    DestinationState: 964231127
+    TransitionDuration: 0.25
+    TriggerNameHash: -2142014140
+    TransitionIndex: 3
+  m_Animator: {fileID: 64174104189578715}
 --- !u!1001 &582924117124007363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -563,7 +676,7 @@ PrefabInstance:
     - target: {fileID: 5309710949597389699, guid: 3e629c8a7bae8fb4da5b582721aa3a7b,
         type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

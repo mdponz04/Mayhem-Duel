@@ -1,94 +1,107 @@
 using System.Collections;
 using System.Collections.Generic;
 using TheDamage;
-using TheEnemy;
 using TheHealth;
+using Unity.Netcode;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour, IDamageSource
+namespace TheEnemy
 {
-    public EnemyAttack enemyAttack { get; private set; }
-    public EnemyMove enemyMove { get; private set; }
-    public EnemyVisual enemyVisual { get; private set; }
-    public EnemyVFX enemyVFX { get; private set; }
-    public LayerMask layerMask { get; set; }
-    public float maxHealth { get; set; }
-    public float attackDamage { get; set; }
-    public float attackCooldown { get; set; }
-    public float nextTimeAttack { get; set; }
-    public Pathfinding pathfinding { get; set; }
-    public DamageDealer damageDealer { get; set; }
-    public float attackRange { get; set; }
+    public class EnemyBase : NetworkBehaviour, IDamageSource
+    {
+        public EnemyAttack enemyAttack { get; private set; }
+        public EnemyMove enemyMove { get; private set; }
+        public EnemyVisual enemyVisual { get; private set; }
+        public EnemyVFX enemyVFX { get; private set; }
+        public LayerMask layerMask { get; set; }
+        public float maxHealth { get; set; }
+        public float attackDamage { get; set; }
+        public float attackCooldown { get; set; }
+        public float nextTimeAttack { get; set; }
+        public Pathfinding pathfinding { get; set; }
+        public DamageDealer damageDealer { get; set; }
+        public float attackRange { get; set; }
 
-    [SerializeField] private SphereCollider aggroRange;
-    private HealthSystem healthSystem;
-    protected virtual void Start()
-    {
-        enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
-        enemyMove = new EnemyMove(pathfinding);
-        healthSystem = GetComponent<HealthSystem>();
-        healthSystem.SetUp(maxHealth);
-        enemyVisual = GetComponentInChildren<EnemyVisual>();
-        enemyVFX = GetComponentInChildren<EnemyVFX>();
-        enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
-        healthSystem.OnHealthChange += HealthSystem_OnBeHit;
-        healthSystem.OnDeath += HealthSystem_OnDeath;
-    }
-
-    private void HealthSystem_OnDeath(object sender, System.EventArgs e)
-    {
-        enemyMove.StopMovingInstantly();
-        enemyVisual.TriggerDied();
-        StartCoroutine(DelayOnDeath());
-    }
-    private IEnumerator DelayOnDeath()
-    {
-        yield return new WaitForSeconds(10f);
-        Destroy(this.gameObject);
-    }
-
-    private void HealthSystem_OnBeHit(object sender, System.EventArgs e)
-    {
-        enemyVisual.TriggerHit();
-        enemyVFX.PlayBloodBurstEffect();
-    }
-
-    private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
-    {
-        enemyVisual.TriggerNormalAttack();
-    }
-    protected void Update()
-    {
-        // Move and attack behavior handled per frame
-        if (enemyMove != null && enemyVisual != null)
+        [SerializeField] private SphereCollider aggroRange;
+        public HealthSystem healthSystem { get; set; }
+        protected virtual void Start()
         {
-            enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
-            enemyVisual.HandleMoving(enemyMove.IsMoving());
+            enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
+            enemyMove = new EnemyMove(pathfinding);
+            healthSystem = GetComponent<HealthSystem>();
+            healthSystem.SetUp(maxHealth);
+            enemyVisual = GetComponentInChildren<EnemyVisual>();
+            enemyVFX = GetComponentInChildren<EnemyVFX>();
+            enemyAttack.OnAttack += OnNormalAttack;
+            healthSystem.OnHealthChange += OnBeHit;
+            healthSystem.OnDeath += OnDeath;
         }
-        if(enemyAttack != null)
+
+        private void OnDeath(object sender, System.EventArgs e)
         {
-            enemyAttack.HandleAttack(transform.position);
+            enemyMove.StopMovingInstantly();
+            enemyAttack.StopAttackingInstantly();
+            enemyVisual.TriggerDied();
+            StartCoroutine(DelayOnDeath());
         }
-    }
-
-    //Chase player if player enters the aggro range
-    protected void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        private IEnumerator DelayOnDeath()
         {
-            enemyMove.SetTarget(other);
+            yield return new WaitForSeconds(10f);
+            Destroy(this.gameObject);
         }
-    }
-
-
-    //Stop chasing when player or damageable object exits the aggro range
-    protected void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        private IEnumerator DelayResumeAttack()
         {
-            enemyMove.SetTarget(null);
+            yield return new WaitForSeconds(0.5f);
+            enemyAttack.ResumeAttacking();
         }
-    }
+        private void OnBeHit(object sender, System.EventArgs e)
+        {
+            enemyAttack.StopAttackingInstantly();
+            enemyVisual.TriggerHit();
+            enemyVFX.PlayBloodBurstEffect();
+            StartCoroutine(DelayResumeAttack());
+        }
 
-    float IDamageSource.GetAttackDamage() => attackDamage;
+        private void OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
+        {
+            enemyVisual.TriggerNormalAttack();
+        }
+        protected void Update()
+        {
+            // Move and attack behavior handled per frame
+            if (enemyMove != null && enemyVisual != null)
+            {
+                enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
+                enemyVisual.HandleMoving(enemyMove.IsMoving());
+            }
+            if (enemyAttack != null)
+            {
+                enemyAttack.HandleAttack(transform.position);
+            }
+        }
+
+        //Chase player if player enters the aggro range
+        protected void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+            {
+                Debug.Log("Thing on trigger enter: " + other.name);
+                enemyMove.SetTarget(other);
+            }
+        }
+
+
+        //Stop chasing when player or damageable object exits the aggro range
+        protected void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+            {
+                Debug.Log("Thing on trigger enter: " + other.name);
+                enemyMove.SetTarget(null);
+            }
+        }
+
+        float IDamageSource.GetAttackDamage() => attackDamage;
+    }
 }
+
