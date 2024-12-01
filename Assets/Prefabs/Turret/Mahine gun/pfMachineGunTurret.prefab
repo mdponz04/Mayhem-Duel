@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4553182718501738854}
-  - component: {fileID: 5468398150924409363}
   - component: {fileID: 3492347927047732692}
+  - component: {fileID: 4337668475214129559}
   m_Layer: 0
   m_Name: pfMachineGunTurret
   m_TagString: Untagged
@@ -34,27 +34,6 @@ Transform:
   - {fileID: 2246074384348473949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5468398150924409363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7469865206530804785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2873315725
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 1
-  AutoObjectParentSync: 1
 --- !u!114 &3492347927047732692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,6 +46,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b566882066d3ced4391243c12772add2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4337668475214129559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7469865206530804785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1891640701
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!1001 &5444122233200918089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,6 +75,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4553182718501738854}
     m_Modifications:
+    - target: {fileID: 2566262798597798619, guid: 6d34a3d710878ad4185c9e4fee77a340,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2890255725
+      objectReference: {fileID: 0}
     - target: {fileID: 3001365151419337109, guid: 6d34a3d710878ad4185c9e4fee77a340,
         type: 3}
       propertyPath: m_Name
@@ -130,10 +135,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2566262798597798619, guid: 6d34a3d710878ad4185c9e4fee77a340, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 923007784519612247, guid: 6d34a3d710878ad4185c9e4fee77a340,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1489823101364462426}
   m_SourcePrefab: {fileID: 100100000, guid: 6d34a3d710878ad4185c9e4fee77a340, type: 3}
 --- !u!4 &2246074384348473949 stripped
 Transform:
@@ -141,3 +151,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5444122233200918089}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5134744466976475422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 923007784519612247, guid: 6d34a3d710878ad4185c9e4fee77a340,
+    type: 3}
+  m_PrefabInstance: {fileID: 5444122233200918089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1489823101364462426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5134744466976475422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 0
+  SyncPositionY: 0
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 1
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.2
+  UseQuaternionSynchronization: 1
+  UseQuaternionCompression: 1
+  UseHalfFloatPrecision: 1
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0

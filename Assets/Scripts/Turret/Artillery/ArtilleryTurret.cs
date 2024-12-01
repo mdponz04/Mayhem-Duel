@@ -1,4 +1,7 @@
+using System;
 using System.Linq;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 public class ArtilleryTurret : TurretBase
@@ -29,14 +32,30 @@ public class ArtilleryTurret : TurretBase
     protected float projectileSpeed;
     protected float currentFireRateCoolDown;
 
-    [Header("Animator")]
-    [SerializeField]
-    Animator animator;
+    [SerializeField] protected Vector3 projectileScale;
 
+    [Header("Animator")]
+    Animator animator;
+    NetworkAnimator networkAnimator;
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        networkAnimator = GetComponent<NetworkAnimator>();
+    }
+    private void Awake()
+    {
+        turretBase = baseRotation;
+        turretHead = gunBody;
+    }
+    private void LateUpdate()
+    {
+        
     }
 
     protected override void Aiming()
@@ -60,7 +79,6 @@ public class ArtilleryTurret : TurretBase
                 targeting.aimingSpeed
             );
             RotateTurretHeadByDegree(gunBody, projectileFireAngle, 0, 0, targeting.aimingSpeed, 0);
-
             projectileSpeed = CalculateProjectileSpeed(
                 targeting.target.transform,
                 muzzlePosition.transform,
@@ -68,7 +86,8 @@ public class ArtilleryTurret : TurretBase
                 projectileFireAngle
             );
 
-            Shooting();
+            //Debug.Log(projectileSpeed);
+            //Shooting();
         }
     }
 
@@ -77,24 +96,29 @@ public class ArtilleryTurret : TurretBase
         base.Shooting();
         if (currentFireRateCoolDown <= 0 && targeting.target != null)
         {
+        animator.Play("Artillery_Shoot");
             ShotVFX();
 
-            Transform tempProjectile = Instantiate(
-                pfProjectile,
-                muzzlePosition.position,
-                Quaternion.LookRotation(muzzlePosition.transform.forward, Vector3.up)
-            );
-
-            ArtilleryProjectile artilleryProjectile =
-                tempProjectile.GetComponent<ArtilleryProjectile>();
-            artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.target.transform);
+            SpawnProjectile();
             currentFireRateCoolDown = parameters.FireCoolDown;
-
-            animator.SetTrigger("Shoot");
         }
         currentFireRateCoolDown -= Time.deltaTime;
     }
 
+    //[Rpc(SendTo.ClientsAndHost)]
+    protected void SpawnProjectile()
+    {
+        Transform tempProjectile = Instantiate(
+            pfProjectile,
+            muzzlePosition.position,
+            Quaternion.LookRotation(muzzlePosition.transform.forward, Vector3.up)
+        );
+        tempProjectile.localScale = projectileScale;
+        ArtilleryProjectile artilleryProjectile =
+            tempProjectile.GetComponent<ArtilleryProjectile>();
+        artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.target.transform);
+        artilleryProjectile.GetComponent<NetworkObject>().Spawn();
+    }
     protected float CalculateProjectileSpeed(
         Transform target,
         Transform muzzlePosition,

@@ -58,47 +58,54 @@ namespace TheCastle
             GenerateGrid();
         }
 
-        //private void Update()
-        //{
-        //    //place holder input
-        //    if (Input.GetKeyDown(KeyCode.P) && placedObjectTypeSO != null)
-        //    {
-        //        GridCell placedGridCell = GetXZ(playerPosition.position, out int x, out int z);
+        private void Update()
+        {
+            //9 - 1
+            //10 - 1
+            //11 - 1
+            //place holder input
+            if (Input.GetKeyDown(KeyCode.P) && placedObjectTypeSO != null)
+            {
+                Vector3[] placePositions = new Vector3[3];
+                placePositions[0] = GetWorldPosition(9, 1);
+                placePositions[1] = GetWorldPosition(10, 1);
+                placePositions[2] = GetWorldPosition(11, 1);
+                TurretType[] turrets = new TurretType[3];
+                turrets[0] = TurretType.MachineGun;
+                turrets[1] = TurretType.SingleTarget;
+                turrets[2] = TurretType.Artillery;
 
-        //        bool canBuild = true;
-        //        if (placedGridCell == null || !placedGridCell.CanBuild())
-        //        {
-        //            canBuild = false;
-        //        }
+                for (int i = 0; i < placePositions.Length; i++)
+                {
+                    GridObjectPlaceServerRpc(placePositions[i], turrets[i]);
+                }
+            }
 
-        //        if (canBuild)
-        //        {
-        //            PlacedObject_Done placedObject = PlacedObject_Done.Create(GetWorldPosition(x, z), placedObjectTypeSO, turretScalling);
+            //place holder input
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Vector3[] placePositions = new Vector3[3];
+                placePositions[0] = GetWorldPosition(9, 1);
+                placePositions[1] = GetWorldPosition(10, 1);
+                placePositions[2] = GetWorldPosition(11, 1);
 
-        //            placedGridCell.SetPlacedObject(placedObject);
-        //        }
-        //        else
-        //        {
-        //            UtilsClass.CreateWorldTextPopup(null, "Cannot build here!", placedGridCell.gridCenterPosition, 15, Color.red, placedGridCell.gridCenterPosition + new Vector3(0, 10), 1f);
-        //        }
-        //    }
+                for (int i = 0; i < placePositions.Length; i++)
+                {
 
-        //    //place holder input
-        //    if (Input.GetKeyDown(KeyCode.O))
-        //    {
-        //        var clearedGridCell = GetXZ(playerPosition.position, out int x, out int z);
-        //        if (clearedGridCell != null)
-        //        {
-        //            PlacedObject_Done placedObject = clearedGridCell.GetPlacedObject();
-        //            if (placedObject != null)
-        //            {
-        //                placedObject.DestroySelf();
+                    var clearedGridCell = GetXZ(placePositions[i], out int x, out int z);
+                    if (clearedGridCell != null)
+                    {
+                        PlacedObject_Done placedObject = clearedGridCell.GetPlacedObject();
+                        if (placedObject != null)
+                        {
+                            placedObject.DestroySelf();
 
-        //                clearedGridCell.ClearPlacedObject();
-        //            }
-        //        }
-        //    }
-        //}
+                            clearedGridCell.ClearPlacedObject();
+                        }
+                    }
+                }
+            }
+        }
 
         private void GenerateGrid()
         {

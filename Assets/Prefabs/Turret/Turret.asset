@@ -10,18 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e651dbb3fbac04af2b8f5abf007ddc23, type: 3}
-  m_Name: TurretTestingNetcodePrefabList
+  m_Name: Turret
   m_EditorClassIdentifier: 
   IsDefault: 0
   List:
   - Override: 0
-    Prefab: {fileID: 7469865206530804785, guid: 38d4d3fb7578bd04a91f61e0caadf264,
+    Prefab: {fileID: 5422411483477937500, guid: 5c2b44bd68ceb25489acf61d48edf7b4,
       type: 3}
     SourcePrefabToOverride: {fileID: 0}
     SourceHashToOverride: 0
     OverridingTargetPrefab: {fileID: 0}
   - Override: 0
-    Prefab: {fileID: 6451868496561403267, guid: d1b1a262706c3224ca7c0117b1091c92,
+    Prefab: {fileID: 1442810421550678480, guid: d6afe1a82b1e0944caa3bc442cef15b4,
+      type: 3}
+    SourcePrefabToOverride: {fileID: 0}
+    SourceHashToOverride: 0
+    OverridingTargetPrefab: {fileID: 0}
+  - Override: 0
+    Prefab: {fileID: 6432238316737763133, guid: 0dda86dd4b0c55b418e7cde62b7482a6,
       type: 3}
     SourcePrefabToOverride: {fileID: 0}
     SourceHashToOverride: 0

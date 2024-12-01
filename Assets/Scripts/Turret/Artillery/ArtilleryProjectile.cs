@@ -2,9 +2,10 @@ using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using TheDamage;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ArtilleryProjectile : MonoBehaviour
+public class ArtilleryProjectile : NetworkBehaviour
 {
     [Header("Stat")]
     [SerializeField] protected float homingSpeed;
@@ -55,13 +56,27 @@ public class ArtilleryProjectile : MonoBehaviour
     {
         if (UtilsClass.IsLayerInLayerMask(collision.gameObject.layer, layerToDamage))
         {
-            TurretBase.BulletImpactFVX(transform.position, explosionVFX);
+            //TurretBase.BulletImpactFVX(transform.position, explosionVFX);
+            //SpawnBulletImpactVisualClientRpc(transform.position);
+            DoDamage();
             Explode();
+            //Destroy(gameObject);
         }
     }
-
-    private void Explode()
+    protected void Explode()
     {
+        if (!IsServer) { return; }
+        SpawnBulletImpactVisualClientRpc(transform.position);
+        Destroy(gameObject);
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    protected void SpawnBulletImpactVisualClientRpc(Vector3 position)
+    {
+        TurretBase.BulletImpactFVX(position, explosionVFX);
+    }
+    private void DoDamage()
+    {
+        if (!IsServer) { return; }
         Collider[] hit = Physics.OverlapSphere(gameObject.transform.position, damageRadious, layerToDamage);
         if (hit.Length > 0)
         {
@@ -80,13 +95,15 @@ public class ArtilleryProjectile : MonoBehaviour
                 }
             }
         }
-        Destroy(gameObject);
     }
 
     private void RotateTorwardVelocity()
     {
-        if(rb == null) { return; }
+        if (rb == null) { return; }
         Vector3 dir = rb.velocity.normalized;
-        gameObject.transform.rotation = Quaternion.LookRotation(dir);
+        if (dir != Vector3.zero)
+        {
+            gameObject.transform.rotation = Quaternion.LookRotation(dir);
+        }
     }
 }

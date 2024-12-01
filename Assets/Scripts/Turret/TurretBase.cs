@@ -109,12 +109,14 @@ public class TurretBase : NetworkBehaviour
     public TurretAudio SFX;
     public TurretUpgrade upgrade;
 
+    protected Transform turretBase;
+    protected Transform turretHead;
+
     //private DamageDealer damageDealer;
 
     private void Awake()
     {
         GetComponent<SphereCollider>().isTrigger = true;
-        GetComponent<SphereCollider>().radius = parameters.fireRangeRadius;
     }
 
     protected virtual void Start()
@@ -133,10 +135,18 @@ public class TurretBase : NetworkBehaviour
         {
             DowngradeTier();
         }
+        if (isDebug)
+        {
+            DebugExtension.DebugWireSphere(transform.position, Color.red, parameters.fireRangeRadius);
+        }
     }
 
     protected virtual void FixedUpdate()
     {
+        if (!IsServer)
+        {
+            return;
+        }
         if (parameters.active == false)
         {
             return;
@@ -152,19 +162,34 @@ public class TurretBase : NetworkBehaviour
         {
             parameters.canFire = true;
             Aiming();
+            //UpdateAimShootClientRpc();
             Invoke("Shooting", 1f / parameters.FireRate);
         }
     }
 
     #region Aiming and Shooting
 
+    [Rpc(SendTo.ClientsAndHost)]
+    public void UpdateAimShootClientRpc()
+    {
+        //Aiming();
+        Invoke("Shooting", 1f / parameters.FireRate);
+    }
     protected virtual void ShotVFX()
+    {
+        //GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
+        //GameObject newShotFX = Instantiate(VFX.shotFX, VFX.muzzle);
+        //Destroy(newShotFX, 2);
+        ShotVFXVisualClientRpc();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    protected virtual void ShotVFXVisualClientRpc()
     {
         GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
         GameObject newShotFX = Instantiate(VFX.shotFX, VFX.muzzle);
         Destroy(newShotFX, 2);
     }
-
     public static void BulletImpactFVX(Vector3 impactPosition, Transform impactVFX)
     {
         Transform vfx = Instantiate(impactVFX, impactPosition, Quaternion.identity);
@@ -364,7 +389,13 @@ public class TurretBase : NetworkBehaviour
             }
         }
 
-        this.GetComponent<SphereCollider>().radius = parameters.fireRangeRadius;
+        SetSphereColliderRadius(parameters.fireRangeRadius);
+    }
+
+    protected void SetSphereColliderRadius(float fireRangeRadius)
+    {
+
+        this.GetComponent<SphereCollider>().radius = parameters.fireRangeRadius / transform.lossyScale.x;
     }
 
     #endregion
@@ -389,15 +420,21 @@ public class TurretBase : NetworkBehaviour
             rotationToTarget,
             Time.deltaTime * rotationDamping
         );
+        //RotateThisTurretBaseClientRpc(targetPosition, rotationToTarget, rotationDamping);
     }
 
-    protected void RotateTurretHeadAimAtTarget(
-        Transform turretHead,
-        Transform target,
-        float rotationDamping
-    )
+    [Rpc(SendTo.ClientsAndHost)]
+    protected void RotateThisTurretBaseClientRpc(
+        Vector3 turretBaseRotation,
+        Quaternion rotationToTarget,
+        float rotationDamping)
     {
-        RotateTurretHeadAimAtTarget(turretHead, target, rotationDamping, 0);
+
+        this.turretBase.rotation = Quaternion.Lerp(
+            turretBase.rotation,
+            rotationToTarget,
+            Time.deltaTime * rotationDamping
+        );
     }
 
     protected void RotateTurretHeadAimAtTarget(
@@ -425,6 +462,21 @@ public class TurretBase : NetworkBehaviour
         );
     }
 
+    [Rpc(SendTo.ClientsAndHost)]
+    protected void RotateThisTurretHeadClientRpc(
+       Vector3 targetPosition,
+       Quaternion rotationToTarget,
+       float rotationDamping
+        )
+    {
+
+        this.turretHead.rotation = Quaternion.Lerp(
+            turretHead.rotation,
+            rotationToTarget,
+            Time.deltaTime * rotationDamping
+        );
+    }
+
     protected void RotateTurretHeadByDegree(
         Transform turretHead,
         float degreeX,
@@ -443,11 +495,13 @@ public class TurretBase : NetworkBehaviour
             Time.deltaTime * rotationDamping
         );
     }
+
     #endregion
 
     #region Do damage
     protected void DoDamage(GameObject target, float damage)
     {
+        if (!IsServer) { return; }
         Vulnerable damageable = target.GetComponent<Vulnerable>();
 
         if (damageable != null)
@@ -462,12 +516,12 @@ public class TurretBase : NetworkBehaviour
     #endregion
 
     #region Gizmos
-    void OnDrawGizmosSelected()
-    {
-        // Draw a red sphere at the transform's position to show the firing range
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, parameters.fireRangeRadius);
-    }
+    //void OnDrawGizmosSelected()
+    //{
+    //    // Draw a red sphere at the transform's position to show the firing range
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, parameters.fireRangeRadius);
+    //}
     #endregion
 }
 
