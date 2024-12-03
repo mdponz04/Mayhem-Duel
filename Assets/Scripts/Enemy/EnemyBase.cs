@@ -1,11 +1,12 @@
+using Unity.Netcode;
+using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
 using TheEnemy;
 using TheHealth;
-using UnityEngine;
+using System.Collections.Generic;
 
-public class EnemyBase : MonoBehaviour, IDamageSource
+public class EnemyBase : NetworkBehaviour, IDamageSource
 {
     public EnemyAttack enemyAttack { get; private set; }
     public EnemyMove enemyMove { get; private set; }
@@ -19,9 +20,10 @@ public class EnemyBase : MonoBehaviour, IDamageSource
     public Pathfinding pathfinding { get; set; }
     public DamageDealer damageDealer { get; set; }
     public float attackRange { get; set; }
-
     [SerializeField] private SphereCollider aggroRange;
-    private HealthSystem healthSystem;
+    public HealthSystem healthSystem { get; private set; }
+    private List<Collider> targetsInAggro = new();
+
     protected virtual void Start()
     {
         enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
@@ -30,63 +32,150 @@ public class EnemyBase : MonoBehaviour, IDamageSource
         healthSystem.SetUp(maxHealth);
         enemyVisual = GetComponentInChildren<EnemyVisual>();
         enemyVFX = GetComponentInChildren<EnemyVFX>();
-        enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
-        healthSystem.OnHealthChange += HealthSystem_OnBeHit;
-        healthSystem.OnDeath += HealthSystem_OnDeath;
+
+        // Events trigger on both server and clients
+        enemyAttack.OnAttack += OnNormalAttack;
+        healthSystem.OnHealthChange += OnBeHit;
+        healthSystem.OnDeath += OnDeath;
     }
 
-    private void HealthSystem_OnDeath(object sender, System.EventArgs e)
+    private void OnDeath(object sender, System.EventArgs e)
     {
-        enemyMove.StopMovingInstantly();
+        if (IsServer)
+        {
+            // Server-side logic
+            enemyMove.StopMovingInstantly();
+            enemyAttack.StopAttackingInstantly();
+            TriggerDeathClientRpc(); // Notify all clients
+        }
+
+        // Local (client and server) logic
         enemyVisual.TriggerDied();
         StartCoroutine(DelayOnDeath());
     }
+
+    [ClientRpc]
+    private void TriggerDeathClientRpc()
+    {
+        // Clients mirror death event
+        if (!IsServer) // Prevent double-execution on server
+        {
+            enemyVisual.TriggerDied();
+        }
+    }
+
     private IEnumerator DelayOnDeath()
     {
         yield return new WaitForSeconds(10f);
-        Destroy(this.gameObject);
+        if (IsServer)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void HealthSystem_OnBeHit(object sender, System.EventArgs e)
+    private void OnBeHit(object sender, System.EventArgs e)
     {
+        if (!healthSystem.IsAlive()) return;
+
+        if (IsServer)
+        {
+            // Server-side logic
+            enemyAttack.StopAttackingInstantly();
+            TriggerHitClientRpc(); // Notify all clients
+        }
+
+        // Local (client and server) logic
         enemyVisual.TriggerHit();
         enemyVFX.PlayBloodBurstEffect();
     }
 
-    private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
+    [ClientRpc]
+    private void TriggerHitClientRpc()
     {
+        // Clients mirror hit event
+        if (!IsServer) // Prevent double-execution on server
+        {
+            enemyVisual.TriggerHit();
+            enemyVFX.PlayBloodBurstEffect();
+        }
+    }
+
+    private void OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
+    {
+        if (!healthSystem.IsAlive()) return;
+        if (IsServer)
+        {
+            // Server-side logic
+            TriggerAttackClientRpc(); // Notify all clients
+        }
+
+        // Local (client and server) logic
         enemyVisual.TriggerNormalAttack();
     }
+
+    [ClientRpc]
+    private void TriggerAttackClientRpc()
+    {
+        // Clients mirror attack event
+        if (!IsServer) // Prevent double-execution on server
+        {
+            enemyVisual.TriggerNormalAttack();
+        }
+    }
+
     protected void Update()
     {
-        // Move and attack behavior handled per frame
-        if (enemyMove != null && enemyVisual != null)
+        if (IsServer)
         {
-            enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
-            enemyVisual.HandleMoving(enemyMove.IsMoving());
-        }
-        if(enemyAttack != null)
-        {
-            enemyAttack.HandleAttack(transform.position);
+            // Server handles core logic
+            if (enemyMove != null && enemyVisual != null)
+            {
+                enemyMove.HandleMoving(enemyMove.target, attackRange, transform);
+                enemyVisual.HandleMoving(enemyMove.IsMoving());
+            }
+            if (enemyAttack != null)
+            {
+                enemyAttack.HandleAttack(transform.position);
+            }
         }
     }
 
-    //Chase player if player enters the aggro range
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        if (!IsServer) return;
+
+        targetsInAggro.Add(other);
+        foreach (var target in targetsInAggro)
         {
-            enemyMove.SetTarget(other);
+            if (target.CompareTag("Player") || target.CompareTag("Damageable"))
+            {
+                Debug.Log("The targets in aggro: " + target.name);
+                if (enemyMove.target == null)
+                {
+                    enemyMove.SetTarget(target);
+                }
+                else if(target.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
+                {
+                    enemyMove.SetTarget(target);
+                }
+            }
         }
     }
-
-
-    //Stop chasing when player or damageable object exits the aggro range
     protected void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        if (!IsServer) return;
+
+        targetsInAggro.Remove(other);
+        foreach(var target in targetsInAggro)
         {
-            enemyMove.SetTarget(null);
+            if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+            {
+                Debug.Log("The targets out aggro: " + other.name);
+                if (enemyMove.target != null)
+                {
+                    enemyMove.SetTarget(null);
+                }
+            }
         }
     }
 
