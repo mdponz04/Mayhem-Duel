@@ -4,6 +4,7 @@ using System.Collections;
 using TheDamage;
 using TheEnemy;
 using TheHealth;
+using System.Collections.Generic;
 
 public class EnemyBase : NetworkBehaviour, IDamageSource
 {
@@ -19,9 +20,9 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
     public Pathfinding pathfinding { get; set; }
     public DamageDealer damageDealer { get; set; }
     public float attackRange { get; set; }
-
     [SerializeField] private SphereCollider aggroRange;
     public HealthSystem healthSystem { get; private set; }
+    private List<Collider> targetsInAggro = new();
 
     protected virtual void Start()
     {
@@ -141,23 +142,40 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (!IsServer) return; // Only server processes triggers
+        if (!IsServer) return;
 
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        targetsInAggro.Add(other);
+        foreach (var target in targetsInAggro)
         {
-            Debug.Log("Thing on trigger enter: " + other.name);
-            enemyMove.SetTarget(other);
+            if (target.CompareTag("Player") || target.CompareTag("Damageable"))
+            {
+                Debug.Log("The targets in aggro: " + target.name);
+                if (enemyMove.target == null)
+                {
+                    enemyMove.SetTarget(target);
+                }
+                else if(target.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
+                {
+                    enemyMove.SetTarget(target);
+                }
+            }
         }
     }
-
     protected void OnTriggerExit(Collider other)
     {
-        if (!IsServer) return; // Only server processes triggers
+        if (!IsServer) return;
 
-        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+        targetsInAggro.Remove(other);
+        foreach(var target in targetsInAggro)
         {
-            Debug.Log("Thing on trigger exit: " + other.name);
-            enemyMove.SetTarget(null);
+            if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+            {
+                Debug.Log("The targets out aggro: " + other.name);
+                if (enemyMove.target != null)
+                {
+                    enemyMove.SetTarget(null);
+                }
+            }
         }
     }
 

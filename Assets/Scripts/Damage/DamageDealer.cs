@@ -23,7 +23,7 @@ namespace TheDamage
         // Try to do damage in multiplayer (works for both server and client)
         public void TryDoDamage(Vulnerable opponent)
         {
-            Debug.Log(this.name + " attempts to deal: " + attackDamage);
+            /*Debug.Log(this.name + " attempts to deal: " + attackDamage);*/
 
             if (IsServer)
             {
@@ -44,7 +44,7 @@ namespace TheDamage
             NetworkObject opponentObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[opponentNetworkId];
             if (opponentObject != null && opponentObject.TryGetComponent(out Vulnerable opponent))
             {
-                Debug.Log(this.name + " deals: " + attackDamage + " to " + opponent.name);
+                /*Debug.Log(this.name + " deals: " + attackDamage + " to " + opponent.name);*/
                 opponent.TakeDamge(attackDamage);
             }
             else

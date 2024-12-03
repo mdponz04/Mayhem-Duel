@@ -1,14 +1,19 @@
 using TheDamage;
+using TheHealth;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerMultiplayer : NetworkBehaviour, IDamageSource
 {
     private PlayerInputAction inputActions;
+    private HealthSystem healthSystem;
     public float speed = 5f;
     private DamageDealer damageDealer;
+    private float maxHealth = 100f;
     private void Start()
     {
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetUp(maxHealth);
         damageDealer = GetComponent<DamageDealer>();
         damageDealer.SetUp();
         inputActions = new PlayerInputAction();
