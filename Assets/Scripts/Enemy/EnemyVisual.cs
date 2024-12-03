@@ -37,7 +37,6 @@ namespace TheEnemy
             yield return new WaitForSeconds(1.1f);
             animator.ResetTrigger(parameter);
         }
-
     }
 }
 

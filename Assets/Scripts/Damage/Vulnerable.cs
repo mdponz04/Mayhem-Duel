@@ -1,24 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using TheHealth;
-using UnityEngine;
+using Unity.Netcode;
 
 namespace TheDamage
 {
-    public class Vulnerable : MonoBehaviour
+    public class Vulnerable : NetworkBehaviour
     {
         private HealthSystem healthSystem;
-
         private void Start()
         {
             healthSystem = GetComponent<HealthSystem>();
+            
         }
-        
         public virtual void TakeDamge(float amount)
         {
-            healthSystem.TakeDamage(amount);
+            if (IsServer && healthSystem != null)
+            {
+                healthSystem.TakeDamage(amount);
+            }
         }
-
     }
 }
 
