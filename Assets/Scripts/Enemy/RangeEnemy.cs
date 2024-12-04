@@ -19,7 +19,6 @@ namespace TheEnemy
             base.Start();
             enemyAttack.OnAttack += EnemyAttack_OnAttackProjectile;
         }
-
         private void EnemyAttack_OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             projectile.HandleShootingProjectile(e.targetPosition);

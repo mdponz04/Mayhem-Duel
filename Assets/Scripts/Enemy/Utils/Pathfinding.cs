@@ -60,7 +60,6 @@ namespace TheEnemy
             }
             nextTimeResumeMoving = Time.time + resumeMovingCooldown;
         }
-
         public bool IsMoving()
         {
             if (agent == null) return false;
