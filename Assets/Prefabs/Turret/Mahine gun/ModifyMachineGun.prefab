@@ -15438,7 +15438,7 @@ MonoBehaviour:
   go_GunBody: {fileID: 1534067911203456809}
   go_barrel: {fileID: 8139652105822302966}
   barrleRotationDamping: 1
-  headAimOffSet: -0.5
+  headAimOffSet: -1.5
   muzzelFlash: {fileID: 4201948606389178977}
   bulletShell: {fileID: 5184077087024952087}
   bulletTraser: {fileID: 6283766599003305963}

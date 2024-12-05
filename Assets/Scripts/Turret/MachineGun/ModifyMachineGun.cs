@@ -75,7 +75,7 @@ public class ModifyMachineGun : TurretBase
             }
         }
 
-        ClearTargets();
+        //RefreshCurrentTarget();
         CancelInvoke();
     }
 
@@ -92,13 +92,12 @@ public class ModifyMachineGun : TurretBase
     protected override void Aiming()
     {
 
-        if (targeting.target == null)
+        if (targeting.currentTarget == null)
         {
             return;
         }
         // Gun barrel rotation
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
-        //RotateThisGunBarrelClientRpc();
         // if can fire turret activates
         if (parameters.canFire)
         {
@@ -106,9 +105,8 @@ public class ModifyMachineGun : TurretBase
             currentRotationSpeed = barrelRotationSpeed;
 
             // aim at enemy
-            RotateTurretBaseTorwardTarget(go_baseRotation, targeting.target.transform, targeting.aimingSpeed);
-            RotateTurretHeadAimAtTarget(go_GunBody, targeting.target.transform, targeting.aimingSpeed, headAimOffSet);
-            //RotateTurretHeadAimAtTargetClientRpc(go_GunBody, targeting.target.transform, targeting.aimingSpeed, headAimOffSet);
+            RotateTurretBaseTorwardTarget(go_baseRotation, targeting.currentTarget.transform, targeting.aimingSpeed);
+            RotateTurretHeadAimAtTarget(go_GunBody, targeting.currentTarget.transform, targeting.aimingSpeed, headAimOffSet);
         }
         else
         {

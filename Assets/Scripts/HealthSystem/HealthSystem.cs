@@ -12,8 +12,8 @@ namespace TheHealth
         {
             public float currentHealth { get; set; }
         }
-        public float maxHealth { get; set; }
-        public float currentHealth { get; set; }
+        [SerializeField]public float maxHealth { get; set; }
+        [SerializeField]public float currentHealth { get; set; }
         //Network variable to handle health change
         public NetworkVariable<float> networkHealth = new NetworkVariable<float>(
             writePerm: NetworkVariableWritePermission.Server,

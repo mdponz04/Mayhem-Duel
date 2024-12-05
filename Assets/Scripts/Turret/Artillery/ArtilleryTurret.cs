@@ -55,12 +55,18 @@ public class ArtilleryTurret : TurretBase
     }
     private void LateUpdate()
     {
-        
+        //==============================================================
+        if (isDebug)
+        {
+            DebugExtension.DebugWireSphere(transform.position, Color.green, deadZoneRadious);
+        }
+        //==============================================================
+
     }
 
     protected override void Aiming()
     {
-        if (targeting.target == null)
+        if (targeting.currentTarget == null)
         {
             return;
         }
@@ -70,17 +76,17 @@ public class ArtilleryTurret : TurretBase
             // aim at enemy
             RotateTurretBaseTorwardTarget(
                 baseRotation,
-                targeting.target.transform,
+                targeting.currentTarget.transform,
                 targeting.aimingSpeed
             );
             RotateTurretBaseTorwardTarget(
                 gunBody,
-                targeting.target.transform,
+                targeting.currentTarget.transform,
                 targeting.aimingSpeed
             );
             RotateTurretHeadByDegree(gunBody, projectileFireAngle, 0, 0, targeting.aimingSpeed, 0);
             projectileSpeed = CalculateProjectileSpeed(
-                targeting.target.transform,
+                targeting.currentTarget.transform,
                 muzzlePosition.transform,
                 Physics.gravity.magnitude,
                 projectileFireAngle
@@ -94,9 +100,9 @@ public class ArtilleryTurret : TurretBase
     protected override void Shooting()
     {
         base.Shooting();
-        if (currentFireRateCoolDown <= 0 && targeting.target != null)
+        if (currentFireRateCoolDown <= 0 && targeting.currentTarget != null)
         {
-        animator.Play("Artillery_Shoot");
+            animator.Play("Artillery_Shoot");
             ShotVFX();
 
             SpawnProjectile();
@@ -116,7 +122,7 @@ public class ArtilleryTurret : TurretBase
         tempProjectile.localScale = projectileScale;
         ArtilleryProjectile artilleryProjectile =
             tempProjectile.GetComponent<ArtilleryProjectile>();
-        artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.target.transform);
+        artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.currentTarget.transform);
         artilleryProjectile.GetComponent<NetworkObject>().Spawn();
     }
     protected float CalculateProjectileSpeed(
@@ -151,21 +157,34 @@ public class ArtilleryTurret : TurretBase
         return speed;
     }
 
-    protected override void ClearTargets()
+    protected override void SetCurrentTarget()
     {
-        base.ClearTargets();
-
-        foreach (Collider target in targeting.targets.ToList())
+        base.SetCurrentTarget();
+        var farthestTarget = GetFarthestTarget();
+        if (farthestTarget != null)
         {
-            var distantToTarget = Vector3.Distance(
-                gameObject.transform.position,
-                target.transform.position
-            );
-            if (distantToTarget < deadZoneRadious)
-            {
-                targeting.targets.Remove(target);
-            }
+            targeting.currentTarget = farthestTarget;
         }
+    }
+
+    protected override bool IsTargetValid(Collider target)
+    {
+        if (!base.IsTargetValid(target))
+        {
+            return false;
+        }
+
+        bool isTargetInRange = true;
+        var distantToTarget = Vector3.Distance(
+            gameObject.transform.position,
+            target.transform.position
+        );
+        if (distantToTarget < deadZoneRadious)
+        {
+            isTargetInRange = false;
+        }
+
+        return isTargetInRange;
     }
 
     protected void OnValidate()

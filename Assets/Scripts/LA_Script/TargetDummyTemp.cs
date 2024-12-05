@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TargetDummyTemp : Vulnerable
 {
-    public float HP = 10f;
+    public float HP = 10000f;
     public float DestroyDuration = 2f;
 
     private bool isDead = false;

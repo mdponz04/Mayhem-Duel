@@ -44,12 +44,12 @@ public class ModifySTTTurret : TurretBase
 
     protected override void Aiming()
     {
-        if (targeting.target == null)
+        if (targeting.currentTarget == null)
         {
             return;
         }
 
-        RotateTurretBaseTorwardTarget(baseRotation, targeting.target.transform, targeting.aimingSpeed);
+        RotateTurretBaseTorwardTarget(baseRotation, targeting.currentTarget.transform, targeting.aimingSpeed);
 
     }
 
@@ -61,7 +61,7 @@ public class ModifySTTTurret : TurretBase
 
     protected override void Shooting()
     {
-        if (targeting.target == null)
+        if (targeting.currentTarget == null)
         {
             return;
         }
@@ -84,7 +84,7 @@ public class ModifySTTTurret : TurretBase
                 DoDamage(hit.collider.gameObject, parameters.damage);
             }
 
-            ClearTargets();
+            //RefreshCurrentTarget();
             CancelInvoke();
         }
     }

@@ -3,6 +3,7 @@ using System.Linq;
 using Assets.Scripts.Turret;
 using CodeMonkey.Utils;
 using TheDamage;
+using TheHealth;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -59,7 +60,7 @@ public class TurretTargeting
     public string[] tagsToFire;
     public LayerMask layersToFire;
     public List<Collider> targets = new List<Collider>();
-    public Collider target;
+    public Collider currentTarget;
 }
 
 [System.Serializable]
@@ -135,10 +136,23 @@ public class TurretBase : NetworkBehaviour
         {
             DowngradeTier();
         }
+        //==============================================================
         if (isDebug)
         {
             DebugExtension.DebugWireSphere(transform.position, Color.red, parameters.fireRangeRadius);
         }
+        //==============================================================
+
+        if (IsTargetValid(targeting.currentTarget))
+        {
+            parameters.canFire = true;
+        }
+        else
+        {
+            parameters.canFire = false;
+        }
+        RefreshCurrentTarget();
+
     }
 
     protected virtual void FixedUpdate()
@@ -152,29 +166,17 @@ public class TurretBase : NetworkBehaviour
             return;
         }
 
-        if (targeting.target == null)
-        {
-            parameters.canFire = false;
-            ClearTargets();
-        }
 
-        if (targeting.target != null)
+        if (parameters.canFire)
         {
-            parameters.canFire = true;
+            //parameters.canFire = true;
             Aiming();
-            //UpdateAimShootClientRpc();
             Invoke("Shooting", 1f / parameters.FireRate);
         }
     }
 
     #region Aiming and Shooting
 
-    [Rpc(SendTo.ClientsAndHost)]
-    public void UpdateAimShootClientRpc()
-    {
-        //Aiming();
-        Invoke("Shooting", 1f / parameters.FireRate);
-    }
     protected virtual void ShotVFX()
     {
         //GetComponent<AudioSource>().PlayOneShot(SFX.shotClip, Random.Range(0.75f, 1));
@@ -209,7 +211,101 @@ public class TurretBase : NetworkBehaviour
     #endregion
 
     #region Targeting
+    protected virtual void RefreshCurrentTarget()
+    {
+        if (!IsTargetValid(targeting.currentTarget))
+        {
+            targeting.targets.Remove(targeting.currentTarget);
+            targeting.currentTarget = null;
+        }
 
+        RefreshTargetList();
+
+        SetCurrentTarget();
+    }
+
+    protected void RefreshTargetList()
+    {
+        if (!IsTargetAvailable())
+        {
+            return;
+        }
+
+        var targets = targeting.targets.ToList();
+        foreach (Collider target in targets)
+        {
+            if (!IsTargetValid(target))
+            {
+                targeting.targets.Remove(target);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Condition for setting target's priority (closest, farthest, lowest hp)
+    /// </summary>
+    protected virtual void SetCurrentTarget()
+    {
+        if (IsTargetAvailable())
+        {
+            targeting.currentTarget = targeting.targets.First();
+        }
+        else
+        {
+            targeting.currentTarget = null;
+        }
+
+        var closestTarget = GetClosestTarget();
+        if (closestTarget != null)
+        {
+            targeting.currentTarget = closestTarget;
+        }
+    }
+
+    /// <summary>
+    /// Condition for a target to be shootable
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    protected virtual bool IsTargetValid(Collider target)
+    {
+        if (target == null)
+        { return false; }
+        bool isTargetValid = true;
+        if (target.GetComponent<Collider>() == false)
+        {
+            Debug.Log($"{target.name} invalid collider");
+            isTargetValid = false;
+        }
+
+        //var distance = Vector3.Distance(transform.position, target.gameObject.transform.position);
+        //if (distance > parameters.fireRangeRadius)
+        //{
+        //    isTargetValid = false;
+        //}
+
+        var healthSystem = target.GetComponent<HealthSystem>();
+        if (healthSystem != null)
+        {
+            if (healthSystem.currentHealth <= 0)
+            {
+                Debug.Log($"{target.name} invalid health");
+                isTargetValid = false;
+            }
+        }
+
+        return isTargetValid;
+    }
+
+    protected bool IsTargetAvailable()
+    {
+        bool isTargetAvailable = false;
+        if (targeting.targets.Count != 0)
+        {
+            isTargetAvailable = true;
+        }
+        return isTargetAvailable;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (parameters.active == false)
@@ -217,36 +313,39 @@ public class TurretBase : NetworkBehaviour
             return;
         }
 
-        ClearTargets();
+        //ClearTargetsList();
 
         if (CheckTags(other) || CheckLayer(other))
         {
-            if (targeting.targets.Count == 0)
+            Debug.Log($"{other.gameObject.name} enter {gameObject.name}'s collider");
+            //if (targeting.targets.Count == 0)
+            //{
+            //    targeting.currentTarget = other.GetComponent<Collider>();
+            //}
+            if (IsTargetValid(other))
             {
-                targeting.target = other.GetComponent<Collider>();
-            }
-
-            targeting.targets.Add(other.GetComponent<Collider>());
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (parameters.active == false)
-        {
-            return;
-        }
-
-        ClearTargets();
-
-        if (CheckTags(other) || CheckLayer(other))
-        {
-            if (!targeting.targets.Contains(other.GetComponent<Collider>()))
-            {
-                targeting.targets.Add(other.GetComponent<Collider>());
+                targeting.targets.Add(other);
             }
         }
     }
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (parameters.active == false)
+    //    {
+    //        return;
+    //    }
+
+    //    ClearTargets();
+
+    //    if (CheckTags(other) || CheckLayer(other))
+    //    {
+    //        if (!targeting.targets.Contains(other.GetComponent<Collider>()))
+    //        {
+    //            targeting.targets.Add(other.GetComponent<Collider>());
+    //        }
+    //    }
+    //}
 
     private void OnTriggerExit(Collider other)
     {
@@ -255,19 +354,20 @@ public class TurretBase : NetworkBehaviour
             return;
         }
 
-        ClearTargets();
+        //ClearTargetsList();
 
         if (CheckTags(other) || CheckLayer(other))
         {
-            targeting.targets.Remove(other.GetComponent<Collider>());
-            if (targeting.targets.Count != 0)
-            {
-                targeting.target = targeting.targets.First();
-            }
-            else
-            {
-                targeting.target = null;
-            }
+            Debug.Log($"{other.gameObject.name} exit {gameObject.name}'s collider");
+            targeting.targets.Remove(other);
+            //if (targeting.targets.Count != 0)
+            //{
+            //    targeting.currentTarget = targeting.targets.First();
+            //}
+            //else
+            //{
+            //    targeting.currentTarget = null;
+            //}
         }
     }
 
@@ -296,34 +396,49 @@ public class TurretBase : NetworkBehaviour
         return match;
     }
 
-    protected virtual void ClearTargets()
+    protected Collider GetClosestTarget()
     {
-        if (targeting.target != null)
+        if (!IsTargetAvailable())
         {
-            if (targeting.target.GetComponent<Collider>().enabled == false)
+            return null;
+        }
+        Collider closestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        List<Collider> targets = targeting.targets.ToList();
+        foreach (Collider target in targets)
+        {
+            float distantToTarget = Vector3.Distance(transform.position, target.transform.position);
+            if (distantToTarget < closestDistance)
             {
-                targeting.targets.Remove(targeting.target);
+                closestDistance = distantToTarget;
+                closestTarget = target;
             }
         }
-
-        foreach (Collider target in targeting.targets.ToList())
-        {
-            if (target == null)
-            {
-                targeting.targets.Remove(target);
-            }
-
-            if (targeting.targets.Count != 0)
-            {
-                targeting.target = targeting.targets.First();
-            }
-            else
-            {
-                targeting.target = null;
-            }
-        }
+        return closestTarget;
     }
 
+    protected Collider GetFarthestTarget()
+    {
+        if (!IsTargetAvailable())
+        {
+            return null;
+        }
+        Collider farthestTarget = null;
+        float farthestDistance = Mathf.NegativeInfinity;
+
+        List<Collider> targets = targeting.targets.ToList();
+        foreach (Collider target in targets)
+        {
+            float distantToTarget = Vector3.Distance(transform.position, target.transform.position);
+            if (distantToTarget > farthestDistance)
+            {
+                farthestDistance = distantToTarget;
+                farthestTarget = target;
+            }
+        }
+        return farthestTarget;
+    }
     #endregion
 
     #region Upgrades

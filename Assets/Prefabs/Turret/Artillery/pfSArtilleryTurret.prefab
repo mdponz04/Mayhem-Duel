@@ -105,6 +105,16 @@ PrefabInstance:
       propertyPath: SyncPositionZ
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1892357964915798451, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
+        type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1892357964915798451, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
+        type: 3}
+      propertyPath: deadZoneRadious
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1947713311069658666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
         type: 3}
       propertyPath: m_IsTrigger

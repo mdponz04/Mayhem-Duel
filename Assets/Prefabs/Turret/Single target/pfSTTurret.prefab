@@ -145,6 +145,11 @@ PrefabInstance:
       propertyPath: DontDestroyWithOwner
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7742657094864605278, guid: 72f34c4c58fcf10429f0acf7353039ba,
+        type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5753340419055719608, guid: 72f34c4c58fcf10429f0acf7353039ba, type: 3}
     m_RemovedGameObjects: []
