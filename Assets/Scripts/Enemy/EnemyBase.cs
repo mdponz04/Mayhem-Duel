@@ -46,12 +46,21 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
             // Server-side logic
             enemyMove.StopMovingInstantly();
             enemyAttack.StopAttackingInstantly();
+            DisableCollider();
             TriggerDeathClientRpc(); // Notify all clients
         }
 
         // Local (client and server) logic
         enemyVisual.TriggerDied();
         StartCoroutine(DelayOnDeath());
+    }
+    private void DisableCollider()
+    {
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
     }
 
     [ClientRpc]
