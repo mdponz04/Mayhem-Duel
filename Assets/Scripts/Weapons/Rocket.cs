@@ -16,7 +16,7 @@ public class Rocket : Bullet
         StartCoroutine(Explode());
     }
 
-    private IEnumerator  Explode()
+    private IEnumerator Explode()
     {
         GetComponent<MeshRenderer>().enabled = false;
         explosionEffect.SetActive(true);

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Turret
 {
-    [CreateAssetMenu(fileName="NewTurretTier", menuName = "Turret/TurretTier")]
+    [CreateAssetMenu(fileName = "NewTurretTier", menuName = "Turret/TurretTier")]
     public class TurretTier : ScriptableObject
     {
         public string TierName;
@@ -17,6 +12,6 @@ namespace Assets.Scripts.Turret
 
         public Material[] TierMaterial;
 
-        
+
     }
 }

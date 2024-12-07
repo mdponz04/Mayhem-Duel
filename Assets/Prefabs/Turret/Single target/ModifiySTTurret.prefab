@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1858721791461905209}
   - component: {fileID: 1438307273295983658}
   - component: {fileID: 8333994780934671822}
+  - component: {fileID: 2109036299911881097}
   - component: {fileID: 3602311807640224305}
   - component: {fileID: 8211851017637399760}
   m_Layer: 0
@@ -228,6 +229,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2109036299911881097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399872446952041856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &3602311807640224305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bf4745e0bff984690828aebcecf02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isDebug: 1
   turretPart:
   - meshes:
     - {fileID: 1296968028174286705}
@@ -252,7 +274,7 @@ MonoBehaviour:
     canFire: 1
     damage: 10
     FireRate: 1
-    fireRangeRadius: 10
+    fireRangeRadius: 13
   targeting:
     aimingSpeed: 10
     aimingDelay: 10
@@ -262,7 +284,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 512
     targets: []
-    target: {fileID: 0}
+    currentTarget: {fileID: 0}
   VFX:
     muzzle: {fileID: 3004995439936213927}
     shotFX: {fileID: 1579546626485678, guid: 7db58c0e931b44d52826ad1829194c32, type: 3}
@@ -4098,7 +4120,7 @@ ParticleSystem:
     radiusScale: 0.16
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 512
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

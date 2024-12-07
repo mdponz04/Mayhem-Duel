@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -23,7 +22,7 @@ public class Gun : MonoBehaviour
 
     protected virtual void Start()
     {
-        if(currentMag != null)
+        if (currentMag != null)
         {
             currentMag.AttachToGun(magAttachPoint);
         }
@@ -75,10 +74,10 @@ public class Gun : MonoBehaviour
             Fire();
             yield return new WaitForSeconds(fireRate);
         }
-        if(currentMag == null || currentMag.Ammo <= 0)
+        if (currentMag == null || currentMag.Ammo <= 0)
         {
             PlaySound("EmptyClip");
-            DetachMag();                   
+            DetachMag();
         }
     }
 
