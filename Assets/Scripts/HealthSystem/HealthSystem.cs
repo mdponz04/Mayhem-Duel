@@ -12,8 +12,8 @@ namespace TheHealth
         {
             public float currentHealth { get; set; }
         }
-        [SerializeField] public float maxHealth { get; set; }
-        [SerializeField] public float currentHealth { get; set; }
+        public float maxHealth { get; set; }
+        public float currentHealth { get; set; }
         //Network variable to handle health change
         public NetworkVariable<float> networkHealth = new NetworkVariable<float>(
             writePerm: NetworkVariableWritePermission.Server,
@@ -24,7 +24,7 @@ namespace TheHealth
             this.maxHealth = maxHealth;
             currentHealth = maxHealth;
             // Set initial health only on the server
-
+            
         }
         public override void OnNetworkSpawn()
         {
@@ -46,7 +46,7 @@ namespace TheHealth
                 currentHealth = 0;
                 Die();
             }
-            OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs { currentHealth = currentHealth });
+            OnHealthChange?.Invoke(this, new OnHealthChangeEventArgs {currentHealth = currentHealth});
             Debug.Log("Remaining health of " + this.name + " = " + currentHealth);
         }
 
@@ -73,7 +73,7 @@ namespace TheHealth
         {
             Debug.Log(gameObject.name + " has died!");
             OnDeath?.Invoke(this, EventArgs.Empty);
-
+            
         }
 
         public float GetNetworkHealth()

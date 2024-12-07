@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public class RocketLauncher : Gun
 {
-
+    
     protected override void Fire()
     {
         if (canFire && currentMag != null && currentMag.Ammo > 0)

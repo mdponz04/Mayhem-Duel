@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class M4Colt : Rifle
 {
@@ -25,15 +26,15 @@ public class M4Colt : Rifle
     }
     public void LaunchRocket()
     {
-        if (rocketReady && rocketMag > 0)
+        if(rocketReady && rocketMag> 0)
         {
             Rocket.Create(rocketBarrel.position, rocketBarrel, 10, attackDamage);
             PlaySound("GunShot");
             rocketMag--;
             StartCoroutine(RocketCoolDown());
         }
-    }
-
+    }    
+    
     private IEnumerator RocketCoolDown()
     {
         rocketReady = false;

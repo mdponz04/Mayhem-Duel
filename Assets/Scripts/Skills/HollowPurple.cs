@@ -21,7 +21,7 @@ public class HollowPurple : MonoBehaviour
     private void Update()
     {
         transform.position += direction * Time.deltaTime * moveSpeed;
-        if (isScaling)
+        if(isScaling)
         {
             return;
         }

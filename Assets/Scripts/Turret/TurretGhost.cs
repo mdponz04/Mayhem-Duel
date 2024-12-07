@@ -1,10 +1,12 @@
 ﻿using Assets.Scripts.TheCastle;
+using System;
+using System.Collections.Generic;
 using TheCastle;
-using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class TurretGhost : NetworkBehaviour
+public class TurretGhost : MonoBehaviour
 {
 
     [Header("Indicate ray")]
@@ -13,7 +15,6 @@ public class TurretGhost : NetworkBehaviour
     [SerializeField] private float rayMaxDistance;
     [SerializeField] private LayerMask layersRayHit;
     [SerializeField] private PlacedObjectTypeSO objectToPlace;
-    [SerializeField] private TurretType turretTypeToPlace;
 
     [Header("Ghost")]
     [SerializeField] private Vector3 ghostScalling = new Vector3(0.3f, 0.3f, 0.3f);
@@ -30,7 +31,6 @@ public class TurretGhost : NetworkBehaviour
     private void Start()
     {
         lineRender = GetComponent<LineRenderer>();
-        TurnOffRay();
     }
 
     private void Update()
@@ -43,7 +43,6 @@ public class TurretGhost : NetworkBehaviour
             if (rayHit.collider != null)
             {
                 Vector3 ghostPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
-
                 if (validPosition)
                 {
                     TurnOnVisual(ghostPosition);
@@ -68,7 +67,6 @@ public class TurretGhost : NetworkBehaviour
 
     public void PlaceTurretOnGrid()
     {
-        Debug.Log("Placing Turret");
         RaycastHit rayHit = FireRay();
         if (rayHit.collider != null && objectToPlace != null)
         {
@@ -77,26 +75,6 @@ public class TurretGhost : NetworkBehaviour
             {
                 GridSystem.Instance.GridObjectPlace(snappedPosition, objectToPlace);
 
-                TurnOffVisual();
-                if (isDestroyAfterUse)
-                {
-                    DestroyItem();
-                }
-            }
-        }
-    }
-    public void PlaceTurretOnGridServer()
-    {
-        Debug.Log("Placing Turret");
-        RaycastHit rayHit = FireRay();
-        if (rayHit.collider != null)
-        {
-            Vector3 snappedPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
-            if (validPosition)
-            {
-                GridSystem.Instance.GridObjectPlaceServerRpc(snappedPosition, turretTypeToPlace);
-
-                TurnOffVisual();
                 if (isDestroyAfterUse)
                 {
                     DestroyItem();
@@ -162,13 +140,11 @@ public class TurretGhost : NetworkBehaviour
     {
         isRayActive = true;
         lineRender.enabled = true;
-        lineRender.useWorldSpace = true;
     }
     public void TurnOffRay()
     {
         isRayActive = false;
         lineRender.enabled = false;
-        lineRender.useWorldSpace = false;
     }
     private RaycastHit FireRay()
     {
@@ -183,7 +159,7 @@ public class TurretGhost : NetworkBehaviour
         {
             DrawRayLine(rayOrigin.position + rayOrigin.forward * rayMaxDistance);
         }
-        //Debug.Log(hit.collider);
+        Debug.Log(hit.collider);
         return hit;
     }
 

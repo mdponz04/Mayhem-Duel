@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TowerDefense : MonoBehaviour
 {
@@ -33,7 +33,7 @@ public class TowerDefense : MonoBehaviour
 
     private void Start()
     {
-        grid = new Grid3D(width, height, depth, cellSize, new Vector3(-15, 0, 0));
+        grid = new Grid3D(width, height, depth, cellSize, new Vector3(-15,0,0));
 
         if (pathPositions == null)
         {
@@ -68,7 +68,7 @@ public class TowerDefense : MonoBehaviour
         foreach (Vector3 position in pathPositions)
         {
             GameObject pathTile = Instantiate(pathPrefab, position, Quaternion.identity, pathParent.transform);
-            Vector3 scale = new Vector3(1, 0.1f, 1) * cellSize;
+            Vector3 scale = new Vector3(1,0.1f,1) * cellSize;
             pathTile.transform.localScale = scale;
         }
     }
@@ -119,16 +119,16 @@ public class TowerDefense : MonoBehaviour
         for (int segment = 1; segment <= verticalSegmentLength; segment++)
         {
             x = random.Next((width / verticalSegmentLength) * (segment - 1), (width / verticalSegmentLength) * segment - 1);
-            if (z == 0)
+            if(z ==0)
             {
                 path[x, y, z] = 1;
                 positions.Add(grid.GetWorldPosition(x, y, z, Vector3.one));
             }
 
-            while (z < depth - 1 && iterations < maxIterations)
+            while (z < depth-1 && iterations < maxIterations)
             {
                 // Move forward for the horizontal segment length
-                for (int i = 0; i < horizontalSegmentLength && z < depth - 1; i++)
+                for (int i = 0; i < horizontalSegmentLength && z < depth-1; i++)
                 {
                     z++;
                     path[x, y, z] = 1;
@@ -136,7 +136,7 @@ public class TowerDefense : MonoBehaviour
                 }
 
                 // Change direction after each segment
-                if (z < depth - 1)
+                if (z < depth-1)
                 {
                     if (x <= 1) // Too close to top, force downward
                         direction = 2;
@@ -152,7 +152,7 @@ public class TowerDefense : MonoBehaviour
                             for (int b = temp; b >= x; b--)
                             {
                                 path[b, y, z] = 1;
-                                positions.Add(grid.GetWorldPosition(b, y, z, Vector3.one));
+                                positions.Add(grid.GetWorldPosition(b, y,z, Vector3.one));
                             }
                             break;
                         case 2: // Move right
@@ -221,7 +221,7 @@ public class TowerDefense : MonoBehaviour
             if (health <= 0)
             {
                 Debug.Log("Game Over");
-                // FindAnyObjectByType<PauseMenu>().GameOver();
+               // FindAnyObjectByType<PauseMenu>().GameOver();
             }
         }
     }
@@ -237,7 +237,7 @@ public class TowerDefense : MonoBehaviour
             {
                 grid.SetValue(x, y, z, 2); // 2 represents a tower
                 Vector3 spawnPosition = grid.GetWorldPosition(x, y, z, Vector3.one);
-                // Instantiate(GameAssets.GetTowerPrefab(towerName), spawnPosition, Quaternion.identity);
+               // Instantiate(GameAssets.GetTowerPrefab(towerName), spawnPosition, Quaternion.identity);
                 money -= towerCost;
                 //towerDefenseOverlay.SetMoneyAmount((int)money);
             }

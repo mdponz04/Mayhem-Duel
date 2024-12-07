@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TheEnemy
@@ -7,8 +9,8 @@ namespace TheEnemy
     {
         [SerializeField] private GameObject meleeEnemyPrefab;
         [SerializeField] private GameObject rangeEnemyPrefab;
-        [SerializeField] private float spawnInterval = 30f;
-        [SerializeField] private float spawnStartTime = 3f;
+        private float spawnInterval = 30f;
+        private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
         private Vector3 minSpawnArea;
@@ -26,7 +28,7 @@ namespace TheEnemy
             int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
             if (waveOrder <= 5)
             {
-
+                
                 RandomPositionSpawn(rangeEnemyPrefab, waveOrder * 2);
                 RandomPositionSpawn(meleeEnemyPrefab, waveOrder * 3);
             }
@@ -50,7 +52,7 @@ namespace TheEnemy
         {
             return Random.Range(min, max);
         }
-
+        
     }
 }
 

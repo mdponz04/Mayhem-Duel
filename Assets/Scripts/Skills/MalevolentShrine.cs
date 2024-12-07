@@ -14,10 +14,10 @@ public class MalevolentShrine : MonoBehaviour
     [Header("Animation Attribute")]
     [SerializeField] private float riseHeight = 5f;
     [SerializeField] private float riseTime = 5f;
-    //[SerializeField] private float distance = 5f;
+    [SerializeField] private float distance = 5f;
 
     private Light shrineLight;
-    private ParticleSystem particleSys;
+    private ParticleSystem particleSystem;
     bool canExecute = true;
 
 
@@ -32,8 +32,8 @@ public class MalevolentShrine : MonoBehaviour
         malevolentShrinePrefab.GetChildGameObjects(gameObjects);
         spherebound = gameObjects[gameObjects.Count - 1];
         shrineLight = gameObjects[gameObjects.Count - 1].GetComponentInChildren<Light>();
-        particleSys = gameObjects[gameObjects.Count - 2].GetComponent<ParticleSystem>();
-        particleSys.Stop();
+        particleSystem = gameObjects[gameObjects.Count - 2].GetComponent<ParticleSystem>();
+        particleSystem.Stop();
         shrineLight.enabled = false;
         spherebound.SetActive(false);
     }
@@ -70,7 +70,7 @@ public class MalevolentShrine : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         AudioManager.instance.PlayAudioClip(slashSound);
         shrineLight.enabled = true;
-        particleSys.Play();
+        particleSystem.Play();
         yield return new WaitForSeconds(15f);
         malevolentShrinePrefab.SetActive(false);
         canExecute = true;

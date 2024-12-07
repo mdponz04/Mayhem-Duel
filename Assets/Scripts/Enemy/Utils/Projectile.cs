@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace TheEnemy
@@ -10,15 +12,15 @@ namespace TheEnemy
         private void Start()
         {
             parentPosition = transform.position;
-
+            
         }
 
         public void HandleShootingProjectile(Vector3 targetPosition)
         {
             EnableProjectile();
             if (targetPosition == null) return;
-
-
+            
+            
             StartCoroutine(MoveProjectile(targetPosition));
         }
         private IEnumerator MoveProjectile(Vector3 targetPosition)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -99,7 +100,7 @@ public class HollowPurpleSkill : MonoBehaviour
         isCombining = true;
         yield return new WaitForSeconds(0.5f);
         //blueSphere.GetComponent<MeshRenderer>().enabled = true;
-        yield return new WaitForSeconds(combinationTime / 2);
+        yield return new WaitForSeconds(combinationTime/2);
         foreach (GameObject sphere in spheres)
         {
             if (sphere.GetComponent<MeshRenderer>() != null)
@@ -113,7 +114,7 @@ public class HollowPurpleSkill : MonoBehaviour
         }
         spheres.Clear();
         //redSphere.GetComponent<MeshRenderer>().enabled = true;
-        yield return new WaitForSeconds(combinationTime / 2);
+        yield return new WaitForSeconds(combinationTime/2);
         combinationPoint = (redSphere.transform.position + blueSphere.transform.position) / 2;
         GameObject hollowPurple = Instantiate(hollowPurplePrefab, combinationPoint, Quaternion.identity);
         hollowPurple.GetComponent<HollowPurple>().isScaling = true;
@@ -171,7 +172,7 @@ public class HollowPurpleSkill : MonoBehaviour
                 hollows.transform.position = combinationPoint;
             }
 
-            if (Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 1f && !isTouched)
+            if(Vector3.Distance(redSphere.transform.position, blueSphere.transform.position) < 1f && !isTouched)
             {
                 isTouched = true;
                 purple.Play();

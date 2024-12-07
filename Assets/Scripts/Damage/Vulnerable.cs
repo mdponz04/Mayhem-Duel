@@ -5,11 +5,11 @@ namespace TheDamage
 {
     public class Vulnerable : NetworkBehaviour
     {
-        public HealthSystem healthSystem;
+        private HealthSystem healthSystem;
         private void Start()
         {
             healthSystem = GetComponent<HealthSystem>();
-
+            
         }
         public virtual void TakeDamge(float amount)
         {
