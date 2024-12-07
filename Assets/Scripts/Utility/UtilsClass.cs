@@ -13,8 +13,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CodeMonkey.Utils
 {
@@ -649,7 +649,7 @@ namespace CodeMonkey.Utils
             }
 
             neededComponent = gameObject.GetComponentInChildren<TInterface>();
-                return neededComponent;
+            return neededComponent;
         }
 
     }
