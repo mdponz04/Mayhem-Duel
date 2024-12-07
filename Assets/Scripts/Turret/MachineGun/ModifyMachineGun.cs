@@ -1,12 +1,6 @@
-﻿using Assets.Scripts.Turret;
-using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ModifyMachineGun : TurretBase
 {
@@ -129,7 +123,7 @@ public class ModifyMachineGun : TurretBase
         emission = bulletTraser.emission;
         emission.rateOverTime = parameters.FireRate;
 
-    } 
+    }
     #endregion
 
 }

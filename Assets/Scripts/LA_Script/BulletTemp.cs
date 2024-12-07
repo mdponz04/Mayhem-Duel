@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletTemp : MonoBehaviour
@@ -9,7 +7,7 @@ public class BulletTemp : MonoBehaviour
 
     private void Update()
     {
-        if(timeToLive <= 0)
+        if (timeToLive <= 0)
         {
             Destroy(gameObject, 2f);
         }

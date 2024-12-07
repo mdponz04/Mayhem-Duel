@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
-using TheHealth;
 using UnityEngine;
 
 namespace TheEnemy
@@ -11,7 +8,7 @@ namespace TheEnemy
         protected override void Start()
         {
             UpdateStats();
-            
+
 
             layerMask = LayerMask.GetMask("Player", "Damageable");
 

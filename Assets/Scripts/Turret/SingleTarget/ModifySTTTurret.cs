@@ -1,6 +1,3 @@
-using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -72,7 +69,7 @@ public class ModifySTTTurret : TurretBase
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(VFX.muzzle.position, VFX.muzzle.transform.forward, out hit, parameters.fireRangeRadius))
+        if (Physics.Raycast(VFX.muzzle.position, VFX.muzzle.transform.forward, out hit, parameters.fireRangeRadius, targeting.layersToFire))
         {
             if (CheckTags(hit.collider) || CheckLayer(hit.collider))
             {

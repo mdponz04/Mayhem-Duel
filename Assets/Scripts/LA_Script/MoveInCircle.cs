@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MoveInCircle : MonoBehaviour
@@ -9,11 +7,11 @@ public class MoveInCircle : MonoBehaviour
     public Transform ObjToMove;
 
     private float angle = 0f;
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        angle += Time.deltaTime* Speed;
+        angle += Time.deltaTime * Speed;
 
         float x = Mathf.Cos(angle) * Radius + transform.position.x;
         float z = Mathf.Sin(angle) * Radius + +transform.position.z;

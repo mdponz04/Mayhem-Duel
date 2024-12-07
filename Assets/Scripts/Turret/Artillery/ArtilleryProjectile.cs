@@ -1,6 +1,4 @@
 using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
 using Unity.Netcode;
 using UnityEngine;

@@ -8,7 +8,8 @@ public class SelectTPDestination : MonoBehaviour
     private TeleportationAnchor _currentTpAnchor;
     public void Start()
     {
-        if (teleportDestinations.Length >= 1) {
+        if (teleportDestinations.Length >= 1)
+        {
             _currentTpAnchor = teleportDestinations[0];
         }
     }

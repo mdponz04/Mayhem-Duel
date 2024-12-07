@@ -1,11 +1,9 @@
 using Assets.Scripts.TheCastle;
 using CodeMonkey.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace TheCastle
 {

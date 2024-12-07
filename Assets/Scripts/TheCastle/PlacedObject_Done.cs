@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Unity.Netcode;
 using UnityEngine;
-using Unity.Netcode;
 
 namespace Assets.Scripts.TheCastle
 {
-    public class PlacedObject_Done : MonoBehaviour    {
+    public class PlacedObject_Done : MonoBehaviour
+    {
         public static PlacedObject_Done Create(Vector3 worldPosition, PlacedObjectTypeSO placedObjectTypeSO, Vector3 objectScalling)
         {
             Transform placedObjectTransform = Instantiate(placedObjectTypeSO.prefab, worldPosition, Quaternion.identity);

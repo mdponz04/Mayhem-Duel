@@ -1,6 +1,4 @@
 using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
 using UnityEngine;
 
@@ -25,7 +23,7 @@ public class TargetDummyTemp : Vulnerable
         HP -= damage;
         UtilsClass.CreateWorldTextPopup(damage.ToString(), gameObject.transform.position);
 
-        if(HP <= 0)
+        if (HP <= 0)
         {
             Dead();
         }

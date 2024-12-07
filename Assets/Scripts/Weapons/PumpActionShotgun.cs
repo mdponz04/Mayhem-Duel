@@ -119,7 +119,7 @@ public class PumpActionShotgun : Gun
         if (pumpGrabbingHand != null)
         {
             Vector3 handDelta = lastHandPosition - pumpGrabbingHand.transform.position;
-            float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward);;
+            float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward); ;
             Vector3 newPosition = pumpTransform.localPosition - pumpTransform.forward * (pumpDelta * pumpForce);
             pumpTransform.localPosition = ClampPumpPosition(newPosition);
             lastHandPosition = pumpGrabbingHand.transform.position;
@@ -128,8 +128,8 @@ public class PumpActionShotgun : Gun
 
     void ReturnPump()
     {
-            pumpTransform.localPosition = Vector3.MoveTowards(pumpTransform.localPosition,
-            pumpStartTransform.localPosition, 4 * pumpReturnSpeed * Time.deltaTime);
+        pumpTransform.localPosition = Vector3.MoveTowards(pumpTransform.localPosition,
+        pumpStartTransform.localPosition, 4 * pumpReturnSpeed * Time.deltaTime);
     }
 
     Vector3 ClampPumpPosition(Vector3 position)

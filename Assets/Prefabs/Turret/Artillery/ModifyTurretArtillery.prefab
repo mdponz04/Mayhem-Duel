@@ -821,7 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a5ad77c91152040be597f67eab43e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
+  isDebug: 1
   turretPart:
   - meshes:
     - {fileID: 8240550336465239103}
@@ -852,7 +852,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 512
     targets: []
-    target: {fileID: 0}
+    currentTarget: {fileID: 0}
   VFX:
     muzzle: {fileID: 1713640049532304090}
     shotFX: {fileID: 1579546626485678, guid: 7db58c0e931b44d52826ad1829194c32, type: 3}
@@ -871,8 +871,10 @@ MonoBehaviour:
   pfProjectile: {fileID: 5992700969941577839, guid: 72060496cf3611946ac8d40498eae5f5,
     type: 3}
   projectileFireAngle: -45
-  deadZoneRadious: 20
+  deadZoneRadious: 7
+  percentDistantToTargetTest: 0.8
   projectileSpeed: 10
+  currentFireRateCoolDown: 0
   projectileScale: {x: 0.05, y: 0.05, z: 0.05}
 --- !u!95 &8579120502970685374
 Animator:
@@ -938,14 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList:
-  - IsCrossFadeExit: 0
-    Layer: 0
-    OriginatingState: 2081823275
-    DestinationState: -92328597
-    TransitionDuration: 0
-    TriggerNameHash: -1316629574
-    TransitionIndex: 0
+  TransitionStateInfoList: []
   m_Animator: {fileID: 8579120502970685374}
 --- !u!1 &5784273747033420911
 GameObject:

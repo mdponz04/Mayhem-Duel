@@ -3422,7 +3422,7 @@ PrefabInstance:
     - target: {fileID: 8998684619081537156, guid: 21e7ff413bcd23a45ad63790dc4ef64a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.42
+      value: 21.02
       objectReference: {fileID: 0}
     - target: {fileID: 8998684619081537156, guid: 21e7ff413bcd23a45ad63790dc4ef64a,
         type: 3}
@@ -3432,7 +3432,7 @@ PrefabInstance:
     - target: {fileID: 8998684619081537156, guid: 21e7ff413bcd23a45ad63790dc4ef64a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.84
+      value: -23.12
       objectReference: {fileID: 0}
     - target: {fileID: 8998684619081537156, guid: 21e7ff413bcd23a45ad63790dc4ef64a,
         type: 3}
@@ -4833,7 +4833,7 @@ MonoBehaviour:
     EnableNetworkLogs: 1
     OldPrefabList: []
   RunInBackground: 1
-  LogLevel: 0
+  LogLevel: 1
 --- !u!4 &1785621206
 Transform:
   m_ObjectHideFlags: 0

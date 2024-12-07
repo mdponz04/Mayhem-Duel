@@ -24,11 +24,11 @@ public class XRControllerInput : MonoBehaviour
         blueSphereAction.action.Enable();
 
         // Add listeners for the button presses
-        if(malevolentShrineAction != null)
+        if (malevolentShrineAction != null)
         {
             malevolentShrineAction.action.performed += ctx => OnMalevolentShrineButtonPressed();
         }
-        if(hollowPurpleSkill != null)
+        if (hollowPurpleSkill != null)
         {
             redSphereAction.action.performed += ctx => OnRedSphereButtonPressed();
             blueSphereAction.action.performed += ctx => OnBlueSphereButtonPressed();
@@ -48,7 +48,7 @@ public class XRControllerInput : MonoBehaviour
 
     private void OnRedSphereButtonPressed()
     {
-        if(redSphereAction != null)
+        if (redSphereAction != null)
         {
             Debug.Log("Red Sphere Button Pressed");
             hollowPurpleSkill.SpawnRedSphere();

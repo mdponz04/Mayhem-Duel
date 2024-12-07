@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MagSpawner : MonoBehaviour
@@ -67,7 +65,7 @@ public class MagSpawner : MonoBehaviour
 
     public void SpawnUziMag()
     {
-        for (int i = 0; i < spawnNumber ; i++)
+        for (int i = 0; i < spawnNumber; i++)
         {
             Instantiate(GameAssets.i.pfUziMag, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
         }

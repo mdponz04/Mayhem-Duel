@@ -9,7 +9,7 @@ namespace TheDamage
         private void Start()
         {
             healthSystem = GetComponent<HealthSystem>();
-            
+
         }
         public virtual void TakeDamge(float amount)
         {

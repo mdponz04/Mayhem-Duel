@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.Turret;
+﻿using Assets.Scripts.Turret;
 using CodeMonkey.Utils;
+using System.Collections.Generic;
+using System.Linq;
 using TheDamage;
 using TheHealth;
 using Unity.Netcode;
@@ -129,17 +129,19 @@ public class TurretBase : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            UpgradeTier();
+            //UpgradeTier();
+            UpgradeTierServerRpc();
         }
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            DowngradeTier();
+            //DowngradeTier();
+            DowngradeTierServerRpc();
         }
         //==============================================================
         if (isDebug)
         {
-            DebugExtension.DebugWireSphere(transform.position, Color.red, parameters.fireRangeRadius);
+            DebugExtension.DebugWireSphere(transform.position, Color.green, parameters.fireRangeRadius);
         }
         //==============================================================
 
@@ -167,12 +169,9 @@ public class TurretBase : NetworkBehaviour
         }
 
 
-        if (parameters.canFire)
-        {
-            //parameters.canFire = true;
-            Aiming();
-            Invoke("Shooting", 1f / parameters.FireRate);
-        }
+        //parameters.canFire = true;
+        Aiming();
+        Invoke("Shooting", 1f / parameters.FireRate);
     }
 
     #region Aiming and Shooting
@@ -442,7 +441,26 @@ public class TurretBase : NetworkBehaviour
     #endregion
 
     #region Upgrades
-
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    public void UpgradeTierServerRpc()
+    {
+        UpgradeTierClientRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    public void UpgradeTierClientRpc()
+    {
+        UpgradeTier();
+    }
+    [Rpc(SendTo.Server, RequireOwnership = false)]
+    public void DowngradeTierServerRpc()
+    {
+        DowngradeTierClientRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    public void DowngradeTierClientRpc()
+    {
+        DowngradeTier();
+    }
     public void UpgradeTier()
     {
         if (upgrade.currentTierIndex < upgrade.minimunTierIndex)

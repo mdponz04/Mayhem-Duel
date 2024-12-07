@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.TheCastle;
-using System;
-using System.Collections.Generic;
 using TheCastle;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]

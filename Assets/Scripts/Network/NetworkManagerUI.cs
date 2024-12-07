@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -52,8 +51,8 @@ public class NetworkManagerUI : NetworkBehaviour
             startButton.gameObject.SetActive(false);
         });
     }
-    
-    
+
+
     private void Start()
     {
         enemyCount.Value = 0f;
@@ -116,11 +115,11 @@ public class NetworkManagerUI : NetworkBehaviour
             Debug.LogWarning("Invalid prefab index passed to SpawnPrefabServerRpc.");
             return;
         }
-        
+
         // Instantiate and spawn the selected prefab
         GameObject enemyInstance = Instantiate(enemyPrefabs[prefabIndex]);
         //=========================================
-        enemyInstance.transform.position = spawnPosition.position; 
+        enemyInstance.transform.position = spawnPosition.position;
         //=========================================
         NetworkObject networkObject = enemyInstance.GetComponent<NetworkObject>();
         networkObject.Spawn();

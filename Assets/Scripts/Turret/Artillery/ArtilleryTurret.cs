@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Unity.Netcode;
 using Unity.Netcode.Components;
 using UnityEngine;
@@ -29,7 +28,11 @@ public class ArtilleryTurret : TurretBase
     float deadZoneRadious;
 
     [SerializeField]
+    [Range(0, 1)]
+    protected float percentDistantToTargetTest;
+    [SerializeField]
     protected float projectileSpeed;
+    [SerializeField]
     protected float currentFireRateCoolDown;
 
     [SerializeField] protected Vector3 projectileScale;
@@ -58,7 +61,7 @@ public class ArtilleryTurret : TurretBase
         //==============================================================
         if (isDebug)
         {
-            DebugExtension.DebugWireSphere(transform.position, Color.green, deadZoneRadious);
+            DebugExtension.DebugWireSphere(transform.position, Color.red, deadZoneRadious);
         }
         //==============================================================
 
@@ -134,7 +137,7 @@ public class ArtilleryTurret : TurretBase
     {
         var turretXZ = new Vector3(this.transform.position.x, 0, this.transform.position.z);
         var targetXZ = new Vector3(target.position.x, 0, target.position.z);
-        float distantToTarget = Vector3.Distance(turretXZ, targetXZ);
+        float distantToTarget = Vector3.Distance(turretXZ, targetXZ) * percentDistantToTargetTest;
         float heightOffset = target.position.y - targetXZ.y;
         return CalculateProjectileSpeed(distantToTarget, gravity, fireAngleInDegree, heightOffset);
     }

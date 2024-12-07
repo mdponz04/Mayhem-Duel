@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.InputSystem;
+using UnityEngine;
 
 public class NetworkSpawnTest : NetworkBehaviour
 {
@@ -20,7 +17,7 @@ public class NetworkSpawnTest : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-        Debug.Log("Client id: " + OwnerClientId + " press V");
+            Debug.Log("Client id: " + OwnerClientId + " press V");
             SpawnDummyServerRpc();
         }
     }

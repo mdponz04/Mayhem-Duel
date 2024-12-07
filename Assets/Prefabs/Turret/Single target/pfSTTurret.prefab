@@ -130,6 +130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: STTurretWithBase
       objectReference: {fileID: 0}
+    - target: {fileID: 5173025518548792294, guid: 72f34c4c58fcf10429f0acf7353039ba,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2000331848
+      objectReference: {fileID: 0}
     - target: {fileID: 5294947566862837317, guid: 72f34c4c58fcf10429f0acf7353039ba,
         type: 3}
       propertyPath: m_IsTrigger
@@ -151,7 +156,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 5753340419055719608, guid: 72f34c4c58fcf10429f0acf7353039ba, type: 3}
+    - {fileID: 5173025518548792294, guid: 72f34c4c58fcf10429f0acf7353039ba, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -159,6 +164,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1626626008131472956}
+    - targetCorrespondingSourceObject: {fileID: 5324330670181957615, guid: 72f34c4c58fcf10429f0acf7353039ba,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5969265983481807046}
   m_SourcePrefab: {fileID: 100100000, guid: 72f34c4c58fcf10429f0acf7353039ba, type: 3}
 --- !u!1 &3184757150634446336 stripped
 GameObject:
@@ -197,6 +206,26 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &5969265983481807046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184757150634446336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 5668208586760154960}
+--- !u!95 &5668208586760154960 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3132483219232022207, guid: 72f34c4c58fcf10429f0acf7353039ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 7336739043031003631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6988039779553638641 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 372624965063526686, guid: 72f34c4c58fcf10429f0acf7353039ba,
