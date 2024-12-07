@@ -1,10 +1,10 @@
+using Unity.Netcode;
+using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
 using TheEnemy;
 using TheHealth;
-using Unity.Netcode;
-using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyBase : NetworkBehaviour, IDamageSource
 {
@@ -163,7 +163,7 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
                 {
                     enemyMove.SetTarget(target);
                 }
-                else if (target.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
+                else if(target.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
                 {
                     enemyMove.SetTarget(target);
                 }
@@ -175,7 +175,7 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
         if (!IsServer) return;
 
         targetsInAggro.Remove(other);
-        foreach (var target in targetsInAggro)
+        foreach(var target in targetsInAggro)
         {
             if (other.CompareTag("Player") || other.CompareTag("Damageable"))
             {

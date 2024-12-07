@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TierName: Single Target Tier 1
   FireRate: 1
-  FireRange: 13
+  FireRange: 10
   Damage: 7
   TierMaterial:
   - {fileID: 2100000, guid: dae3d3ca8f22edc4db41002eb8cbfee6, type: 2}

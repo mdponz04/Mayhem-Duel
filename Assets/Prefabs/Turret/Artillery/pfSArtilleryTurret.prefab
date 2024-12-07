@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2154979907709803535}
   - component: {fileID: 7861383933075578948}
-  - component: {fileID: 2105804476909311279}
   m_Layer: 0
   m_Name: pfSArtilleryTurret
   m_TagString: Untagged
@@ -46,27 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b566882066d3ced4391243c12772add2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2105804476909311279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6451868496561403267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 364481861
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 1
-  AutoObjectParentSync: 1
 --- !u!1001 &6494359349861529872
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,81 +53,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2154979907709803535}
     m_Modifications:
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206817458761182721, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1892357964915798451, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: isDebug
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1892357964915798451, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: deadZoneRadious
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1947713311069658666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: UseHalfFloatPrecision
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: UseQuaternionCompression
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: UseQuaternionSynchronization
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4123672060708789961, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -205,49 +108,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArtilleryTurretWithBase
       objectReference: {fileID: 0}
-    - target: {fileID: 6076898902171419894, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 2769990437
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncScaleZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: SyncPositionZ
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6171758252230573666, guid: 7725b9d5f9e4f3748b3bf373773f51f1,
-        type: 3}
-      propertyPath: UseQuaternionSynchronization
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6076898902171419894, guid: 7725b9d5f9e4f3748b3bf373773f51f1, type: 3}
-    - {fileID: 3463044271340786244, guid: 7725b9d5f9e4f3748b3bf373773f51f1, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

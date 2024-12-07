@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
-using Unity.Netcode;
+﻿using Assets.Scripts.Turret;
+using CodeMonkey.Utils;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ModifyMachineGun : TurretBase
 {
@@ -10,7 +15,6 @@ public class ModifyMachineGun : TurretBase
     [SerializeField] Transform go_GunBody;
     [SerializeField] Transform go_barrel;
     [SerializeField] float barrleRotationDamping = 5f;
-    [SerializeField] float headAimOffSet = -0.5f;
 
     [Space(5)]
     [Header("Particle system")]
@@ -30,12 +34,6 @@ public class ModifyMachineGun : TurretBase
         bulletCollisionEvent = new List<ParticleCollisionEvent>();
     }
 
-    private void Awake()
-    {
-        turretBase = go_baseRotation;
-        turretHead = go_GunBody;
-    }
-
     public void OnParticleCollision(GameObject other)
     {
         int numberOfCollisionEvent = bulletTraser.GetCollisionEvents(other, bulletCollisionEvent);
@@ -43,55 +41,44 @@ public class ModifyMachineGun : TurretBase
         while (i < numberOfCollisionEvent)
         {
             DoDamage(bulletCollisionEvent[i].colliderComponent.gameObject, parameters.damage);
-            BulletImpactFVX(bulletCollisionEvent[i].intersection, bulletImpact);
+            BulletImpactFVX(bulletCollisionEvent[i].intersection, bulletImpact);            
             i++;
         }
     }
     protected override void Shooting()
     {
         base.Shooting();
+
         if (parameters.canFire)
         {
             if (!muzzelFlash.isPlaying)
             {
-                //muzzelFlash.Play();
-                TurnOnParticleVisualClientRpc();
+                muzzelFlash.Play();
             }
             ShotVFX();
-        }
-        else
+        } else
         {
             // stop the particle system
             if (muzzelFlash.isPlaying)
             {
-                //muzzelFlash.Stop();
-                TurnOffParticleVisualClientRpc();
+                muzzelFlash.Stop();
             }
         }
 
-        //RefreshCurrentTarget();
+        ClearTargets();
         CancelInvoke();
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
-    protected void TurnOnParticleVisualClientRpc()
-    {
-        muzzelFlash.Play();
-    }
-    [Rpc(SendTo.ClientsAndHost)]
-    protected void TurnOffParticleVisualClientRpc()
-    {
-        muzzelFlash.Stop();
-    }
     protected override void Aiming()
     {
 
-        if (targeting.currentTarget == null)
+        if (targeting.target == null)
         {
             return;
         }
         // Gun barrel rotation
         go_barrel.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime);
+
         // if can fire turret activates
         if (parameters.canFire)
         {
@@ -99,8 +86,9 @@ public class ModifyMachineGun : TurretBase
             currentRotationSpeed = barrelRotationSpeed;
 
             // aim at enemy
-            RotateTurretBaseTorwardTarget(go_baseRotation, targeting.currentTarget.transform, targeting.aimingSpeed);
-            RotateTurretHeadAimAtTarget(go_GunBody, targeting.currentTarget.transform, targeting.aimingSpeed, headAimOffSet);
+            RotateTurretBaseTorwardTarget(go_baseRotation, targeting.target.transform, targeting.aimingSpeed);
+
+            RotateTurretHeadAimAtTarget(go_GunBody, targeting.target.transform, targeting.aimingSpeed, 0.5f);
         }
         else
         {
@@ -109,9 +97,7 @@ public class ModifyMachineGun : TurretBase
         }
     }
 
-    #region Upgrade
     public override void TierChange()
-
     {
         base.TierChange();
         barrelRotationSpeed = parameters.FireRate / 3 * 360;
@@ -124,6 +110,5 @@ public class ModifyMachineGun : TurretBase
         emission.rateOverTime = parameters.FireRate;
 
     }
-    #endregion
 
 }

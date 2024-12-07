@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheEnemy
@@ -14,7 +16,7 @@ namespace TheEnemy
         public void HandleMoving(bool isMoving)
         {
             animator.SetBool(IS_RUNNING_PARAMETER, isMoving);
-
+            
         }
         public void TriggerNormalAttack()
         {

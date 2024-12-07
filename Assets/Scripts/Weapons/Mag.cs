@@ -28,7 +28,7 @@ public class Mag : MonoBehaviour
     public void DetachFromGun()
     {
         transform.SetParent(null);
-        if (attachedGun != null && attachedGun.GetComponent<Gun>() != null)
+        if(attachedGun != null && attachedGun.GetComponent<Gun>() != null)
         {
             attachedGun.GetComponent<Gun>().currentMag = null;
         }

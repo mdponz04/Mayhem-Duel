@@ -1,17 +1,16 @@
-using Unity.Netcode;
-using Unity.Netcode.Components;
+using CodeMonkey.Utils;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ModifySTTTurret : TurretBase
 {
-    [Header("Single target gun part")]
+    [Header("Sinper gun part")]
     // Gameobjects need to control rotation and aiming
     [SerializeField] Transform baseRotation;
     [SerializeField] ParticleSystem tracerBullet;
     [SerializeField] Transform bulletImpact;
 
-    [Header("Network part")]
-    NetworkAnimator networkAnimator;
     protected Animator animator;
 
     protected override void Start()
@@ -20,45 +19,35 @@ public class ModifySTTTurret : TurretBase
         animator = GetComponent<Animator>();
     }
 
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-        networkAnimator = GetComponent<NetworkAnimator>();
-    }
-    private void Awake()
-    {
-        turretBase = baseRotation;
-    }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
         if (isDebug)
         {
-            Debug.DrawLine(VFX.muzzle.transform.position, VFX.muzzle.transform.forward * parameters.fireRangeRadius + VFX.muzzle.transform.position);
+            Debug.DrawLine(VFX.muzzle.transform.position , VFX.muzzle.transform.forward * parameters.fireRangeRadius + VFX.muzzle.transform.position);
         }
     }
 
     protected override void Aiming()
     {
-        if (targeting.currentTarget == null)
+        if(targeting.target == null)
         {
             return;
         }
 
-        RotateTurretBaseTorwardTarget(baseRotation, targeting.currentTarget.transform, targeting.aimingSpeed);
+        RotateTurretBaseTorwardTarget(baseRotation, targeting.target.transform, targeting.aimingSpeed);
 
     }
 
-    //protected override void ShotVFX()
-    //{
-    //    base.ShotVFX();
-    //    tracerBullet.Emit(1);
-    //}
+    protected override void ShotVFX()
+    {
+        base.ShotVFX();
+        tracerBullet.Emit(1);
+    }
 
     protected override void Shooting()
     {
-        if (targeting.currentTarget == null)
+        if (targeting.target == null)
         {
             return;
         }
@@ -69,26 +58,18 @@ public class ModifySTTTurret : TurretBase
         }
 
         RaycastHit hit;
-        if (Physics.Raycast(VFX.muzzle.position, VFX.muzzle.transform.forward, out hit, parameters.fireRangeRadius, targeting.layersToFire))
+        if (Physics.Raycast(VFX.muzzle.position, VFX.muzzle.transform.forward, out hit, parameters.fireRangeRadius))
         {
             if (CheckTags(hit.collider) || CheckLayer(hit.collider))
             {
-                animator.Play("Shot Animation");
+                animator.SetTrigger("Shot");
                 ShotVFX();
-                //tracerBullet.Emit(1);
-                //BulletImpactFVX(hit.point, bulletImpact);
-                SpawnShootParticleClientRpc(hit.point);
+                BulletImpactFVX(hit.point, bulletImpact);
                 DoDamage(hit.collider.gameObject, parameters.damage);
             }
 
-            //RefreshCurrentTarget();
+            ClearTargets();
             CancelInvoke();
         }
-    }
-    [Rpc(SendTo.ClientsAndHost)]
-    protected void SpawnShootParticleClientRpc(Vector3 hitPosition)
-    {
-        tracerBullet.Emit(1);
-        BulletImpactFVX(hitPosition, bulletImpact);
     }
 }

@@ -27,7 +27,7 @@ public class MagInteractable : XRGrabInteractable
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
-    {
+    {          
         base.OnSelectExited(args);
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, attachDistance);
