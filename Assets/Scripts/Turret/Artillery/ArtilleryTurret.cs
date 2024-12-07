@@ -126,6 +126,12 @@ public class ArtilleryTurret : TurretBase
         ArtilleryProjectile artilleryProjectile =
             tempProjectile.GetComponent<ArtilleryProjectile>();
         artilleryProjectile.SetUp(muzzlePosition, projectileSpeed, targeting.currentTarget.transform);
+        //==============================================================
+        if (isDebug)
+        {
+            artilleryProjectile.isDebug = true;
+        }
+        //==============================================================
         artilleryProjectile.GetComponent<NetworkObject>().Spawn();
     }
     protected float CalculateProjectileSpeed(

@@ -30,6 +30,7 @@ public class TurretGhost : NetworkBehaviour
     private void Start()
     {
         lineRender = GetComponent<LineRenderer>();
+        TurnOffRay();
     }
 
     private void Update()
@@ -42,6 +43,7 @@ public class TurretGhost : NetworkBehaviour
             if (rayHit.collider != null)
             {
                 Vector3 ghostPosition = GridSystem.Instance.GetWorldSnappedPosition(rayHit.point, out bool validPosition);
+
                 if (validPosition)
                 {
                     TurnOnVisual(ghostPosition);
@@ -75,6 +77,7 @@ public class TurretGhost : NetworkBehaviour
             {
                 GridSystem.Instance.GridObjectPlace(snappedPosition, objectToPlace);
 
+                TurnOffVisual();
                 if (isDestroyAfterUse)
                 {
                     DestroyItem();
@@ -93,6 +96,7 @@ public class TurretGhost : NetworkBehaviour
             {
                 GridSystem.Instance.GridObjectPlaceServerRpc(snappedPosition, turretTypeToPlace);
 
+                TurnOffVisual();
                 if (isDestroyAfterUse)
                 {
                     DestroyItem();
@@ -158,11 +162,13 @@ public class TurretGhost : NetworkBehaviour
     {
         isRayActive = true;
         lineRender.enabled = true;
+        lineRender.useWorldSpace = true;
     }
     public void TurnOffRay()
     {
         isRayActive = false;
         lineRender.enabled = false;
+        lineRender.useWorldSpace = false;
     }
     private RaycastHit FireRay()
     {

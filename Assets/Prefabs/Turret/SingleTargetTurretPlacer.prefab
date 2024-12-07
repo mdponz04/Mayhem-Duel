@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3534179251574104386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.596}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 2776382647097131855}
   - component: {fileID: 502242908122467038}
   - component: {fileID: 760990010925755527}
+  - component: {fileID: 7607498636434573560}
   - component: {fileID: 5404183574472292463}
   - component: {fileID: 7471844121730049857}
   - component: {fileID: 1343368638903787539}
-  - component: {fileID: 7607498636434573560}
   - component: {fileID: 8955058294998601381}
   - component: {fileID: 8845202659035712713}
   m_Layer: 0
@@ -64,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 6432238316737763133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.675, y: 1.875, z: 39.54931}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -79,7 +79,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6432238316737763133}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 396b0f2dfb0fd754aac7273f97c2d2ad, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -203,9 +203,30 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7607498636434573560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432238316737763133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4168572706
+  InScenePlacedSourceGlobalObjectIdHash: 601248929
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!114 &5404183574472292463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,6 +250,7 @@ MonoBehaviour:
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
   isDestroyAfterUse: 0
+  lineRender: {fileID: 0}
 --- !u!54 &7471844121730049857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -444,27 +466,6 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &7607498636434573560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6432238316737763133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2234512595
-  InScenePlacedSourceGlobalObjectIdHash: 601248929
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 1
-  AutoObjectParentSync: 1
 --- !u!114 &8955058294998601381
 MonoBehaviour:
   m_ObjectHideFlags: 0

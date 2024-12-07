@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1442810421550678480}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.3644376, y: 1.875, z: 39.54931}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -172,7 +172,7 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
 --- !u!114 &-6572628709777738666
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3217627064
+  GlobalObjectIdHash: 2966609601
   InScenePlacedSourceGlobalObjectIdHash: 2244035562
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -219,6 +219,7 @@ MonoBehaviour:
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
   isDestroyAfterUse: 0
+  lineRender: {fileID: 0}
 --- !u!54 &7352594123944420649
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -534,7 +535,7 @@ Transform:
   m_GameObject: {fileID: 6628368606843468250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.596}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

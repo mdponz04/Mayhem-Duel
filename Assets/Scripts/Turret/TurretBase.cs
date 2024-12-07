@@ -316,7 +316,7 @@ public class TurretBase : NetworkBehaviour
 
         if (CheckTags(other) || CheckLayer(other))
         {
-            Debug.Log($"{other.gameObject.name} enter {gameObject.name}'s collider");
+            //Debug.Log($"{other.gameObject.name} enter {gameObject.name}'s collider");
             //if (targeting.targets.Count == 0)
             //{
             //    targeting.currentTarget = other.GetComponent<Collider>();
@@ -357,7 +357,7 @@ public class TurretBase : NetworkBehaviour
 
         if (CheckTags(other) || CheckLayer(other))
         {
-            Debug.Log($"{other.gameObject.name} exit {gameObject.name}'s collider");
+            //Debug.Log($"{other.gameObject.name} exit {gameObject.name}'s collider");
             targeting.targets.Remove(other);
             //if (targeting.targets.Count != 0)
             //{
