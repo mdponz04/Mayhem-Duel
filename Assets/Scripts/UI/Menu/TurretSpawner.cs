@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretSpawner : MonoBehaviour
@@ -11,16 +13,26 @@ public class TurretSpawner : MonoBehaviour
     #endregion
     public void SpawnArtilleryTurret()
     {
-        Instantiate(artilleryTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        if (EconomySystem.DeductPoint(1000))
+        {
+            Debug.Log("Spawn success");
+            Instantiate(artilleryTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnMachineGunTurret()
     {
-        Instantiate(machineGunTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        if (EconomySystem.DeductPoint(1000))
+        {
+            Instantiate(machineGunTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 
     public void SpawnSingleTargetTurret()
     {
-        Instantiate(singleTargetTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        if (EconomySystem.DeductPoint(1000))
+        {
+            Instantiate(artilleryTurret, SpawnPosition.position + new Vector3(0, 1, 0), Quaternion.identity);
+        }
     }
 }
