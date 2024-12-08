@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -43,7 +42,7 @@ public class NetworkManagerUI : NetworkBehaviour
                     SpawnPrefabServerRpc(i); // Pass the index instead of GameObject
                 }
             }
-            testButton.gameObject.SetActive(false);
+            //testButton.gameObject.SetActive(false);
         });
         startButton.onClick.AddListener(() =>
         {
@@ -51,8 +50,8 @@ public class NetworkManagerUI : NetworkBehaviour
             startButton.gameObject.SetActive(false);
         });
     }
-    
-    
+
+
     private void Start()
     {
         enemyCount.Value = 0f;
@@ -70,7 +69,7 @@ public class NetworkManagerUI : NetworkBehaviour
         networkObjectCountText.text = "Enemy remaining: " + newValue;
     }
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
         if (NetworkManager.Singleton != null)
         {
@@ -116,11 +115,12 @@ public class NetworkManagerUI : NetworkBehaviour
             return;
         }
         
-        // Instantiate and spawn the selected prefab
         GameObject enemyInstance = Instantiate(enemyPrefabs[prefabIndex]);
+        enemyInstance.transform.position = Vector3.zero;
         NetworkObject networkObject = enemyInstance.GetComponent<NetworkObject>();
         networkObject.Spawn();
         //Debug.Log("Spawned enemy with NetworkObjectId: " + networkObject.NetworkObjectId);
+
 
         //Update UI text count
         UpdateNetworkObjectCount();

@@ -1,10 +1,10 @@
-using Unity.Netcode;
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using TheDamage;
 using TheEnemy;
 using TheHealth;
-using System.Collections.Generic;
+using Unity.Netcode;
+using UnityEngine;
 
 public class EnemyBase : NetworkBehaviour, IDamageSource
 {
@@ -23,7 +23,6 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
     [SerializeField] private SphereCollider aggroRange;
     public HealthSystem healthSystem { get; private set; }
     private List<Collider> targetsInAggro = new();
-
     protected virtual void Start()
     {
         enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
@@ -52,6 +51,7 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
 
         // Local (client and server) logic
         enemyVisual.TriggerDied();
+        enemyVFX.StopAllEffects();
         StartCoroutine(DelayOnDeath());
     }
     private void DisableCollider()
@@ -96,8 +96,16 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
         // Local (client and server) logic
         enemyVisual.TriggerHit();
         enemyVFX.PlayBloodBurstEffect();
+        StartCoroutine(DelayOnContinueAtk());
     }
-
+    private IEnumerator DelayOnContinueAtk()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (IsServer)
+        {
+            enemyAttack.ResumeAttacking();
+        }
+    }
     [ClientRpc]
     private void TriggerHitClientRpc()
     {
@@ -152,41 +160,40 @@ public class EnemyBase : NetworkBehaviour, IDamageSource
     protected void OnTriggerEnter(Collider other)
     {
         if (!IsServer) return;
-
-        targetsInAggro.Add(other);
-        foreach (var target in targetsInAggro)
+        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
         {
-            if (target.CompareTag("Player") || target.CompareTag("Damageable"))
+            targetsInAggro.Add(other);
+            Debug.Log("The targets in aggro: " + other.name);
+            if (enemyMove.target == null)
             {
-                Debug.Log("The targets in aggro: " + target.name);
-                if (enemyMove.target == null)
-                {
-                    enemyMove.SetTarget(target);
-                }
-                else if(target.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
-                {
-                    enemyMove.SetTarget(target);
-                }
+                enemyMove.SetTarget(targetsInAggro[0]);
+            }
+            else if (other.CompareTag("Player") && enemyMove.target.CompareTag("Damageable"))
+            {
+                enemyMove.SetTarget(targetsInAggro[0]);
             }
         }
     }
     protected void OnTriggerExit(Collider other)
     {
         if (!IsServer) return;
-
-        targetsInAggro.Remove(other);
-        foreach(var target in targetsInAggro)
+        if (other.CompareTag("Player") || other.CompareTag("Damageable"))
         {
-            if (other.CompareTag("Player") || other.CompareTag("Damageable"))
+            targetsInAggro.Remove(other);
+            Debug.Log("The targets out aggro: " + other.name);
+            if (enemyMove.target != null)
             {
-                Debug.Log("The targets out aggro: " + other.name);
-                if (enemyMove.target != null)
+                if (targetsInAggro.Count > 0 && targetsInAggro[0] != null)
+                {
+                    enemyMove.SetTarget(targetsInAggro[0]);
+                }
+                else
                 {
                     enemyMove.SetTarget(null);
                 }
+                
             }
         }
     }
-
     float IDamageSource.GetAttackDamage() => attackDamage;
 }

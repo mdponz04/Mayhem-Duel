@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
-using TheHealth;
 using UnityEngine;
 
 namespace TheEnemy
@@ -11,7 +8,7 @@ namespace TheEnemy
         protected override void Start()
         {
             UpdateStats();
-            
+
 
             layerMask = LayerMask.GetMask("Player", "Damageable");
 
@@ -19,11 +16,11 @@ namespace TheEnemy
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
             base.Start();
-            enemyAttack.OnAttack += EnemyAttack_OnNormalAttack;
+            enemyAttack.OnAttack += OnNormalAttack;
         }
 
 
-        private void EnemyAttack_OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
+        private void OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             enemyVFX.PlayClawAttackEffect();
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +27,7 @@ namespace TheEnemy
         }
         private void PlayLeftArmClawAtkEffect()
         {
-            foreach(var effect in leftArmAttackEffect)
+            foreach (var effect in leftArmAttackEffect)
             {
                 effect.Play();
             }
@@ -45,6 +44,26 @@ namespace TheEnemy
             yield return new WaitForSeconds(0.5f);
             PlayLeftArmClawAtkEffect();
         }
+
+        public void StopAllEffects()
+        {
+            // Stop individual effects
+            bloodBurstEffect?.Stop();
+            sphereProjectileEffect?.Stop();
+
+            // Stop effects in the left arm list
+            foreach (var effect in leftArmAttackEffect)
+            {
+                effect?.Stop();
+            }
+
+            // Stop effects in the right arm list
+            foreach (var effect in rightArmAttackEffect)
+            {
+                effect?.Stop();
+            }
+        }
+
     }
 }
 

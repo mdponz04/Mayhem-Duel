@@ -39,16 +39,15 @@ namespace TheEnemy
                 float heightOffset = 1f;
                 Vector3 sphereCenter = currentPosition + new Vector3(0f, heightOffset, 0f);
                 Collider[] attackHits = Physics.OverlapSphere(sphereCenter, attackRange, layerMask);
-
-                foreach (Collider hit in attackHits)
+                if(attackHits.Length > 0)
                 {
-                    if (hit.CompareTag("Player") || hit.CompareTag("Damageable"))
+                    if (attackHits[0].CompareTag("Player") || attackHits[0].CompareTag("Damageable"))
                     {
-                        Vulnerable vulnerableComponent = hit.GetComponent<Vulnerable>();
+                        Vulnerable vulnerableComponent = attackHits[0].GetComponent<Vulnerable>();
                         if (vulnerableComponent != null)
                         {
                             damageDealer.TryDoDamage(vulnerableComponent);
-                            OnAttack?.Invoke(this, new OnAttackEventArgs(hit.transform.position));
+                            OnAttack?.Invoke(this, new OnAttackEventArgs(attackHits[0].transform.position));
                             nextTimeAttack = Time.time + attackCooldown;
                         }
                     }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -50,7 +49,7 @@ public class Rifle : Gun
         if (isPulled && canFire && currentMag != null && currentMag.Ammo > 0 && !isLeverActionInProgress && !needsManualPull)
         {
             base.Fire();
-            if(isAuto)
+            if (isAuto)
             {
                 StartCoroutine(AutomateLeverAction());
             }
@@ -174,7 +173,7 @@ public class Rifle : Gun
     public override void AttachMag(Mag mag)
     {
         base.AttachMag(mag);
-        if(isFirstMag)
+        if (isFirstMag)
         {
             isFirstMag = false;
             needsManualPull = false;

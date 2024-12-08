@@ -1,6 +1,4 @@
 using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DpsDummyTemp : TargetDummyTemp
@@ -14,10 +12,12 @@ public class DpsDummyTemp : TargetDummyTemp
     void Start()
     {
         UtilsClass.CreateWorldTextUpdater(GetDpsText, transform.position);
+
     }
 
     private void FixedUpdate()
     {
+        healthSystem.SetUp(HP);
         currentTimeInterval -= Time.deltaTime;
         if (currentTimeInterval <= 0)
         {
