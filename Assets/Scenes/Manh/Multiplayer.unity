@@ -2514,6 +2514,8 @@ MonoBehaviour:
     type: 3}
   rangeEnemyPrefab: {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc,
     type: 3}
+  spawnInterval: 30
+  spawnStartTime: 3
   spawnAreaMin: {fileID: 1364827024}
   spawnAreaMax: {fileID: 776967513}
 --- !u!114 &1534363078
@@ -3182,11 +3184,6 @@ PrefabInstance:
         type: 3}
       propertyPath: GlobalObjectIdHash
       value: 394741331
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016015183849825937, guid: cf4310bc14d52544592d567edb84125c,
-        type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 4149161494
       objectReference: {fileID: 0}
     - target: {fileID: 7375272802091458451, guid: cf4310bc14d52544592d567edb84125c,
         type: 3}

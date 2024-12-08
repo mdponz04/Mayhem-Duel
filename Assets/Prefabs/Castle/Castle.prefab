@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 545667525207237414}
   - component: {fileID: 2835551644864036966}
   - component: {fileID: 371929883138438994}
+  - component: {fileID: 6578391915385750959}
   m_Layer: 10
   m_Name: Castle
   m_TagString: Damageable
@@ -31,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4316919058616441216}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 42.54}
   m_LocalScale: {x: 10, y: 1, z: 4}
   m_ConstrainProportionsScale: 0
@@ -99,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3237829620
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 394741331
+  InScenePlacedSourceGlobalObjectIdHash: 4149161494
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edcefa659f970941939b83975bb1075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthSystem: {fileID: 0}
 --- !u!114 &545667525207237414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +164,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cb7b3b72567fdc84fbd9990297d54ffd, type: 2}
   turretScalling: {x: 0.4, y: 0.4, z: 0.4}
   playerPosition: {fileID: 0}
+--- !u!114 &6578391915385750959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316919058616441216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c83b3c351405c46ba7e6b427845bf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretTypes: 000000000100000002000000
+  turretPfs:
+  - {fileID: 11400000, guid: cb7b3b72567fdc84fbd9990297d54ffd, type: 2}
+  - {fileID: 11400000, guid: d5eb54e2f799c3d4da782c3c46081e4f, type: 2}
+  - {fileID: 11400000, guid: cc637f0ed5f4df24f92e664cb8420dec, type: 2}
 --- !u!1 &9032429392680430352
 GameObject:
   m_ObjectHideFlags: 0
