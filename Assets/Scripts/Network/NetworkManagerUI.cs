@@ -14,7 +14,6 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private TMP_Text networkObjectCountText;
     [SerializeField] private GameObject spawnableLand;
     [SerializeField] private List<GameObject> enemyPrefabs;
-    [SerializeField] private Transform spawnPosition;
 
     private NetworkVariable<float> enemyCount = new NetworkVariable<float>(
         writePerm: NetworkVariableWritePermission.Server, // Only server can modify
@@ -115,12 +114,9 @@ public class NetworkManagerUI : NetworkBehaviour
             Debug.LogWarning("Invalid prefab index passed to SpawnPrefabServerRpc.");
             return;
         }
-
-        // Instantiate and spawn the selected prefab
+        
         GameObject enemyInstance = Instantiate(enemyPrefabs[prefabIndex]);
-        //=========================================
-        enemyInstance.transform.position = spawnPosition.position;
-        //=========================================
+        enemyInstance.transform.position = Vector3.zero;
         NetworkObject networkObject = enemyInstance.GetComponent<NetworkObject>();
         networkObject.Spawn();
         //Debug.Log("Spawned enemy with NetworkObjectId: " + networkObject.NetworkObjectId);

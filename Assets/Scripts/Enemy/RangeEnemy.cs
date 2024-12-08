@@ -15,9 +15,9 @@ namespace TheEnemy
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
             base.Start();
-            enemyAttack.OnAttack += EnemyAttack_OnAttackProjectile;
+            enemyAttack.OnAttack += OnAttackProjectile;
         }
-        private void EnemyAttack_OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
+        private void OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             projectile.HandleShootingProjectile(e.targetPosition);
             enemyVFX.PlaySphereProjectileEffect();
