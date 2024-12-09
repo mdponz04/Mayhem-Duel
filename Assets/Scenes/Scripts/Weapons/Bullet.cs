@@ -2,7 +2,6 @@ using Unity.Netcode;
 using TheDamage;
 using UnityEngine;
 using System.Collections;
-using System.Diagnostics;
 
 public class Bullet : NetworkBehaviour, IDamageSource
 {
@@ -10,14 +9,25 @@ public class Bullet : NetworkBehaviour, IDamageSource
     private DamageDealer damageDealer;
     public NetworkVariable<float> attackDamage = new NetworkVariable<float>(10f);
 
-    [ServerRpc(RequireOwnership = false)]
-    public static void CreateServerRpc(Vector3 position, Transform direction, float speed, float damage)
+    // Factory method for creating bullets
+    public static void Create(Vector3 position, Transform direction, float speed, float damage)
     {
-        // Server-side bullet creation
-        Transform bulletTransform = Instantiate(GameAssets.i.pfBullet, position, Quaternion.identity);
-        Bullet bullet = bulletTransform.GetComponent<Bullet>();
-        bullet.SetUpClientRpc(direction.forward, speed, damage);
-        bulletTransform.GetComponent<NetworkObject>().Spawn();
+        Transform bulleTransform = Instantiate(GameAssets.i.pfBullet, position, Quaternion.identity);
+        Bullet bullet = bulleTransform.GetComponent<Bullet>();
+
+        // Request server to spawn and set up the bullet
+        if (bullet.IsOwner)
+        {
+            bullet.SetUpServerRpc(direction.forward, speed, damage);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    protected void SetUpServerRpc(Vector3 directionForward, float speed, float damage)
+    {
+        // Server-side setup and synchronization
+        attackDamage.Value = damage;
+        SetUpClientRpc(directionForward, speed, damage);
     }
 
     [ClientRpc]
@@ -25,7 +35,7 @@ public class Bullet : NetworkBehaviour, IDamageSource
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = directionForward * speed;
-        attackDamage.Value = damage;
+
         damageDealer = GetComponent<DamageDealer>();
         damageDealer.SetUp();
     }

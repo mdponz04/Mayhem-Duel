@@ -17,7 +17,7 @@ public class GatlingGun : Gun
             {
                 CreateBulletClientRpc(barrel.position, attackDamage);
                 PlaySoundClientRpc("GunShot");
-                mag.UseAmmo();
+                mag.UseAmmoServerRpc();
                 StartCoroutine(FireCooldown());
             }
             else

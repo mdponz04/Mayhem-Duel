@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using Unity.Netcode;
-using Unity.Collections;
+using UnityEngine;
+using System.Collections;
+using UnityEngine.XR.Interaction.Toolkit;
 
+// Base Networked Gun Class
 public class Gun : NetworkBehaviour
 {
     [SerializeField] protected float fireRate = 0.1f;
@@ -14,7 +13,7 @@ public class Gun : NetworkBehaviour
     [SerializeField] protected AudioClip gunShotSound;
     [SerializeField] protected AudioClip emptyClipSound;
     [SerializeField] protected AudioClip reloadClipSound;
-    [SerializeField] protected Transform magAttachPoint;
+    [SerializeField] public GameObject magAttachPoint;
     [SerializeField] protected float attackDamage = 10;
 
     // Network Variables
@@ -23,11 +22,11 @@ public class Gun : NetworkBehaviour
     protected NetworkVariable<NetworkObjectReference> currentMagReference = new NetworkVariable<NetworkObjectReference>();
 
     protected Coroutine firingCoroutine;
+
     public Mag Mag { get; private set; }
 
     protected virtual void Start()
     {
-       
 
         // Only run attachment logic on the server
         if (IsServer)
@@ -37,14 +36,17 @@ public class Gun : NetworkBehaviour
                 Mag attachedMag = magObject.GetComponent<Mag>();
                 if (attachedMag != null)
                 {
-                    attachedMag.AttachToGunServerRpc(magAttachPoint);
+                    attachedMag.AttachToGunServerRpc(
+                     new NetworkObjectReference(this.NetworkObject),
+                     new NetworkObjectReference(magAttachPoint)
+                 );
                 }
             }
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public virtual void TriggerPressServerRpc()
+    public void TriggerPressServerRpc()
     {
         // Only the server can change network state
         isTriggerPressed.Value = true;
@@ -59,7 +61,7 @@ public class Gun : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public virtual void TriggerReleaseServerRpc()
+    public void TriggerReleaseServerRpc()
     {
         isTriggerPressed.Value = false;
         if (firingCoroutine != null)
@@ -86,7 +88,7 @@ public class Gun : NetworkBehaviour
                 PlaySoundClientRpc("GunShot");
 
                 // Use ammo on the server
-                mag.UseAmmo();
+                mag.UseAmmoServerRpc();
                 StartCoroutine(FireCooldown());
             }
             else
@@ -98,7 +100,7 @@ public class Gun : NetworkBehaviour
     }
 
     [ClientRpc]
-    protected virtual void CreateBulletClientRpc(Vector3 barrelPosition, float damage)
+    protected void CreateBulletClientRpc(Vector3 barrelPosition, float damage)
     {
         // Create bullet on all clients
         Bullet.Create(barrelPosition, barrel, 100, damage);
@@ -165,14 +167,14 @@ public class Gun : NetworkBehaviour
             if (newMag != null)
             {
                 currentMagReference.Value = magReference;
-                newMag.AttachToGun(magAttachPoint);
+                newMag.AttachToGunServerRpc(new NetworkObjectReference(this.NetworkObject), new NetworkObjectReference(magAttachPoint));
                 PlaySoundClientRpc("Reload");
             }
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public virtual void DetachMagServerRpc()
+    public void DetachMagServerRpc()
     {
         if (!IsServer) return;
 
@@ -181,14 +183,14 @@ public class Gun : NetworkBehaviour
             Mag mag = magObject.GetComponent<Mag>();
             if (mag != null)
             {
-                mag.DetachFromGun();
+                mag.DetachFromCurrentGunServerRpc();
             }
             currentMagReference.Value = new NetworkObjectReference();
         }
     }
 
-    public virtual bool HasMag()
+    public bool HasMag()
     {
-        return currentMagReference.Value.IsValid();
+        return currentMagReference.Value.TryGet(out NetworkObject magObject);
     }
 }

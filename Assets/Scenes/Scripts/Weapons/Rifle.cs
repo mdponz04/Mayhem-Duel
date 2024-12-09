@@ -57,17 +57,12 @@ public class Rifle : Gun
             !isLeverActionInProgress.Value &&
             !needsManualPull.Value)
         {
-<<<<<<< Updated upstream:Assets/Scripts/Weapons/Rifle.cs
-            base.Fire();
-            if (isAuto)
-=======
             Mag mag = magObject.GetComponent<Mag>();
             if (mag != null && mag.Ammo > 0)
->>>>>>> Stashed changes:Assets/Scenes/Scripts/Weapons/Rifle.cs
             {
                 CreateBulletClientRpc(barrel.position, attackDamage);
                 PlaySoundClientRpc("GunShot");
-                mag.UseAmmo();
+                mag.UseAmmoServerRpc();
 
                 if (isAuto)
                 {
@@ -176,16 +171,11 @@ public class Rifle : Gun
         }
     }
 
+    [ServerRpc]
     public override void AttachMagServerRpc(NetworkObjectReference magReference)
     {
-<<<<<<< Updated upstream:Assets/Scripts/Weapons/Rifle.cs
-        base.AttachMag(mag);
-        if (isFirstMag)
-=======
         base.AttachMagServerRpc(magReference);
-
-        if (isFirstMag.Value)
->>>>>>> Stashed changes:Assets/Scenes/Scripts/Weapons/Rifle.cs
+        if(isFirstMag.Value)
         {
             isFirstMag.Value = false;
             needsManualPull.Value = false;
