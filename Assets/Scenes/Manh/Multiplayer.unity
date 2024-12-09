@@ -1199,6 +1199,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 585787685}
   m_CullTransparentMesh: 1
+--- !u!114 &594977917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2835551644864036966, guid: cf4310bc14d52544592d567edb84125c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2076107475156667509}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c726cb2a97c3394c8697ffec2cfa159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642498350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1860,7 @@ MonoBehaviour:
   networkEnemyCountText: {fileID: 1410159151}
   castleHealthText: {fileID: 1132020466}
   spawnableLand: {fileID: 1534363077}
+  castleHealthSystem: {fileID: 594977917}
   enemyPrefabs:
   - {fileID: 5536016755921339209, guid: 0a42ba704d81d2f4e9a91934b9cf871b, type: 3}
   - {fileID: 3167472185688264587, guid: 6c1e401d50eb8d04280d45ab1ef14ebc, type: 3}

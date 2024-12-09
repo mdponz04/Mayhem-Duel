@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -6,6 +7,7 @@ namespace TheEnemy
 {
     public class SpawnEnemy : NetworkBehaviour
     {
+        public event EventHandler OnSpawn;
         [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] private float spawnInterval = 30f;
         [SerializeField] private float spawnStartTime = 3f;
@@ -22,7 +24,6 @@ namespace TheEnemy
         }
         private void Spawn()
         {
-            if (!IsServer) return;
             int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
             if (waveOrder <= 5)
             {
@@ -44,17 +45,20 @@ namespace TheEnemy
                 GameObject enemyInstance = Instantiate(prefab, randomPosition, Quaternion.identity);
                 NetworkObject enemyNetwork = enemyInstance.GetComponent<NetworkObject>();
                 enemyNetwork.Spawn();
-                NetworkManagerUI.Singleton.UpdateNetworkEnemyCount();
             }
+            OnSpawn?.Invoke(this, EventArgs.Empty);
         }
         private float RandomFloat(float min, float max)
         {
-            return Random.Range(min, max);
+            return UnityEngine.Random.Range(min, max);
         }
         public void StartSpawning()
         {
-            if(!IsServer) return;
-            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
+            if (IsServer)
+            {
+                InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
+                Debug.LogWarning($"StartSpawning triggered by {(IsServer ? "Server" : "Client")}");
+            }
         }
     }
 }
