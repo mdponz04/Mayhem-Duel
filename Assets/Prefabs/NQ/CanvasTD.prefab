@@ -628,7 +628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2363541088691183002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4084,7 +4084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 4593439530031882569}
   gameOverMenu: {fileID: 2294939599056035299}
-  weaponMenu: {fileID: 1344798465174591143}
   gameOverMessage: {fileID: 6402430386418918647}
   vrLeftPauseButton:
     m_UseReference: 1
@@ -4135,6 +4134,7 @@ MonoBehaviour:
   ShotgunPrefab: {fileID: 0}
   SMAWPrefab: {fileID: 0}
   UziPrefab: {fileID: 0}
+  SpawnPosition: {fileID: 0}
 --- !u!114 &4892984220854567213
 MonoBehaviour:
   m_ObjectHideFlags: 0

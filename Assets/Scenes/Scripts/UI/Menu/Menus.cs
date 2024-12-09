@@ -32,20 +32,20 @@ public class Menus : MonoBehaviour
         //this.transform.eulerAngles = vRot;
 
         // Activate Menu when pauseMenu key is pressed on either controller
-        if (vrLeftPauseButton.action.WasPressedThisFrame() ||
-            vrRightPauseButton.action.WasPressedThisFrame() ||
-            Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            if (isPaused)
-            {
-                UnPause();
-            }
-            else
-            {
-                Pause();
-            }
-        }
+        //if (vrLeftPauseButton.action.WasPressedThisFrame() ||
+        //    vrRightPauseButton.action.WasPressedThisFrame() ||
+        //    Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    pauseMenu.SetActive(!pauseMenu.activeSelf);
+        //    if (isPaused)
+        //    {
+        //        UnPause();
+        //    }
+        //    else
+        //    {
+        //        Pause();
+        //    }
+        //}
 
     }
 
@@ -53,14 +53,14 @@ public class Menus : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0.0f;
-        Debug.Log("Pausing");
+        //Debug.Log("Pausing");
     }
 
     private void UnPause()
     {
         isPaused = false;
         Time.timeScale = 1;
-        Debug.Log("Continuing");
+        //Debug.Log("Continuing");
     }
     /// <summary>
     /// Bring up the Game Over Menu
