@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TheEnemy;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,16 +12,34 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private Button clientButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button testButton;
-    [SerializeField] private TMP_Text networkObjectCountText;
-    [SerializeField] private GameObject spawnableLand;
+    [SerializeField] private TMP_Text networkEnemyCountText;
+    [SerializeField] private TMP_Text castleHealthText;
+    [SerializeField] private SpawnEnemy spawnableLand;
+
     [SerializeField] private List<GameObject> enemyPrefabs;
+    public static NetworkManagerUI Singleton { get; private set; }
 
     private NetworkVariable<float> enemyCount = new NetworkVariable<float>(
         writePerm: NetworkVariableWritePermission.Server, // Only server can modify
         readPerm: NetworkVariableReadPermission.Everyone  // All clients can read
     );
+    private NetworkVariable<float> castleHealth = new NetworkVariable<float>(
+        writePerm: NetworkVariableWritePermission.Server, // Only server can modify
+        readPerm: NetworkVariableReadPermission.Everyone  // All clients can read
+    );
     private void Awake()
     {
+        if (Singleton == null)
+        {
+            Singleton = this;
+            Debug.Log("NetworkManagerUI singleton initialized.");
+        }
+        else
+        {
+            Debug.LogWarning("Multiple instances of NetworkManagerUI detected.");
+            Destroy(gameObject); // Optional: Enforce singleton pattern
+        }
+
         serverButton.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartServer();
@@ -46,7 +65,7 @@ public class NetworkManagerUI : NetworkBehaviour
         });
         startButton.onClick.AddListener(() =>
         {
-            spawnableLand.SetActive(true);
+            spawnableLand.StartSpawning();
             startButton.gameObject.SetActive(false);
         });
     }
@@ -57,16 +76,27 @@ public class NetworkManagerUI : NetworkBehaviour
         enemyCount.Value = 0f;
         if (IsServer)
         {
-            UpdateNetworkObjectCount();
+            UpdateNetworkEnemyCount();
             NetworkManager.Singleton.OnClientConnectedCallback += OnNetworkObjectCreated;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnNetworkObjectDestroyed;
         }
         enemyCount.OnValueChanged += OnEnemyCountChanged;
+        castleHealth.OnValueChanged += OnCastleHealthChanged;
     }
+    
     private void OnEnemyCountChanged(float oldValue, float newValue)
     {
-        // Update the UI on all clients when enemyCount changes
-        networkObjectCountText.text = "Enemy remaining: " + newValue;
+        networkEnemyCountText.text = "Enemy remaining: " + newValue;
+    }
+
+    private void OnCastleHealthChanged(float oldValue, float newValue)
+    {
+        castleHealthText.text = "Castle HP: " + newValue;
+    }
+
+    public void UpdateCastleHealthUI(float currentCastleHealth)
+    {
+        castleHealth.Value = currentCastleHealth;
     }
 
     public override void OnDestroy()
@@ -79,21 +109,27 @@ public class NetworkManagerUI : NetworkBehaviour
     }
     private void OnNetworkObjectDestroyed(ulong obj)
     {
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 
     private void OnNetworkObjectCreated(ulong obj)
     {
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 
-    private void UpdateNetworkObjectCount()
+    public void UpdateHealthUI()
     {
         if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
         {
-            // Reset the count before recalculating
+            
+        }
+    }
+    public void UpdateNetworkEnemyCount()
+    {
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+        {
             float count = 0;
-            // Only count NetworkObjects with the tag "Enemy"
+
             foreach (var networkObj in NetworkManager.Singleton.SpawnManager.SpawnedObjects.Values)
             {
                 if (networkObj.CompareTag("Enemy"))
@@ -121,8 +157,7 @@ public class NetworkManagerUI : NetworkBehaviour
         networkObject.Spawn();
         //Debug.Log("Spawned enemy with NetworkObjectId: " + networkObject.NetworkObjectId);
 
-
         //Update UI text count
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 }

@@ -17,8 +17,13 @@ namespace TheEnemy
             damageDealer.SetUp();
             base.Start();
             enemyAttack.OnAttack += OnNormalAttack;
+            healthSystem.OnDeath += OnDeathStopVFX;
         }
 
+        private void OnDeathStopVFX(object sender, System.EventArgs e)
+        {
+            enemyVFX.StopAllEffectMeleeEnemy();
+        }
 
         private void OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
         {

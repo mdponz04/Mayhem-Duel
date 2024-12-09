@@ -1,34 +1,33 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TheEnemy
 {
-    public class SpawnEnemy : MonoBehaviour
+    public class SpawnEnemy : NetworkBehaviour
     {
-        [SerializeField] private GameObject meleeEnemyPrefab;
-        [SerializeField] private GameObject rangeEnemyPrefab;
+        [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
         [SerializeField] private float spawnInterval = 30f;
         [SerializeField] private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
+        
         private Vector3 minSpawnArea;
         private Vector3 maxSpawnArea;
-        private List<GameObject> spawnedEnemyList;
+        
         private void Start()
         {
             minSpawnArea = spawnAreaMin.position;
             maxSpawnArea = spawnAreaMax.position;
-            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
-            gameObject.SetActive(false);
         }
         private void Spawn()
         {
+            if (!IsServer) return;
             int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
             if (waveOrder <= 5)
             {
-
-                RandomPositionSpawn(rangeEnemyPrefab, waveOrder * 2);
-                RandomPositionSpawn(meleeEnemyPrefab, waveOrder * 3);
+                RandomPositionSpawn(enemyPrefabs[0], waveOrder);
+                RandomPositionSpawn(enemyPrefabs[1], waveOrder);
             }
         }
         //Spawn prefab in random positions for prefab amount
@@ -43,14 +42,19 @@ namespace TheEnemy
                     RandomFloat(minSpawnArea.z, maxSpawnArea.z));
                 //Spawn the enemy in the position
                 GameObject enemyInstance = Instantiate(prefab, randomPosition, Quaternion.identity);
-                spawnedEnemyList.Add(enemyInstance);
+                NetworkObject enemyNetwork = enemyInstance.GetComponent<NetworkObject>();
+                enemyNetwork.Spawn();
+                NetworkManagerUI.Singleton.UpdateNetworkEnemyCount();
             }
         }
         private float RandomFloat(float min, float max)
         {
             return Random.Range(min, max);
         }
-
+        public void StartSpawning()
+        {
+            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
+        }
     }
 }
 

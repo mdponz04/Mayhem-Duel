@@ -16,7 +16,14 @@ namespace TheEnemy
             damageDealer.SetUp();
             base.Start();
             enemyAttack.OnAttack += OnAttackProjectile;
+            healthSystem.OnDeath += OnDeathStopVFX;
         }
+
+        private void OnDeathStopVFX(object sender, System.EventArgs e)
+        {
+            enemyVFX.StopAllEffectsRangeEnemy();
+        }
+
         private void OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             projectile.HandleShootingProjectile(e.targetPosition);
