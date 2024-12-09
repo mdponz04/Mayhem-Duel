@@ -65,6 +65,7 @@ public class NetworkManagerUI : NetworkBehaviour
         });
         startButton.onClick.AddListener(() =>
         {
+            if (!IsServer) return;
             spawnableLand.StartSpawning();
             startButton.gameObject.SetActive(false);
         });
