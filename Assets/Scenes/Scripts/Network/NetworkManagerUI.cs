@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using TheCastle;
 using TheEnemy;
+using TheHealth;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,9 +18,8 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private TMP_Text networkEnemyCountText;
     [SerializeField] private TMP_Text castleHealthText;
     [SerializeField] private SpawnEnemy spawnableLand;
-
+    [SerializeField] private HealthSystem castleHealthSystem;
     [SerializeField] private List<GameObject> enemyPrefabs;
-    public static NetworkManagerUI Singleton { get; private set; }
 
     private NetworkVariable<float> enemyCount = new NetworkVariable<float>(
         writePerm: NetworkVariableWritePermission.Server, // Only server can modify
@@ -29,17 +31,7 @@ public class NetworkManagerUI : NetworkBehaviour
     );
     private void Awake()
     {
-        if (Singleton == null)
-        {
-            Singleton = this;
-            Debug.Log("NetworkManagerUI singleton initialized.");
-        }
-        else
-        {
-            Debug.LogWarning("Multiple instances of NetworkManagerUI detected.");
-            Destroy(gameObject); // Optional: Enforce singleton pattern
-        }
-
+        startButton.onClick.RemoveAllListeners();
         serverButton.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartServer();
@@ -54,23 +46,27 @@ public class NetworkManagerUI : NetworkBehaviour
         });
         testButton.onClick.AddListener(() =>
         {
-            if (IsServer) // Only allow the server to spawn objects
+            if (IsServer)
             {
                 for (int i = 0; i < enemyPrefabs.Count; i++)
                 {
-                    SpawnPrefabServerRpc(i); // Pass the index instead of GameObject
+                    SpawnPrefabServerRpc(i);
                 }
             }
-            //testButton.gameObject.SetActive(false);
+            else
+            {
+                testButton.gameObject.SetActive(false);
+            }
         });
         startButton.onClick.AddListener(() =>
         {
-            if (!IsServer) return;
-            spawnableLand.StartSpawning();
-            startButton.gameObject.SetActive(false);
+            if (IsServer)
+            {
+                spawnableLand.StartSpawning();
+                startButton.gameObject.SetActive(false);
+            }
         });
     }
-
 
     private void Start()
     {
@@ -83,8 +79,20 @@ public class NetworkManagerUI : NetworkBehaviour
         }
         enemyCount.OnValueChanged += OnEnemyCountChanged;
         castleHealth.OnValueChanged += OnCastleHealthChanged;
+        spawnableLand.OnSpawn += OnEnemySpawn;
+        castleHealthSystem.OnHealthChange += OnCastleHealthChanged;
     }
-    
+
+    private void OnCastleHealthChanged(object sender, System.EventArgs e)
+    {
+        UpdateCastleHealthUI(castleHealthSystem.currentHealth);
+    }
+
+    private void OnEnemySpawn(object sender, System.EventArgs e)
+    {
+        UpdateNetworkEnemyCount();
+    }
+
     private void OnEnemyCountChanged(float oldValue, float newValue)
     {
         networkEnemyCountText.text = "Enemy remaining: " + newValue;
@@ -108,6 +116,7 @@ public class NetworkManagerUI : NetworkBehaviour
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnNetworkObjectDestroyed;
         }
     }
+
     private void OnNetworkObjectDestroyed(ulong obj)
     {
         UpdateNetworkEnemyCount();
@@ -125,6 +134,7 @@ public class NetworkManagerUI : NetworkBehaviour
             
         }
     }
+
     public void UpdateNetworkEnemyCount()
     {
         if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)

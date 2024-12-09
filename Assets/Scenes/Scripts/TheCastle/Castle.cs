@@ -16,13 +16,6 @@ namespace TheCastle
             hitbox = GetComponent<BoxCollider>();
             healthSystem = GetComponent<HealthSystem>();
             healthSystem.SetUp(maxHealth);
-            healthSystem.OnHealthChange += OnBeHit;
         }
-
-        private void OnBeHit(object sender, System.EventArgs e)
-        {
-            NetworkManagerUI.Singleton.UpdateCastleHealthUI(healthSystem.currentHealth);
-        }
-
     }
 }

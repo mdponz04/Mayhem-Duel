@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.Netcode;
+
 
 public class Rifle : Gun
 {
@@ -14,11 +16,12 @@ public class Rifle : Gun
     public float leverActionSpeed = 20f;
     public float pullThreshold = 0.05f;
 
-    private bool isPulled = true;
-    private bool isLeverActionInProgress = false;
-    private bool needsManualPull = false;
+    private NetworkVariable<bool> isPulled = new NetworkVariable<bool>(true);
+    private NetworkVariable<bool> isLeverActionInProgress = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> needsManualPull = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> canFire = new NetworkVariable<bool>(true);
     private LeverInteractable leverInteractable;
-    private bool isFirstMag = false;
+    private NetworkVariable<bool> isFirstMag = new NetworkVariable<bool>(false);
 
     protected override void Start()
     {
@@ -30,14 +33,15 @@ public class Rifle : Gun
 
     private void Update()
     {
-        if (!isLeverActionInProgress && !leverInteractable.isActiveAndEnabled)
+        if (!isLeverActionInProgress.Value && !leverInteractable.isActiveAndEnabled)
         {
-            ReturnLever();
+            ReturnLeverServerRpc();
         }
-        CheckLeverStatus();
+        CheckLeverStatusServerRpc();
     }
 
-    public void MoveLever(Vector3 movement)
+    [ServerRpc(RequireOwnership = false)]
+    public void MoveLeverServerRpc(Vector3 movement)
     {
         float pumpDelta = Vector3.Dot(movement, leverTransform.forward);
         Vector3 newPosition = leverTransform.localPosition - leverTransform.forward * pumpDelta * leverActionSpeed;
@@ -46,46 +50,43 @@ public class Rifle : Gun
 
     protected override void Fire()
     {
-        if (isPulled && canFire && currentMag != null && currentMag.Ammo > 0 && !isLeverActionInProgress && !needsManualPull)
+        if (!IsServer) return;
+
+        if (isPulled.Value && canFire.Value &&
+            currentMagReference.Value.TryGet(out NetworkObject magObject) &&
+            !isLeverActionInProgress.Value &&
+            !needsManualPull.Value)
         {
-            base.Fire();
-            if (isAuto)
+            Mag mag = magObject.GetComponent<Mag>();
+            if (mag != null && mag.Ammo > 0)
             {
-                StartCoroutine(AutomateLeverAction());
+                CreateBulletClientRpc(barrel.position, attackDamage);
+                PlaySoundClientRpc("GunShot");
+                mag.UseAmmoServerRpc();
+
+                if (isAuto)
+                {
+                    StartCoroutine(AutomateLeverAction());
+                }
+                else
+                {
+                    needsManualPull.Value = true;
+                    canFire.Value = false;
+                    isPulled.Value = false;
+                }
             }
             else
             {
-                needsManualPull = true;
-                canFire = false;
-                isPulled = false;
+                PlaySoundClientRpc("EmptyClip");
+                DetachMagServerRpc();
             }
         }
-        else if (currentMag == null || currentMag.Ammo <= 0)
-        {
-            PlaySound("EmptyClip");
-            DetachMag();
-        }
-    }
-
-    protected override IEnumerator AutoFire()
-    {
-        while (isTriggerPressed && (currentMag != null && currentMag.Ammo > 0))
-        {
-            Fire();
-            yield return null;
-        }
-        if (currentMag == null || currentMag.Ammo <= 0)
-        {
-            PlaySound("EmptyClip");
-            DetachMag();
-        }
-        yield return null;
     }
 
     private IEnumerator AutomateLeverAction()
     {
-        isLeverActionInProgress = true;
-        canFire = false;
+        isLeverActionInProgress.Value = true;
+        canFire.Value = false;
         leverInteractable.enabled = false;
 
         // Pull lever back
@@ -95,8 +96,6 @@ public class Rifle : Gun
             yield return null;
         }
 
-        //PlaySound("PumpSound");
-
         // Return lever to start
         while (Vector3.Distance(leverTransform.localPosition, leverStartTransform.localPosition) > pullThreshold)
         {
@@ -104,29 +103,30 @@ public class Rifle : Gun
             yield return null;
         }
 
-        isLeverActionInProgress = false;
-        isPulled = true;
-        canFire = true;
+        isLeverActionInProgress.Value = false;
+        isPulled.Value = true;
+        canFire.Value = true;
         leverInteractable.enabled = true;
     }
 
-    public void ReturnLever()
+    [ServerRpc(RequireOwnership = false)]
+    public void ReturnLeverServerRpc()
     {
-        if (!needsManualPull)
+        if (!needsManualPull.Value)
         {
             Vector3 newPosition = Vector3.MoveTowards(leverTransform.localPosition, leverStartTransform.localPosition, leverActionSpeed * Time.deltaTime);
             leverTransform.localPosition = newPosition;
         }
     }
 
-    private void CheckLeverStatus()
+    [ServerRpc(RequireOwnership = false)]
+    private void CheckLeverStatusServerRpc()
     {
         if (Vector3.Distance(leverTransform.localPosition, leverEndTransform.localPosition) < pullThreshold)
         {
-            isPulled = true;
-            needsManualPull = false;
-            canFire = true;
-            //PlaySound("PumpSound");
+            isPulled.Value = true;
+            needsManualPull.Value = false;
+            canFire.Value = true;
         }
     }
 
@@ -139,6 +139,18 @@ public class Rifle : Gun
         );
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void OnLeverGrabbedServerRpc(Vector3 grabPosition)
+    {
+        // Server-side lever grabbed logic
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnLeverReleasedServerRpc()
+    {
+        ReturnLeverServerRpc();
+    }
+
     void OnMainGrabbed(SelectEnterEventArgs args)
     {
         leverInteractable.enabled = true;
@@ -146,40 +158,29 @@ public class Rifle : Gun
 
     void OnMainReleased(SelectExitEventArgs args)
     {
-        //leverInteractable.enabled = false;
+        // Lever interactable remains enabled
     }
 
-    public void OnLeverGrabbed(LeverInteractable lever)
+    [ClientRpc]
+    protected override void PlaySoundClientRpc(string soundName)
     {
-        // You can add any additional logic here when the lever is grabbed
-        //MoveLever(leverEndTransform.transform.position);
-    }
-
-    public void OnLeverReleased()
-    {
-        // You can add any additional logic here when the lever is released
-        ReturnLever();
-    }
-
-    protected override void PlaySound(string soundName)
-    {
-        base.PlaySound(soundName);
+        base.PlaySoundClientRpc(soundName);
         if (soundName == "PumpSound" && pumpSound != null)
         {
             AudioSource.PlayClipAtPoint(pumpSound, transform.position);
         }
     }
 
-    public override void AttachMag(Mag mag)
+    [ServerRpc]
+    public override void AttachMagServerRpc(NetworkObjectReference magReference)
     {
-        base.AttachMag(mag);
-        if (isFirstMag)
+        base.AttachMagServerRpc(magReference);
+        if(isFirstMag.Value)
         {
-            isFirstMag = false;
-            needsManualPull = false;
+            isFirstMag.Value = false;
+            needsManualPull.Value = false;
             return;
         }
-        needsManualPull = true;
+        needsManualPull.Value = true;
     }
-
 }
