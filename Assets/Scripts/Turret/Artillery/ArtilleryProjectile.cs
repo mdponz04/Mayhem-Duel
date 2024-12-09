@@ -1,10 +1,9 @@
 using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ArtilleryProjectile : MonoBehaviour
+public class ArtilleryProjectile : NetworkBehaviour
 {
     [Header("Stat")]
     [SerializeField] protected float homingSpeed;
@@ -12,6 +11,9 @@ public class ArtilleryProjectile : MonoBehaviour
     [SerializeField] protected bool isAoe;
     [SerializeField] protected float damageRadious;
     [SerializeField] protected LayerMask layerToDamage;
+
+    [Header("Explode VFX")]
+    [SerializeField] protected Transform explosionVFX;
     public bool isDebug = false;
     protected float speed;
     protected Transform target;
@@ -19,6 +21,7 @@ public class ArtilleryProjectile : MonoBehaviour
     protected Rigidbody rb;
     private void FixedUpdate()
     {
+        RotateTorwardVelocity();
         Homing();
     }
 
@@ -51,12 +54,27 @@ public class ArtilleryProjectile : MonoBehaviour
     {
         if (UtilsClass.IsLayerInLayerMask(collision.gameObject.layer, layerToDamage))
         {
+            //TurretBase.BulletImpactFVX(transform.position, explosionVFX);
+            //SpawnBulletImpactVisualClientRpc(transform.position);
+            DoDamage();
             Explode();
+            //Destroy(gameObject);
         }
     }
-
-    private void Explode()
+    protected void Explode()
     {
+        if (!IsServer) { return; }
+        SpawnBulletImpactVisualClientRpc(transform.position);
+        Destroy(gameObject);
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    protected void SpawnBulletImpactVisualClientRpc(Vector3 position)
+    {
+        TurretBase.BulletImpactFVX(position, explosionVFX);
+    }
+    private void DoDamage()
+    {
+        if (!IsServer) { return; }
         Collider[] hit = Physics.OverlapSphere(gameObject.transform.position, damageRadious, layerToDamage);
         if (hit.Length > 0)
         {
@@ -75,6 +93,15 @@ public class ArtilleryProjectile : MonoBehaviour
                 }
             }
         }
-        Destroy(gameObject);
+    }
+
+    private void RotateTorwardVelocity()
+    {
+        if (rb == null) { return; }
+        Vector3 dir = rb.velocity.normalized;
+        if (dir != Vector3.zero)
+        {
+            gameObject.transform.rotation = Quaternion.LookRotation(dir);
+        }
     }
 }

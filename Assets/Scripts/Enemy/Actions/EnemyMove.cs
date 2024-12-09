@@ -1,13 +1,11 @@
-using TheEnemy;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TheEnemy
 {
     public class EnemyMove
     {
         private Pathfinding pathfinding;
-        public Collider target {  get; set; }
+        public Collider target { get; set; }
 
         public EnemyMove(Pathfinding pathfinding)
         {
@@ -34,7 +32,7 @@ namespace TheEnemy
 
         public void SetTarget(Collider newTarget)
         {
-            if(newTarget != null)
+            if (newTarget != null)
             {
                 target = newTarget;
                 pathfinding.ChaseTarget(target.transform);
@@ -57,6 +55,6 @@ namespace TheEnemy
         {
             if (pathfinding == null) return false;
             return pathfinding.IsMoving();
-        } 
+        }
     }
 }

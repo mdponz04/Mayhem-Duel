@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TheDamage;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TheEnemy
@@ -17,16 +16,36 @@ namespace TheEnemy
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
             base.Start();
-            enemyAttack.OnAttack += EnemyAttack_OnAttackProjectile;
+            enemyAttack.OnAttack += OnAttackProjectile;
+            healthSystem.OnDeath += OnDeathStopVFX;
         }
 
-        private void EnemyAttack_OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
+        private void OnDeathStopVFX(object sender, System.EventArgs e)
+        {
+            enemyVFX.StopAllEffectsRangeEnemy();
+            StopVFXClientRpc();
+        }
+        [ClientRpc]
+        private void StopVFXClientRpc()
+        {
+            enemyVFX.StopAllEffectsRangeEnemy();
+        }
+        private void OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             projectile.HandleShootingProjectile(e.targetPosition);
             enemyVFX.PlaySphereProjectileEffect();
-            /*Debug.Log("Shoot projectile to : " + e.targetPosition);*/
+            TriggerNormalAttackClientRpc();
         }
 
+        [ClientRpc]
+        private void TriggerNormalAttackClientRpc()
+        {
+            // Clients mirror death event
+            if (!IsServer) // Prevent double-execution on server
+            {
+                enemyVFX.PlaySphereProjectileEffect();
+            }
+        }
         private void UpdateStats()
         {
             attackDamage = 5f;

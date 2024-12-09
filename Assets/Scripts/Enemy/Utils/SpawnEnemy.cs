@@ -1,35 +1,36 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TheEnemy
 {
-    public class SpawnEnemy : MonoBehaviour
+    public class SpawnEnemy : NetworkBehaviour
     {
-        [SerializeField] private GameObject meleeEnemyPrefab;
-        [SerializeField] private GameObject rangeEnemyPrefab;
-        private float spawnInterval = 10f;
-        private float spawnStartTime = 3f;
+        [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
+        [SerializeField] private float spawnInterval = 30f;
+        [SerializeField] private float spawnStartTime = 3f;
         [SerializeField] private Transform spawnAreaMin;
         [SerializeField] private Transform spawnAreaMax;
+        
         private Vector3 minSpawnArea;
         private Vector3 maxSpawnArea;
+        
         private void Start()
         {
             minSpawnArea = spawnAreaMin.position;
             maxSpawnArea = spawnAreaMax.position;
-            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
         }
         private void Spawn()
         {
+            if (!IsServer) return;
             int waveOrder = (int)Mathf.Ceil(Time.time / spawnInterval);
             if (waveOrder <= 5)
             {
-                RandomPositionSpawn(rangeEnemyPrefab, waveOrder * 2);
-                RandomPositionSpawn(meleeEnemyPrefab, waveOrder * 3);
+                RandomPositionSpawn(enemyPrefabs[0], waveOrder);
+                RandomPositionSpawn(enemyPrefabs[1], waveOrder);
             }
         }
-        //Spawn prefab in random positions for prefab amount 
+        //Spawn prefab in random positions for prefab amount
         private void RandomPositionSpawn(GameObject prefab, int prefabAmount)
         {
             for (int x = 1; x <= prefabAmount; x++)
@@ -40,12 +41,19 @@ namespace TheEnemy
                     0f,
                     RandomFloat(minSpawnArea.z, maxSpawnArea.z));
                 //Spawn the enemy in the position
-                Instantiate(prefab, randomPosition, Quaternion.identity);
+                GameObject enemyInstance = Instantiate(prefab, randomPosition, Quaternion.identity);
+                NetworkObject enemyNetwork = enemyInstance.GetComponent<NetworkObject>();
+                enemyNetwork.Spawn();
+                NetworkManagerUI.Singleton.UpdateNetworkEnemyCount();
             }
         }
         private float RandomFloat(float min, float max)
         {
             return Random.Range(min, max);
+        }
+        public void StartSpawning()
+        {
+            InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
         }
     }
 }

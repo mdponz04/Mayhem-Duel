@@ -1,6 +1,4 @@
 using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DpsDummyTemp : TargetDummyTemp
@@ -14,14 +12,12 @@ public class DpsDummyTemp : TargetDummyTemp
     void Start()
     {
         UtilsClass.CreateWorldTextUpdater(GetDpsText, transform.position);
+
     }
 
-    // Update is called once per frame
-    public override void Update()
-    {
-    }
     private void FixedUpdate()
     {
+        healthSystem.SetUp(HP);
         currentTimeInterval -= Time.deltaTime;
         if (currentTimeInterval <= 0)
         {
@@ -31,9 +27,9 @@ public class DpsDummyTemp : TargetDummyTemp
         }
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamge(float damage)
     {
-        base.TakeDamage(damage);
+        base.TakeDamge(damage);
         damageInTimeInterval += damage;
     }
 

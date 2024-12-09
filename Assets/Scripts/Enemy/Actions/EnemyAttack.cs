@@ -20,6 +20,7 @@ namespace TheEnemy
         private float attackRange;
         private LayerMask layerMask;
         private DamageDealer damageDealer;
+        private bool isAttackingEnabled = true;
 
         public EnemyAttack(float attackCooldown, float attackRange, LayerMask layerMask, DamageDealer damageDealer)
         {
@@ -31,26 +32,35 @@ namespace TheEnemy
 
         public void HandleAttack(Vector3 currentPosition)
         {
+            if (!isAttackingEnabled) return;
+
             if (Time.time >= nextTimeAttack)
             {
                 float heightOffset = 1f;
                 Vector3 sphereCenter = currentPosition + new Vector3(0f, heightOffset, 0f);
                 Collider[] attackHits = Physics.OverlapSphere(sphereCenter, attackRange, layerMask);
-
-                foreach (Collider hit in attackHits)
+                if(attackHits.Length > 0)
                 {
-                    if (hit.CompareTag("Player") || hit.CompareTag("Damageable"))
+                    if (attackHits[0].CompareTag("Player") || attackHits[0].CompareTag("Damageable"))
                     {
-                        Vulnerable vulnerableComponent = hit.GetComponent<Vulnerable>();
+                        Vulnerable vulnerableComponent = attackHits[0].GetComponent<Vulnerable>();
                         if (vulnerableComponent != null)
                         {
-                            damageDealer.DoDamage(vulnerableComponent);
-                            OnAttack?.Invoke(this, new OnAttackEventArgs(hit.transform.position));
+                            damageDealer.TryDoDamage(vulnerableComponent);
+                            OnAttack?.Invoke(this, new OnAttackEventArgs(attackHits[0].transform.position));
                             nextTimeAttack = Time.time + attackCooldown;
                         }
                     }
                 }
             }
+        }
+        public void StopAttackingInstantly()
+        {
+            isAttackingEnabled = false;
+        }
+        public void ResumeAttacking()
+        {
+            isAttackingEnabled = true;
         }
     }
 }

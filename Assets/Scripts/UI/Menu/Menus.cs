@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 public class Menus : MonoBehaviour
 {
     #region Fields
@@ -35,15 +32,16 @@ public class Menus : MonoBehaviour
         //this.transform.eulerAngles = vRot;
 
         // Activate Menu when pauseMenu key is pressed on either controller
-        if (vrLeftPauseButton.action.WasPressedThisFrame() || 
-            vrRightPauseButton.action.WasPressedThisFrame() || 
+        if (vrLeftPauseButton.action.WasPressedThisFrame() ||
+            vrRightPauseButton.action.WasPressedThisFrame() ||
             Input.GetKeyDown(KeyCode.Alpha1))
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             if (isPaused)
             {
                 UnPause();
-            } else
+            }
+            else
             {
                 Pause();
             }

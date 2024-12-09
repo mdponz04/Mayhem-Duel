@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TierName: Artillery Turret Tier 1
   FireRate: 0.3333333
-  FireRange: 40
+  FireRange: 20
   Damage: 10
   TierMaterial:
   - {fileID: 2100000, guid: 19ba72ee22f1fe942a0d500f93bd2b7f, type: 2}
