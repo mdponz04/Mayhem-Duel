@@ -32,7 +32,7 @@ public class GatlingGun : Gun
             Fire();
             fireCount++;
             yield return new WaitForSeconds(fireRate);
-            if(fireCount >= 20)
+            if (fireCount >= 20)
             {
                 fireRate = Mathf.Lerp(0.1f, 0.05f, 0.5f);
             }
@@ -46,7 +46,7 @@ public class GatlingGun : Gun
         float elapsedTime = 0;
         while (isTriggerPressed)
         {
-            float spinSpeed = Mathf.Lerp(0, 360f / spinTime * 2,elapsedTime);
+            float spinSpeed = Mathf.Lerp(0, 360f / spinTime * 2, elapsedTime);
             gatlingBarrel.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
             elapsedTime += Time.deltaTime;
             yield return null;

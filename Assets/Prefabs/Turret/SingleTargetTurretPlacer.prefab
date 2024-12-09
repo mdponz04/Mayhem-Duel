@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3534179251574104386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.596}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,9 +42,12 @@ GameObject:
   - component: {fileID: 2776382647097131855}
   - component: {fileID: 502242908122467038}
   - component: {fileID: 760990010925755527}
+  - component: {fileID: 7607498636434573560}
   - component: {fileID: 5404183574472292463}
   - component: {fileID: 7471844121730049857}
   - component: {fileID: 1343368638903787539}
+  - component: {fileID: 8955058294998601381}
+  - component: {fileID: 8845202659035712713}
   m_Layer: 0
   m_Name: SingleTargetTurretPlacer
   m_TagString: Untagged
@@ -61,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 6432238316737763133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.675, y: 1.875, z: 39.54931}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -76,7 +79,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6432238316737763133}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 396b0f2dfb0fd754aac7273f97c2d2ad, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -88,8 +91,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.315445, y: 1.7160773, z: 2.3683448}
-  m_Center: {x: -0.02641201, y: -0.000004544854, z: 0.03190495}
+  m_Size: {x: 2.315445, y: 1.9289744, z: 2.3683448}
+  m_Center: {x: -0.02641201, y: 0.10644406, z: 0.03190495}
 --- !u!120 &760990010925755527
 LineRenderer:
   serializedVersion: 2
@@ -200,9 +203,30 @@ LineRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &7607498636434573560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432238316737763133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4168572706
+  InScenePlacedSourceGlobalObjectIdHash: 601248929
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 1
+  AutoObjectParentSync: 1
 --- !u!114 &5404183574472292463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,10 +244,13 @@ MonoBehaviour:
   rayMaxDistance: 10
   layersRayHit:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
   objectToPlace: {fileID: 11400000, guid: d5eb54e2f799c3d4da782c3c46081e4f, type: 2}
+  turretTypeToPlace: 1
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
+  isDestroyAfterUse: 0
+  lineRender: {fileID: 0}
 --- !u!54 &7471844121730049857
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -249,7 +276,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1343368638903787539
 MonoBehaviour:
@@ -346,7 +373,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5404183574472292463}
         m_TargetAssemblyTypeName: TurretGhost, Assembly-CSharp
-        m_MethodName: PlaceTurretOnGrid
+        m_MethodName: PlaceTurretOnGridServer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -439,6 +466,49 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &8955058294998601381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432238316737763133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 0
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &8845202659035712713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6432238316737763133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9178987185979557353
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +624,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: STTurretVisual
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5753340419055719608, guid: 80a2c9ff2e74e704eb5992dde25fb6ac,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3453172594
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753340419055719608, guid: 80a2c9ff2e74e704eb5992dde25fb6ac,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 601248929
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2986522318511023529, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 5294947566862837317, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 2965275121395523489, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 4847293240763351382, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 3132483219232022207, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
+    - {fileID: 6926603314389182060, guid: 80a2c9ff2e74e704eb5992dde25fb6ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

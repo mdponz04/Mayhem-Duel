@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance { get; private set;}
+    public static AudioManager instance { get; private set; }
     private AudioSource audioSource;
     private AudioSource musicSource;
     private AudioSource slashSource;
@@ -55,10 +55,10 @@ public class AudioManager : MonoBehaviour
 
     public void MusicVolumeChange(float _change)
     {
-       SourceVolumeChange(0.3f, "musicVolume", _change, musicSource);
+        SourceVolumeChange(0.3f, "musicVolume", _change, musicSource);
     }
     public void SoundVolumeChange(float _change)
     {
-       SourceVolumeChange(1f, "soundVolume", _change, audioSource);
+        SourceVolumeChange(1f, "soundVolume", _change, audioSource);
     }
 }

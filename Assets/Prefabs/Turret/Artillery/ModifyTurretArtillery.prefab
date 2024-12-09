@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5284045769590744915}
-  m_Layer: 0
+  - component: {fileID: 1945204330879260292}
+  m_Layer: 8
   m_Name: TurretA_GunA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,6 +34,37 @@ Transform:
   - {fileID: 4156367931309596451}
   m_Father: {fileID: 7612945106556365548}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1945204330879260292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430249386189695033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 1
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.2
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &1634107822282143162
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +76,7 @@ GameObject:
   - component: {fileID: 552919596781325408}
   - component: {fileID: 7058431154659344797}
   - component: {fileID: 623694232453505057}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_Base_D_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +159,7 @@ GameObject:
   - component: {fileID: 6650873938546985431}
   - component: {fileID: 641883954726073438}
   - component: {fileID: 7906482789535999461}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretMuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +243,7 @@ GameObject:
   - component: {fileID: 7612945106556365548}
   - component: {fileID: 3929010293788917497}
   - component: {fileID: 9022417273164252597}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_Base_B_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1713640049532304090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MuzzlePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 2800111230903563349}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.732, y: 0, z: 0}
+  m_LocalPosition: {x: -2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -326,7 +358,7 @@ GameObject:
   - component: {fileID: 7685485518612283809}
   - component: {fileID: 8915132787053025686}
   - component: {fileID: 4150459897761394066}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_Base_D_low002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +441,7 @@ GameObject:
   - component: {fileID: 1417003197919071203}
   - component: {fileID: 7566333181049723089}
   - component: {fileID: 7419475482866784906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_GunA_E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +522,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8484694594194685215}
-  m_Layer: 0
+  - component: {fileID: 6910710352601073383}
+  m_Layer: 8
   m_Name: CorrectRotationBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,6 +546,37 @@ Transform:
   - {fileID: 1522138143576732010}
   m_Father: {fileID: 7273917616513857276}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &6910710352601073383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207895835798290012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 1
+  RotAngleThreshold: 0.1
+  ScaleThreshold: 0.2
+  UseQuaternionSynchronization: 1
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &5472317034252641378
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,8 +590,12 @@ GameObject:
   - component: {fileID: 8240550336465239103}
   - component: {fileID: 6079602803612759756}
   - component: {fileID: 8972526342287132416}
+  - component: {fileID: 1949433278489848848}
   - component: {fileID: 6132704142343936341}
-  m_Layer: 0
+  - component: {fileID: 8579120502970685374}
+  - component: {fileID: 9175952353074739874}
+  - component: {fileID: 1495101030238618286}
+  m_Layer: 8
   m_Name: ModifyTurretArtillery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +620,7 @@ Transform:
   - {fileID: 7685485518612283809}
   - {fileID: 8484694594194685215}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 6.7402892e-15, y: -75.8677, z: 4.283819e-15}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5651902936305368029
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -720,6 +788,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1949433278489848848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472317034252641378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1025900888
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6132704142343936341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,6 +821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23a5ad77c91152040be597f67eab43e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebug: 1
   turretPart:
   - meshes:
     - {fileID: 8240550336465239103}
@@ -752,7 +842,7 @@ MonoBehaviour:
     canFire: 1
     damage: 20
     FireRate: 0.5
-    fireRangeRadius: 40
+    fireRangeRadius: 25
   targeting:
     aimingSpeed: 10
     aimingDelay: 10
@@ -762,7 +852,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 512
     targets: []
-    target: {fileID: 0}
+    currentTarget: {fileID: 0}
   VFX:
     muzzle: {fileID: 1713640049532304090}
     shotFX: {fileID: 1579546626485678, guid: 7db58c0e931b44d52826ad1829194c32, type: 3}
@@ -781,8 +871,77 @@ MonoBehaviour:
   pfProjectile: {fileID: 5992700969941577839, guid: 72060496cf3611946ac8d40498eae5f5,
     type: 3}
   projectileFireAngle: -45
-  deadZoneRadious: 5
+  deadZoneRadious: 7
+  percentDistantToTargetTest: 0.8
   projectileSpeed: 10
+  currentFireRateCoolDown: 0
+  projectileScale: {x: 0.05, y: 0.05, z: 0.05}
+--- !u!95 &8579120502970685374
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472317034252641378}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df3d72e16e67e994cb75adf5bf27fe2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9175952353074739874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472317034252641378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseUnreliableDeltas: 0
+  SyncPositionX: 0
+  SyncPositionY: 0
+  SyncPositionZ: 0
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.01
+  RotAngleThreshold: 0.1
+  ScaleThreshold: 0.2
+  UseQuaternionSynchronization: 1
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &1495101030238618286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472317034252641378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 8579120502970685374}
 --- !u!1 &5784273747033420911
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +953,7 @@ GameObject:
   - component: {fileID: 2409059671792719845}
   - component: {fileID: 370836192062688586}
   - component: {fileID: 2153575801448035886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_Base_D_low001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +1036,7 @@ GameObject:
   - component: {fileID: 7250545833198674390}
   - component: {fileID: 8766772412410490992}
   - component: {fileID: 1153101606689476682}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_GunA_F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +1119,7 @@ GameObject:
   - component: {fileID: 6743578937721635726}
   - component: {fileID: 3927995182505591159}
   - component: {fileID: 8160539227031046821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_GunA_D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1047,7 +1206,7 @@ GameObject:
   - component: {fileID: 130195026584977297}
   - component: {fileID: 8246525627254880432}
   - component: {fileID: 5100553736200655846}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_GunA_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1130,7 +1289,7 @@ GameObject:
   - component: {fileID: 1522138143576732010}
   - component: {fileID: 9206346065246401083}
   - component: {fileID: 8818131371233560581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_Base_C_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1214,7 +1373,7 @@ GameObject:
   - component: {fileID: 4156367931309596451}
   - component: {fileID: 4267131727752922504}
   - component: {fileID: 8138895983652360828}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurretA_GunA_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,4 +17,4 @@ MonoBehaviour:
   FireRange: 10
   Damage: 2
   TierMaterial:
-  - {fileID: 2100000, guid: 4a83f5e049de00248ba28931d7837fd4, type: 2}
+  - {fileID: 2100000, guid: 7816d5b5ebdf46742a797dadcb48d1ea, type: 2}

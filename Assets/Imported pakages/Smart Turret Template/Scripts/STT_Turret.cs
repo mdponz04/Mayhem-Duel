@@ -29,10 +29,10 @@
 //	[Tooltip("Spawn this GameObject when shooting")]
 //	public GameObject shotFX;
 //}
-	
+
 //[System.Serializable]
 //public class TurretAudio {
-	
+
 //	public AudioClip shotClip;
 //}
 
@@ -49,7 +49,7 @@
 //	public Collider target;
 
 //}
-	
+
 //[RequireComponent(typeof(Rigidbody))]
 //[RequireComponent(typeof(STT_Actor))]
 //[RequireComponent(typeof(SphereCollider))]
@@ -64,7 +64,7 @@
 //	public TurretAudio SFX;
 
 //	private void Awake() {
-		
+
 //		GetComponent<SphereCollider> ().isTrigger = true;
 //		GetComponent<SphereCollider> ().radius = parameters.radius;
 //		GetComponent<BoxCollider> ().size =  new Vector3(2,2,2);
@@ -72,7 +72,7 @@
 //	}
 
 //	private void FixedUpdate () {
-		
+
 //		if (parameters.active == false) {
 //			return;
 //		}
@@ -80,7 +80,7 @@
 //		if (targeting.target == null) {
 //			ClearTargets ();
 //		}
-			
+
 //		if (targeting.target != null) {
 //			Aiming ();
 //			Invoke ("Shooting", parameters.ShootingDelay);
@@ -96,7 +96,7 @@
 //		GameObject newShotFX = Instantiate (VFX.shotFX, VFX.muzzle);
 //		Destroy (newShotFX, 2);
 //	}
-		
+
 //	private void Shooting() {
 
 //		if (targeting.target == null) {
@@ -106,7 +106,7 @@
 //		if (parameters.canFire == false) {
 //			return;
 //		}
-			
+
 //		RaycastHit hit; 
 //		if (Physics.Raycast (VFX.muzzle.position, VFX.muzzle.transform.forward, out hit, parameters.radius)) {
 //			if (CheckTags (hit.collider) == true) {
@@ -134,7 +134,7 @@
 //	#endregion
 
 //	#region Targeting
-		
+
 //	private void OnTriggerEnter(Collider other) {
 
 //		if (parameters.active == false) {
