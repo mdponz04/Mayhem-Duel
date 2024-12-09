@@ -1,24 +1,30 @@
 using System.Collections;
 using UnityEngine;
+using Unity.Netcode;
 
 public class GatlingGun : Gun
 {
     [SerializeField] private Transform gatlingBarrel;
 
-
     protected override void Fire()
     {
-        if (canFire && currentMag != null && currentMag.Ammo > 0)
+        if (!IsServer) return;
+
+        if (canFire.Value && currentMagReference.Value.TryGet(out NetworkObject magObject))
         {
-            Bullet.Create(barrel.position, barrel, 75, attackDamage);
-            PlaySound("GunShot");
-            currentMag.UseAmmo();
-        }
-        else if (currentMag == null || currentMag.Ammo <= 0)
-        {
-            PlaySound("EmptyClip");
-            DetachMag();
-            Debug.Log("Mag detached");
+            Mag mag = magObject.GetComponent<Mag>();
+            if (mag != null && mag.Ammo > 0)
+            {
+                CreateBulletClientRpc(barrel.position, attackDamage);
+                PlaySoundClientRpc("GunShot");
+                mag.UseAmmo();
+                StartCoroutine(FireCooldown());
+            }
+            else
+            {
+                PlaySoundClientRpc("EmptyClip");
+                DetachMagServerRpc();
+            }
         }
     }
 
@@ -27,7 +33,7 @@ public class GatlingGun : Gun
         int fireCount = 0;
         StartCoroutine(SpinWarmUp());
         yield return new WaitForSeconds(0.5f);
-        while (isTriggerPressed)
+        while (isTriggerPressed.Value)
         {
             Fire();
             fireCount++;
@@ -44,7 +50,7 @@ public class GatlingGun : Gun
     {
         float spinTime = 0.5f;
         float elapsedTime = 0;
-        while (isTriggerPressed)
+        while (isTriggerPressed.Value)
         {
             float spinSpeed = Mathf.Lerp(0, 360f / spinTime * 2, elapsedTime);
             gatlingBarrel.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
@@ -52,5 +58,4 @@ public class GatlingGun : Gun
             yield return null;
         }
     }
-
 }

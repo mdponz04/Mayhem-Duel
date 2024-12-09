@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.Netcode;
+using System.Collections;
 
 public class LeverInteractable : XRSimpleInteractable
 {
     public Rifle rifle;
+    private NetworkVariable<bool> isGrabbed = new NetworkVariable<bool>(false);
     private Vector3 initialGrabPosition;
-    private bool isGrabbed = false;
 
     protected override void Awake()
     {
@@ -21,32 +23,38 @@ public class LeverInteractable : XRSimpleInteractable
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-        initialGrabPosition = args.interactorObject.transform.position;
-        isGrabbed = true;
-        rifle.OnLeverGrabbed(this);
-        Debug.Log("Lever grabbed");
+
+        if (NetworkManager.Singleton.IsServer)
+        {
+            initialGrabPosition = args.interactorObject.transform.position;
+            isGrabbed.Value = true;
+            rifle.OnLeverGrabbedServerRpc(initialGrabPosition);
+        }
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-        isGrabbed = false;
-        rifle.OnLeverReleased();
-        Debug.Log("Lever released");
+
+        if (NetworkManager.Singleton.IsServer)
+        {
+            isGrabbed.Value = false;
+            rifle.OnLeverReleasedServerRpc();
+        }
     }
 
     private void Update()
     {
-        if (isGrabbed)
+        if (isGrabbed.Value && interactorsSelecting.Count > 0)
         {
             Vector3 currentPosition = interactorsSelecting[0].transform.position;
             Vector3 movement = initialGrabPosition - currentPosition;
-            rifle.MoveLever(movement);
+            rifle.MoveLeverServerRpc(movement);
             initialGrabPosition = currentPosition;
         }
         else
         {
-            rifle.ReturnLever();
+            rifle.ReturnLeverServerRpc();
         }
     }
 }

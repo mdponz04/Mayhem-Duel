@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unity.Netcode;
 
 public class PumpActionShotgun : Gun
 {
@@ -16,13 +17,14 @@ public class PumpActionShotgun : Gun
     public int maxAmmo = 8;
     public int palletsPerShot = 12;
 
-    private bool isPumped = false;
-    private bool isPumpGrabbed = false;
+    private NetworkVariable<bool> isPumped = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> isPumpGrabbed = new NetworkVariable<bool>(false);
     private Vector3 lastHandPosition;
     private IXRSelectInteractor pumpGrabbingHand;
 
     protected override void Start()
     {
+        base.Start();
         mainGrabInteractable.activated.AddListener(TryFire);
         mainGrabInteractable.selectEntered.AddListener(OnGrabbed);
         mainGrabInteractable.selectExited.AddListener(OnReleased);
@@ -32,7 +34,7 @@ public class PumpActionShotgun : Gun
 
     void Update()
     {
-        if (isPumpGrabbed)
+        if (isPumpGrabbed.Value)
         {
             MovePump();
         }
@@ -46,24 +48,26 @@ public class PumpActionShotgun : Gun
 
     void TryFire(ActivateEventArgs args)
     {
-        if (canFire)
+        if (canFire.Value)
         {
             Fire();
-            canFire = false;
-            isPumped = false;
+            canFire.Value = false;
+            isPumped.Value = false;
         }
     }
 
     protected override void Fire()
     {
+        if (!IsServer) return;
+
         if (currentAmmo > 0)
         {
             PalletSpawn();
-            PlaySound("GunShot");
+            PlaySoundClientRpc("GunShot");
         }
         else
         {
-            PlaySound("EmptyClip");
+            PlaySoundClientRpc("EmptyClip");
         }
     }
 
@@ -73,43 +77,28 @@ public class PumpActionShotgun : Gun
         {
             Transform randomRotation = barrel;
             randomRotation.Rotate(Vector3.up, Random.Range(-5, 5));
-            Bullet.Create(barrel.position, randomRotation, 20, attackDamage);
+            CreateBulletClientRpc(barrel.position, attackDamage);
         }
         currentAmmo--;
     }
 
-    protected override void PlaySound(string soundName)
-    {
-        base.PlaySound(soundName);
-
-        switch (soundName)
-        {
-            case "Pump":
-                AudioManager.instance.PlayAudioClip(pumpSound);
-                break;
-        }
-
-    }
-
     void OnGrabbed(SelectEnterEventArgs args)
     {
-        // Check if this is a second grab (i.e., grabbing the pump)
         if (mainGrabInteractable.interactorsSelecting.Count > 1)
         {
             Debug.Log("Pump grabbed");
             pumpGrabbingHand = args.interactorObject;
-            isPumpGrabbed = true;
+            isPumpGrabbed.Value = true;
             lastHandPosition = pumpGrabbingHand.transform.position;
         }
     }
 
     void OnReleased(SelectExitEventArgs args)
     {
-        // Check if the pump is being released
         if (args.interactorObject == pumpGrabbingHand)
         {
             Debug.Log("Pump released");
-            isPumpGrabbed = false;
+            isPumpGrabbed.Value = false;
             pumpGrabbingHand = null;
         }
     }
@@ -119,7 +108,11 @@ public class PumpActionShotgun : Gun
         if (pumpGrabbingHand != null)
         {
             Vector3 handDelta = lastHandPosition - pumpGrabbingHand.transform.position;
+<<<<<<< Updated upstream:Assets/Scripts/Weapons/PumpActionShotgun.cs
             float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward); ;
+=======
+            float pumpDelta = Vector3.Dot(handDelta, pumpTransform.forward);
+>>>>>>> Stashed changes:Assets/Scenes/Scripts/Weapons/PumpActionShotgun.cs
             Vector3 newPosition = pumpTransform.localPosition - pumpTransform.forward * (pumpDelta * pumpForce);
             pumpTransform.localPosition = ClampPumpPosition(newPosition);
             lastHandPosition = pumpGrabbingHand.transform.position;
@@ -145,13 +138,13 @@ public class PumpActionShotgun : Gun
     {
         if (Vector3.Distance(pumpTransform.localPosition, pumpEndTransform.localPosition) < pumpThreshold)
         {
-            isPumped = true;
+            isPumped.Value = true;
         }
-        else if (isPumped && Vector3.Distance(pumpTransform.localPosition, pumpStartTransform.localPosition) < pumpThreshold)
+        else if (isPumped.Value && Vector3.Distance(pumpTransform.localPosition, pumpStartTransform.localPosition) < pumpThreshold)
         {
             Debug.Log("Pump action complete");
-            canFire = true;
-            isPumped = false;
+            canFire.Value = true;
+            isPumped.Value = false;
         }
     }
 }
