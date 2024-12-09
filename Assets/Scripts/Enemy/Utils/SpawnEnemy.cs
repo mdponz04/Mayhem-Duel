@@ -53,6 +53,7 @@ namespace TheEnemy
         }
         public void StartSpawning()
         {
+            if(!IsServer) return;
             InvokeRepeating(nameof(Spawn), spawnStartTime, spawnInterval);
         }
     }
