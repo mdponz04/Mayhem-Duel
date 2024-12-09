@@ -11,7 +11,7 @@ namespace TheEnemy
         [SerializeField] private List<VisualEffect> leftArmAttackEffect;
         [SerializeField] private List<VisualEffect> rightArmAttackEffect;
         [SerializeField] private VisualEffect sphereProjectileEffect;
-
+        private bool isStoppingClawEffects = false;
         public void PlaySphereProjectileEffect()
         {
             sphereProjectileEffect.Play();
@@ -22,6 +22,7 @@ namespace TheEnemy
         }
         public void PlayClawAttackEffect()
         {
+            if (isStoppingClawEffects) return;
             PlayRightArmClawAtkEffect();
             StartCoroutine(DelayOnPlayLeftArmClawAtkEffect());
         }
@@ -43,27 +44,29 @@ namespace TheEnemy
         {
             yield return new WaitForSeconds(0.5f);
             PlayLeftArmClawAtkEffect();
+            
         }
-
         public void StopAllEffects()
         {
             // Stop individual effects
-            bloodBurstEffect?.Stop();
-            sphereProjectileEffect?.Stop();
-
-            // Stop effects in the left arm list
+            bloodBurstEffect.Stop();
+        }
+        public void StopAllEffectsRangeEnemy()
+        {
+            sphereProjectileEffect.Stop();
+        }
+        public void StopAllEffectMeleeEnemy()
+        {
+            isStoppingClawEffects = true;
             foreach (var effect in leftArmAttackEffect)
             {
-                effect?.Stop();
+                effect.Stop();
             }
-
-            // Stop effects in the right arm list
             foreach (var effect in rightArmAttackEffect)
             {
-                effect?.Stop();
+                effect.Stop();
             }
         }
-
     }
 }
 
