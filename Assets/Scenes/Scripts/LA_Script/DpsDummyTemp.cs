@@ -17,7 +17,7 @@ public class DpsDummyTemp : TargetDummyTemp
 
     private void FixedUpdate()
     {
-        healthSystem.SetUp(HP);
+        /*healthSystem.SetUp(HP);*/
         currentTimeInterval -= Time.deltaTime;
         if (currentTimeInterval <= 0)
         {

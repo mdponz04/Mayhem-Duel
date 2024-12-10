@@ -21,6 +21,7 @@ public class PlayerMultiplayer : NetworkBehaviour, IDamageSource
     }
     private void Update()
     {
+        //Debug purpose
         HandleMove();
         HandleAttack();
     }
@@ -61,6 +62,5 @@ public class PlayerMultiplayer : NetworkBehaviour, IDamageSource
             }
         }
     }
-
     float IDamageSource.GetAttackDamage() => 10f;
 }
