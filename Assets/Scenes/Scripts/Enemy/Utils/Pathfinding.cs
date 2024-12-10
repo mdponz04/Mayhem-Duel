@@ -18,7 +18,6 @@ namespace TheEnemy
             targetDestination = castleTransform;
             agent.destination = targetDestination.position;
             originalSpeed = agent.speed;
-
         }
         //Chase the transform(Default is castle transfrom) 
         public void ChaseTarget(Transform target)

@@ -7,17 +7,14 @@ public class Mag : NetworkBehaviour
 
     // Network variables to sync ammo and attachment state
     private NetworkVariable<int> currentAmmo = new NetworkVariable<int>();
-    private NetworkVariable<NetworkObjectReference> attachedGunReference = new NetworkVariable<NetworkObjectReference>();
+    public NetworkVariable<NetworkObjectReference> attachedGunReference = new NetworkVariable<NetworkObjectReference>();
 
     public int Ammo => currentAmmo.Value;
 
     private void Awake()
     {
         // Initialize ammo on awake
-        if (IsServer)
-        {
-            currentAmmo.Value = maxAmmo;
-        }
+       currentAmmo.Value = maxAmmo;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -33,6 +30,13 @@ public class Mag : NetworkBehaviour
             attachPointReference.TryGet(out NetworkObject attachPointObject))
         {
             Transform attachPoint = attachPointObject.transform;
+            Gun gun = gunObject.GetComponent<Gun>();
+
+            if (gun != null)
+            {
+                // Explicitly call the gun's AttachMagServerRpc to update its Mag property
+                gun.Mag = this;
+            }
 
             // Update network transform
             transform.SetParent(attachPoint);

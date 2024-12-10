@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 446314590971979010}
   - component: {fileID: 3933882497990421187}
   - component: {fileID: 1973974877558688938}
+  - component: {fileID: 1828457012375611929}
   - component: {fileID: 4997550590101236178}
   m_Layer: 7
   m_Name: SMAW
@@ -899,6 +900,27 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &1828457012375611929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869802650383472505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2637586628
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &4997550590101236178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +940,5 @@ MonoBehaviour:
   gunShotSound: {fileID: 8300000, guid: 3c5e590db8c75134d9d2f80bca26f448, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 7efe4e0446424364eb128730253a1f7c, type: 3}
   reloadClipSound: {fileID: 8300000, guid: 15a14c747ccdc4b479bb282da4d78edb, type: 3}
-  magAttachPoint: {fileID: 8763937833152293634}
+  magAttachPoint: {fileID: 1879176282547457218}
   attackDamage: 10
-  currentMag: {fileID: 0}

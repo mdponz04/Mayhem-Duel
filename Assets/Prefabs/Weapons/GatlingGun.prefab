@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 785469115830190423}
   - component: {fileID: 3440234267334660613}
   - component: {fileID: 8510679160837567991}
+  - component: {fileID: 5443617589321627721}
   - component: {fileID: 3259649392883363202}
   m_Layer: 7
   m_Name: GatlingGun
@@ -516,6 +517,27 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &5443617589321627721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5595528837278879276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1304704537
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &3259649392883363202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,7 +559,6 @@ MonoBehaviour:
   reloadClipSound: {fileID: 8300000, guid: 15a14c747ccdc4b479bb282da4d78edb, type: 3}
   magAttachPoint: {fileID: 7952714410868691673}
   attackDamage: 10
-  currentMag: {fileID: 0}
   gatlingBarrel: {fileID: 4620108296561415416}
 --- !u!1 &5973904020630312972
 GameObject:

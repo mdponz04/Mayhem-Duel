@@ -18,7 +18,7 @@ public class Bullet : NetworkBehaviour, IDamageSource
         // Request server to spawn and set up the bullet
         if (bullet.IsOwner)
         {
-            bullet.SetUpServerRpc(direction.forward, speed, damage);
+            bullet.SetUpServerRpc(direction.right, speed, damage);
         }
     }
 

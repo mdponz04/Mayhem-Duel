@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 2031555494395045946}
   - component: {fileID: 3885675764429466547}
   - component: {fileID: 6003286223500701288}
+  - component: {fileID: -6934557084739886128}
   - component: {fileID: 2662078094357814002}
   - component: {fileID: 450594491465550275}
   - component: {fileID: 5844407773352398204}
@@ -380,6 +381,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8497985111337289274, guid: 37563ffe43f225f44a0b8797545530b5, type: 3}
+--- !u!114 &-6934557084739886128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878704846575611423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1993815839
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &2662078094357814002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,9 +421,8 @@ MonoBehaviour:
   gunShotSound: {fileID: 8300000, guid: 3c5e590db8c75134d9d2f80bca26f448, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 7efe4e0446424364eb128730253a1f7c, type: 3}
   reloadClipSound: {fileID: 8300000, guid: 15a14c747ccdc4b479bb282da4d78edb, type: 3}
-  magAttachPoint: {fileID: 5694983894498519273}
+  magAttachPoint: {fileID: 6365559164356265443}
   attackDamage: 10
-  currentMag: {fileID: 0}
   mainGrabInteractable: {fileID: 5844407773352398204}
   leverTransform: {fileID: 1089950472354171365}
   leverStartTransform: {fileID: 4580892639439691802}
