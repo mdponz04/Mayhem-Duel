@@ -1,4 +1,5 @@
 using TheDamage;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace TheEnemy
@@ -17,14 +18,28 @@ namespace TheEnemy
             damageDealer.SetUp();
             base.Start();
             enemyAttack.OnAttack += OnNormalAttack;
+            healthSystem.OnDeath += OnDeathStopVFX;
         }
 
+        private void OnDeathStopVFX(object sender, System.EventArgs e)
+        {
+            enemyVFX.StopAllEffectMeleeEnemy();
+        }
 
         private void OnNormalAttack(object sender, EnemyAttack.OnAttackEventArgs e)
         {
             enemyVFX.PlayClawAttackEffect();
+            TriggerNormalAttackClientRpc();
         }
-
+        [ClientRpc]
+        private void TriggerNormalAttackClientRpc()
+        {
+            // Clients mirror death event
+            if (!IsServer) // Prevent double-execution on server
+            {
+                enemyVFX.PlayClawAttackEffect();
+            }
+        }
         private void UpdateStats()
         {
             attackDamage = 10f;

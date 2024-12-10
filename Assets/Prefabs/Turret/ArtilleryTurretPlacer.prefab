@@ -250,7 +250,6 @@ MonoBehaviour:
   ghostScalling: {x: 0.3, y: 0.3, z: 0.3}
   layerToGhost: 11
   isDestroyAfterUse: 0
-  lineRender: {fileID: 0}
 --- !u!54 &3558645598460504896
 Rigidbody:
   m_ObjectHideFlags: 0
