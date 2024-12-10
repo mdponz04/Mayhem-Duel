@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.Netcode;
 
-public class M4Colt : Gun
+public class M4Colt : Rifle
 {
     [SerializeField] private int rocketMag;
     [SerializeField] private Transform rocketBarrel;

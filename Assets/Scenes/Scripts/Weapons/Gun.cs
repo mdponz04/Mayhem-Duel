@@ -23,7 +23,7 @@ public class Gun : NetworkBehaviour
 
     protected Coroutine firingCoroutine;
 
-    public Mag Mag { get; private set; }
+    public Mag Mag { get;  set; }
 
     protected virtual void Start()
     {
@@ -48,6 +48,7 @@ public class Gun : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void TriggerPressServerRpc()
     {
+        Debug.Log("Trigger Pressed");
         // Only the server can change network state
         isTriggerPressed.Value = true;
         if (isAuto)
@@ -108,10 +109,10 @@ public class Gun : NetworkBehaviour
 
     protected virtual IEnumerator AutoFire()
     {
-        while (isTriggerPressed.Value && currentMagReference.Value.TryGet(out NetworkObject magObject))
+        while (isTriggerPressed.Value && Mag!=null)
         {
-            Mag mag = magObject.GetComponent<Mag>();
-            if (mag != null && mag.Ammo > 0)
+            Debug.Log("Auto Firing");
+            if (Mag != null && Mag.Ammo > 0)
             {
                 Fire();
                 yield return new WaitForSeconds(fireRate);
@@ -166,8 +167,13 @@ public class Gun : NetworkBehaviour
             Mag newMag = newMagObject.GetComponent<Mag>();
             if (newMag != null)
             {
+                Debug.Log("Attaching mag to gun");
+                Mag = newMag;
                 currentMagReference.Value = magReference;
-                newMag.AttachToGunServerRpc(new NetworkObjectReference(this.NetworkObject), new NetworkObjectReference(magAttachPoint));
+
+                // Directly update the mag's attached gun reference without calling back
+                newMag.attachedGunReference.Value = new NetworkObjectReference(this.NetworkObject);
+
                 PlaySoundClientRpc("Reload");
             }
         }

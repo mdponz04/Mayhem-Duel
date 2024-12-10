@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 3192960149763166822}
   - component: {fileID: 7100309540720337388}
   - component: {fileID: 5805070207541081933}
+  - component: {fileID: 7895692195193112828}
   - component: {fileID: 5223630958759797964}
   - component: {fileID: 8699236525840330690}
   - component: {fileID: 2563506371934608844}
+  - component: {fileID: 5759306034935049338}
   m_Layer: 0
   m_Name: M4Mag
   m_TagString: Untagged
@@ -109,6 +111,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: d8ff8f9649a82e14791d960a0a17f1e4, type: 3}
+--- !u!114 &7895692195193112828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4240269957808412841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2553296268
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &5223630958759797964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 30
-  attachedGun: {fileID: 0}
 --- !u!54 &8699236525840330690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,13 +184,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d5f58cd448fdb47b7470e978d77dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachDistance: 0.1
+--- !u!114 &5759306034935049338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4240269957808412841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 5
+    m_Bits: 1
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -254,7 +289,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -302,4 +337,3 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  attachDistance: 0.1

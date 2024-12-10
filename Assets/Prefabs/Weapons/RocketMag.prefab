@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 4256508924683411487}
   - component: {fileID: 6248136656031833881}
   - component: {fileID: 7504456830140883641}
+  - component: {fileID: 643919037084337017}
   - component: {fileID: 8086635482133474857}
   - component: {fileID: -2450832320734646284}
   - component: {fileID: 6035655649073454960}
+  - component: {fileID: 7557567298791923207}
   m_Layer: 0
   m_Name: RocketMag
   m_TagString: Untagged
@@ -109,6 +111,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6700696047399303630, guid: 630cd513704bc26409d0051a648c2f1d, type: 3}
+--- !u!114 &643919037084337017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705501196416543076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1096381507
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &8086635482133474857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 1
-  attachedGun: {fileID: 0}
 --- !u!54 &-2450832320734646284
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,9 +184,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d5f58cd448fdb47b7470e978d77dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachDistance: 0.1
+--- !u!114 &7557567298791923207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705501196416543076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 7504456830140883641}
+  m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -303,4 +337,3 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  attachDistance: 0.1

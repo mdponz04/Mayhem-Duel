@@ -107,9 +107,25 @@ public class TurretGhost : NetworkBehaviour
 
     public void DestroyItem()
     {
+        DestroyItemServerRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void DestroyItemServerRpc()
+    {
         if (gameObject != null)
         {
-            Destroy(gameObject, Time.deltaTime);
+            gameObject.GetComponent<NetworkObject>().Despawn();
+            //Destroy(gameObject, Time.deltaTime);
+        }
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    public void DestroyItemClientRpc()
+    {
+        if (gameObject != null)
+        {
+            gameObject.GetComponent<NetworkObject>().Despawn();
+            //Destroy(gameObject, Time.deltaTime);
         }
     }
 

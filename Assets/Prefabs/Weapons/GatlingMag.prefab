@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 6443739677291038388}
   - component: {fileID: 5914704312602547614}
   - component: {fileID: 2264790000990843838}
+  - component: {fileID: 9200073083154212882}
   - component: {fileID: 6018729261132014612}
   - component: {fileID: 3977113445118929216}
   - component: {fileID: 3048759661623519963}
+  - component: {fileID: 3919236768664455541}
   m_Layer: 0
   m_Name: GatlingMag
   m_TagString: Untagged
@@ -110,6 +112,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6700696047399303630, guid: 9a38e51f8977a2e439f241d163e10e4b, type: 3}
+--- !u!114 &9200073083154212882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541488896720473125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 257724325
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &6018729261132014612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAmmo: 100
-  attachedGun: {fileID: 0}
 --- !u!54 &3977113445118929216
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,13 +185,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d5f58cd448fdb47b7470e978d77dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attachDistance: 0.5
+--- !u!114 &3919236768664455541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5541488896720473125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 5
+    m_Bits: 1
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -253,9 +288,9 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 858888647881808888}
+  m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -303,7 +338,6 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  attachDistance: 0.5
 --- !u!1 &7478824769501171280
 GameObject:
   m_ObjectHideFlags: 0
