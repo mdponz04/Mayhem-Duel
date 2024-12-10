@@ -62,6 +62,7 @@ public class NetworkedMagInteractable : NetworkBehaviour
     [ServerRpc(RequireOwnership = true)]
     private void TryAttachToNearbyGunServerRpc()
     {
+     
         // Ensure only the server processes this
         if (!IsServer) return;
 
@@ -97,7 +98,7 @@ public class NetworkedMagInteractable : NetworkBehaviour
             {
                 // Attach mag to gun
                 magComponent.AttachToGunServerRpc(gunReference, attachPointReference);
-
+            
                 // Disable physics
                 rb.isKinematic = true;
             }

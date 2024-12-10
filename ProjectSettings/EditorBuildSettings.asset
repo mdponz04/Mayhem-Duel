@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Manh/Multiplayer.unity
     guid: ede0a3d547703b24798031d6929b0729
+  - enabled: 1
+    path: Assets/Scenes/Tan/Tan.unity
+    guid: 2c71aa3a50df23343b4bd36895d7d271
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6ef23a85003c06f4eb78a8ad0ebde718,
       type: 3}

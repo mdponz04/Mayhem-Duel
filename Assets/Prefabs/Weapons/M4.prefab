@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 2482667725840620300}
   - component: {fileID: 6688632965817816481}
   - component: {fileID: 2006088110422827020}
+  - component: {fileID: 5528537122086188630}
   - component: {fileID: 3718478174991437629}
   m_Layer: 7
   m_Name: M4
@@ -669,6 +670,27 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &5528537122086188630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3515805765887779214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 463148485
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &3718478174991437629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,16 +710,15 @@ MonoBehaviour:
   gunShotSound: {fileID: 8300000, guid: 3c5e590db8c75134d9d2f80bca26f448, type: 3}
   emptyClipSound: {fileID: 8300000, guid: 7efe4e0446424364eb128730253a1f7c, type: 3}
   reloadClipSound: {fileID: 8300000, guid: 15a14c747ccdc4b479bb282da4d78edb, type: 3}
-  magAttachPoint: {fileID: 6147925542858255654}
+  magAttachPoint: {fileID: 9121541174696334828}
   attackDamage: 10
-  currentMag: {fileID: 0}
   mainGrabInteractable: {fileID: 2006088110422827020}
   leverTransform: {fileID: 4654032926669851841}
   leverStartTransform: {fileID: 8995400654579704669}
   leverEndTransform: {fileID: 5266202831194426662}
   pumpSound: {fileID: 0}
   secondaryGrabPoint: {fileID: 0}
-  leverActionSpeed: 60
+  leverActionSpeed: 20
   pullThreshold: 0.05
   rocketMag: 2
   rocketBarrel: {fileID: 6460404410169309370}
@@ -889,7 +910,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  rifle: {fileID: 0}
+  rifle: {fileID: 3718478174991437629}
 --- !u!64 &7953574060900261497
 MeshCollider:
   m_ObjectHideFlags: 0

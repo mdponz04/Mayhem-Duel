@@ -19,7 +19,6 @@ public class Rifle : Gun
     private NetworkVariable<bool> isPulled = new NetworkVariable<bool>(true);
     private NetworkVariable<bool> isLeverActionInProgress = new NetworkVariable<bool>(false);
     private NetworkVariable<bool> needsManualPull = new NetworkVariable<bool>(false);
-    private NetworkVariable<bool> canFire = new NetworkVariable<bool>(true);
     private LeverInteractable leverInteractable;
     private NetworkVariable<bool> isFirstMag = new NetworkVariable<bool>(false);
 
@@ -50,19 +49,18 @@ public class Rifle : Gun
 
     protected override void Fire()
     {
-        if (!IsServer) return;
-
+        //if (!IsHost) return;
+        Debug.Log("Firing");
         if (isPulled.Value && canFire.Value &&
-            currentMagReference.Value.TryGet(out NetworkObject magObject) &&
             !isLeverActionInProgress.Value &&
             !needsManualPull.Value)
         {
-            Mag mag = magObject.GetComponent<Mag>();
-            if (mag != null && mag.Ammo > 0)
+            if (Mag != null && Mag.Ammo > 0)
             {
+                
                 CreateBulletClientRpc(barrel.position, attackDamage);
                 PlaySoundClientRpc("GunShot");
-                mag.UseAmmoServerRpc();
+                Mag.UseAmmoServerRpc();
 
                 if (isAuto)
                 {
