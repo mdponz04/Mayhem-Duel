@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using TheCastle;
+using TheEnemy;
+using TheHealth;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,16 +15,23 @@ public class NetworkManagerUI : NetworkBehaviour
     [SerializeField] private Button clientButton;
     [SerializeField] private Button startButton;
     [SerializeField] private Button testButton;
-    [SerializeField] private TMP_Text networkObjectCountText;
-    [SerializeField] private GameObject spawnableLand;
+    [SerializeField] private TMP_Text networkEnemyCountText;
+    [SerializeField] private TMP_Text castleHealthText;
+    [SerializeField] private SpawnEnemy spawnableLand;
+    [SerializeField] private HealthSystem castleHealthSystem;
     [SerializeField] private List<GameObject> enemyPrefabs;
 
     private NetworkVariable<float> enemyCount = new NetworkVariable<float>(
         writePerm: NetworkVariableWritePermission.Server, // Only server can modify
         readPerm: NetworkVariableReadPermission.Everyone  // All clients can read
     );
+    private NetworkVariable<float> castleHealth = new NetworkVariable<float>(
+        writePerm: NetworkVariableWritePermission.Server, // Only server can modify
+        readPerm: NetworkVariableReadPermission.Everyone  // All clients can read
+    );
     private void Awake()
     {
+        startButton.onClick.RemoveAllListeners();
         serverButton.onClick.AddListener(() =>
         {
             NetworkManager.Singleton.StartServer();
@@ -35,38 +46,66 @@ public class NetworkManagerUI : NetworkBehaviour
         });
         testButton.onClick.AddListener(() =>
         {
-            if (IsServer) // Only allow the server to spawn objects
+            if (IsServer)
             {
                 for (int i = 0; i < enemyPrefabs.Count; i++)
                 {
-                    SpawnPrefabServerRpc(i); // Pass the index instead of GameObject
+                    SpawnPrefabServerRpc(i);
                 }
             }
-            //testButton.gameObject.SetActive(false);
+            else
+            {
+                testButton.gameObject.SetActive(false);
+            }
         });
         startButton.onClick.AddListener(() =>
         {
-            spawnableLand.SetActive(true);
-            startButton.gameObject.SetActive(false);
+            if (IsServer)
+            {
+                spawnableLand.StartSpawning();
+                startButton.gameObject.SetActive(false);
+            }
         });
     }
-
 
     private void Start()
     {
         enemyCount.Value = 0f;
         if (IsServer)
         {
-            UpdateNetworkObjectCount();
+            UpdateNetworkEnemyCount();
             NetworkManager.Singleton.OnClientConnectedCallback += OnNetworkObjectCreated;
             NetworkManager.Singleton.OnClientDisconnectCallback += OnNetworkObjectDestroyed;
         }
         enemyCount.OnValueChanged += OnEnemyCountChanged;
+        castleHealth.OnValueChanged += OnCastleHealthChanged;
+        spawnableLand.OnSpawn += OnEnemySpawn;
+        castleHealthSystem.OnHealthChange += OnCastleHealthChanged;
     }
+
+    private void OnCastleHealthChanged(object sender, System.EventArgs e)
+    {
+        UpdateCastleHealthUI(castleHealthSystem.currentHealth);
+    }
+
+    private void OnEnemySpawn(object sender, System.EventArgs e)
+    {
+        UpdateNetworkEnemyCount();
+    }
+
     private void OnEnemyCountChanged(float oldValue, float newValue)
     {
-        // Update the UI on all clients when enemyCount changes
-        networkObjectCountText.text = "Enemy remaining: " + newValue;
+        networkEnemyCountText.text = "Enemy remaining: " + newValue;
+    }
+
+    private void OnCastleHealthChanged(float oldValue, float newValue)
+    {
+        castleHealthText.text = "Castle HP: " + newValue;
+    }
+
+    public void UpdateCastleHealthUI(float currentCastleHealth)
+    {
+        castleHealth.Value = currentCastleHealth;
     }
 
     public override void OnDestroy()
@@ -77,23 +116,31 @@ public class NetworkManagerUI : NetworkBehaviour
             NetworkManager.Singleton.OnClientDisconnectCallback -= OnNetworkObjectDestroyed;
         }
     }
+
     private void OnNetworkObjectDestroyed(ulong obj)
     {
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 
     private void OnNetworkObjectCreated(ulong obj)
     {
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 
-    private void UpdateNetworkObjectCount()
+    public void UpdateHealthUI()
     {
         if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
         {
-            // Reset the count before recalculating
+            
+        }
+    }
+
+    public void UpdateNetworkEnemyCount()
+    {
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+        {
             float count = 0;
-            // Only count NetworkObjects with the tag "Enemy"
+
             foreach (var networkObj in NetworkManager.Singleton.SpawnManager.SpawnedObjects.Values)
             {
                 if (networkObj.CompareTag("Enemy"))
@@ -121,8 +168,7 @@ public class NetworkManagerUI : NetworkBehaviour
         networkObject.Spawn();
         //Debug.Log("Spawned enemy with NetworkObjectId: " + networkObject.NetworkObjectId);
 
-
         //Update UI text count
-        UpdateNetworkObjectCount();
+        UpdateNetworkEnemyCount();
     }
 }
