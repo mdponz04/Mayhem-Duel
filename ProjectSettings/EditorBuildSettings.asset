@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 1208d4ab148c26f41b8ef237f9b19977
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/TowerDefense.unity
     guid: 2308f3e2e95cf3c4b8506c0c44660a59
   - enabled: 0
     path: Assets/Scenes/Manh/Multiplayer.unity
     guid: ede0a3d547703b24798031d6929b0729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LA/XR Multiplayer.unity
     guid: 6805d2e88e8eb4241887ca09298bde00
   m_configObjects:
