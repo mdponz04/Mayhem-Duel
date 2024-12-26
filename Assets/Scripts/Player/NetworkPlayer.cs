@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheDamage;
+using TheHealth;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NetworkPlayer : NetworkBehaviour
 {
@@ -13,6 +16,17 @@ public class NetworkPlayer : NetworkBehaviour
     public Transform vrRightHandRootBone;
 
     public Renderer[] localMeshesToDisable;
+
+
+    //Setup properties to handle damage
+    private HealthSystem healthSystem;
+    private float maxHealth = 100f;
+
+    private void Start()
+    {
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetUp(maxHealth);
+    }
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();

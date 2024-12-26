@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 758320618
+  GlobalObjectIdHash: 3040268177
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -212,7 +212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca822a8821621ba469efb8bd54df221a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroRange: {fileID: 8194533007828052407}
   projectile: {fileID: 7367796870811875536}
 --- !u!114 &3773223209899084749
 MonoBehaviour:
@@ -252,7 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edcefa659f970941939b83975bb1075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSystem: {fileID: 0}
 --- !u!114 &1540685380915763043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &576472958452964595
 Transform:
   m_ObjectHideFlags: 0

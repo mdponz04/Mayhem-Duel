@@ -21,9 +21,10 @@ namespace TheEnemy
         public Pathfinding pathfinding { get; set; }
         public DamageDealer damageDealer { get; set; }
         public float attackRange { get; set; }
-        [SerializeField] private SphereCollider aggroRange;
+        /*[SerializeField] private SphereCollider aggroRange;*/
         public HealthSystem healthSystem { get; private set; }
         private List<Collider> targetsInAggro = new();
+        public float aggroRange {  get; set; }
         protected virtual void Start()
         {
             enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);
@@ -38,7 +39,6 @@ namespace TheEnemy
             healthSystem.OnHealthChange += OnBeHit;
             healthSystem.OnDeath += OnDeath;
         }
-
         private void OnDeath(object sender, System.EventArgs e)
         {
             if (IsServer)
@@ -155,10 +155,11 @@ namespace TheEnemy
                 {
                     enemyAttack.HandleAttack(transform.position);
                 }
+                CheckTargetsInAggro();
             }
         }
-
-        protected void OnTriggerEnter(Collider other)
+        //Using trigger collision to handle aggro
+        /*protected void OnTriggerEnter(Collider other)
         {
             if (!IsServer) return;
             if (other.CompareTag("Player") || other.CompareTag("Damageable"))
@@ -192,10 +193,40 @@ namespace TheEnemy
                     {
                         enemyMove.SetTarget(null);
                     }
-
                 }
             }
+        }*/
+
+        protected void CheckTargetsInAggro()
+        {
+            // Find all colliders in the aggro range that match the layer mask
+            Collider[] hits = Physics.OverlapSphere(transform.position, aggroRange, layerMask);
+            targetsInAggro.Clear();
+
+            foreach (var hit in hits)
+            {
+                if (hit.CompareTag("Player") || hit.CompareTag("Damageable"))
+                {
+                    targetsInAggro.Add(hit);
+                }
+            }
+
+            // Handle target selection
+            if (targetsInAggro.Count > 0)
+            {
+                if (enemyMove.target == null ||
+                    (targetsInAggro[0].CompareTag("Player") && enemyMove.target.CompareTag("Damageable")))
+                {
+                    enemyMove.SetTarget(targetsInAggro[0]);
+                }
+            }
+            else
+            {
+                targetsInAggro.Clear();
+                enemyMove.SetTarget(null);
+            }
         }
+
         float IDamageSource.GetAttackDamage() => attackDamage;
     }
 }

@@ -340,7 +340,7 @@ PrefabInstance:
         type: 3}
       propertyPath: NetworkConfig.PlayerPrefab
       value: 
-      objectReference: {fileID: 7119673642795321528, guid: af9aac823bc9d1542a679b57711f7e20,
+      objectReference: {fileID: 4694532673864174473, guid: 2905eb5c598612a48b95325da5f3c002,
         type: 3}
     - target: {fileID: 6214309137371501575, guid: 497d8be1419574e46b7002760b848b15,
         type: 3}
@@ -1327,7 +1327,7 @@ PrefabInstance:
     - target: {fileID: 2878704846575611423, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8427418690869956388, guid: 52e1a0322b09cb04f9252b273a2e2bb5,
         type: 3}
@@ -3068,7 +3068,7 @@ PrefabInstance:
     - target: {fileID: 5595528837278879276, guid: 58bedcae6f0d9594ea0719faec657242,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

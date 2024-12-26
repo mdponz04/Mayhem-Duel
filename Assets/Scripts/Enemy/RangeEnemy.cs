@@ -11,7 +11,7 @@ namespace TheEnemy
         protected override void Start()
         {
             UpdateStats();
-            layerMask = LayerMask.GetMask("Player", "Damageable");
+            layerMask = LayerMask.GetMask("Player", "Damageable", "Network Player Collider");
             pathfinding = GetComponent<Pathfinding>();
             damageDealer = GetComponent<DamageDealer>();
             damageDealer.SetUp();
@@ -53,6 +53,7 @@ namespace TheEnemy
             attackCooldown = 3f;
             attackRange = 10f;
             nextTimeAttack = 0f;
+            aggroRange = 15f;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace TheEnemy
             UpdateStats();
 
 
-            layerMask = LayerMask.GetMask("Player", "Damageable");
+            layerMask = LayerMask.GetMask("Player", "Damageable", "Network Player Collider");
 
             pathfinding = GetComponent<Pathfinding>();
             damageDealer = GetComponent<DamageDealer>();
@@ -47,6 +47,7 @@ namespace TheEnemy
             attackCooldown = 2f;
             attackRange = 2f;
             nextTimeAttack = 0f;
+            aggroRange = 10f;
         }
     }
 }
