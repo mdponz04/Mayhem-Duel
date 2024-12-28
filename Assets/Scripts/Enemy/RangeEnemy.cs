@@ -32,17 +32,19 @@ namespace TheEnemy
         }
         private void OnAttackProjectile(object sender, EnemyAttack.OnAttackEventArgs e)
         {
+            
             projectile.HandleShootingProjectile(e.targetPosition);
             enemyVFX.PlaySphereProjectileEffect();
-            TriggerNormalAttackClientRpc();
+            TriggerNormalAttackClientRpc(e.targetPosition);
         }
 
         [ClientRpc]
-        private void TriggerNormalAttackClientRpc()
+        private void TriggerNormalAttackClientRpc(Vector3 targetPosition)
         {
             // Clients mirror death event
             if (!IsServer) // Prevent double-execution on server
             {
+                projectile.HandleShootingProjectile(targetPosition);
                 enemyVFX.PlaySphereProjectileEffect();
             }
         }

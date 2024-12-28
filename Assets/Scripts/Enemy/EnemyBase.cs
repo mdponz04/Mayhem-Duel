@@ -24,7 +24,7 @@ namespace TheEnemy
         /*[SerializeField] private SphereCollider aggroRange;*/
         public HealthSystem healthSystem { get; private set; }
         private List<Collider> targetsInAggro = new();
-        public float aggroRange {  get; set; }
+        public float aggroRange { get; set; }
         protected virtual void Start()
         {
             enemyAttack = new EnemyAttack(attackCooldown, attackRange, layerMask, damageDealer);

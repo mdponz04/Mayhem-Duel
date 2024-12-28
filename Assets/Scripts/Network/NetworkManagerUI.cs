@@ -127,14 +127,6 @@ public class NetworkManagerUI : NetworkBehaviour
         UpdateNetworkEnemyCount();
     }
 
-    public void UpdateHealthUI()
-    {
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
-        {
-            
-        }
-    }
-
     public void UpdateNetworkEnemyCount()
     {
         if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
